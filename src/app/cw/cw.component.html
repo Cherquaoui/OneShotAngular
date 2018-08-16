@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-center">
+  <div style="width: 70%;margin-top: 10px" class="d-flex align-items-center">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" (mouseup)="applyFilter($event.target.value)" placeholder="Rechercher">
+    </mat-form-field>
+
+    <mat-button-toggle-group  style="margin-left: 60px">
+      <mat-button-toggle (mouseup)="monClique2()">Suivi</mat-button-toggle>
+      <mat-button-toggle (mouseup)="monClique()">Dates</mat-button-toggle>
+    </mat-button-toggle-group>
+
+
+
+    <button mat-stroked-button  class="ml-auto">vers Excel</button>
+  </div>
+</div>
+<div  class="d-flex justify-content-center" style="width: 100%; font-size: 10px">
+  <div style="width: 70%">
+    <table mat-table  [dataSource]="dataSource" matSort class="table-hover table-sm" style="border: dashed; width: 100%;font-size: 10px">
+
+      <ng-container matColumnDef="codeSite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Code site</th>
+
+        <td mat-cell *matCellDef="let cw" (click)="afficher($event.target.innerHTML)" style="cursor: pointer">
+          <button mat-button [matMenuTriggerFor]="lvl1">{{cw.codeSite}}</button>
+          <mat-menu #lvl1="matMenu">
+            <button mat-menu-item>Modifier</button>
+            <button mat-menu-item>Détails</button>
+            <button mat-menu-item>Google Maps</button>
+            <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
+          </mat-menu>
+          <mat-menu #lvl2="matMenu">
+
+            <button mat-menu-item>Electrification</button>
+            <button mat-menu-item>Radio</button>
+            <button mat-menu-item>Transmission</button>
+          </mat-menu>
+        </td>
+
+      </ng-container>
+      <ng-container matColumnDef="dateGo" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Date Go</th>
+        <td mat-cell *matCellDef="let oneshot" > {{oneshot.dateGo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="etatCw" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Etat CW</th>
+        <td mat-cell *matCellDef="let oneshot" > {{oneshot.etatCw}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="typologie" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Typologie</th>
+        <td mat-cell *matCellDef="let oneshot" > {{oneshot.typologie}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="poseCompteur" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Date Electrification</th>
+        <td mat-cell *matCellDef="let oneshot" > {{oneshot.poseCompteur}} </td>
+      </ng-container>
+      <ng-container matColumnDef="elecEtat" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Etat Electrification</th>
+        <td mat-cell *matCellDef="let oneshot" > {{oneshot.elecEtat}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="equipeCw">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Equipe</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.equipeCw}} </td>
+
+      </ng-container>
+      <ng-container matColumnDef="ouverture">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Ouverture</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.ouverture}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="fouilles" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Fouilles</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.fouilles}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="coulage" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Coulage</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.coulage}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="montage">
+        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Montage</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.montage}} </td>
+      </ng-container>
+      <ng-container matColumnDef="finCw">
+        <th mat-header-cell *matHeaderCellDef   mat-sort-header>finCw</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.finCw}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" style="height: 35px" ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="height: 25px" ></tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+
