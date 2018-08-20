@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GoService} from '../../services/go.service';
+import {GoService} from '../../go.service';
 import {Go} from '../../entities/Go';
 import {Router} from '@angular/router';
 
@@ -10,8 +10,7 @@ import {Router} from '@angular/router';
 })
 export class AjouterGoComponent implements OnInit {
 
-  constructor(private  service:GoService,
-              private router:Router) { }
+  constructor(private  service:GoService, private router:Router) { }
 
   ngOnInit() {
   }
