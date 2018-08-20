@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {GoService} from '../go.service';
-import {Go} from '../entities/Go';
+import {GoService} from '../../go.service';
+import {Go} from '../../entities/Go';
 import {Router} from '@angular/router';
 
 @Component({

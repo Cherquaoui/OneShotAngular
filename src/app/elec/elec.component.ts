@@ -1,10 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {map, startWith} from 'rxjs/internal/operators';
-import {FormControl} from '@angular/forms';
+
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Observable} from 'rxjs';
+
 import {GoService} from '../go.service';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-elec',
@@ -29,7 +27,7 @@ export class ElecComponent implements OnInit {
     this.goService.getOneShot().subscribe(data=>{
         for(let monsite of data){
           if(monsite.cw!==null){
-          let elect = new electrification2(monsite.codeSite,monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
+          let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
             monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
             monsite.electrification.payementDevis,monsite.electrification.autorisation,monsite.electrification.debutTravaux,monsite.electrification.finTravaux,
             monsite.electrification.reception,monsite.electrification.poseCompteur,monsite.electrification.elecTrav.btA,monsite.electrification.elecTrav.btS,

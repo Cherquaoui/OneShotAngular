@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {Component, NgModule} from '@angular/core';
+import { NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { GoComponent } from './go/go.component';
@@ -19,7 +19,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AjouterGoComponent } from './ajouter-go/ajouter-go.component';
+import { AjouterGoComponent } from './go/ajouter-go/ajouter-go.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -30,7 +30,7 @@ import { ElecComponent } from './elec/elec.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import {MatDialogModule} from '@angular/material/dialog';
-import { ModifierGoComponent } from './modifier-go/modifier-go.component';;
+import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';;
 @NgModule({
   declarations: [
     AppComponent,

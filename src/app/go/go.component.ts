@@ -1,12 +1,6 @@
 import {Component, OnInit,  ViewChild} from '@angular/core';
-
-import {DataSource} from '@angular/cdk/collections';
-import {Observable} from 'rxjs';
-import {Go} from '../entities/Go';
 import {GoService} from '../go.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {map, startWith} from 'rxjs/internal/operators';
-import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 
 
@@ -24,15 +18,8 @@ export class GoComponent implements OnInit{
   afficher(data){
     console.log(data)
     this.site=data;
-
-
   }
   dataSource;
-
-
-
-
-
   ngOnInit() {
     console.log("ngoninit")
     this.goService.getGo().subscribe(data=>{
@@ -55,6 +42,8 @@ export class GoComponent implements OnInit{
 
     this.router.navigate(['go',data]);
   }
+
+
 
 
 
