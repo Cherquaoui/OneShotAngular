@@ -74,6 +74,7 @@ export class electrification2{
   constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string, elecEtat: string, regie: string,
               depotDemande: string, etude: string, devis: string, payementDevis: string, autorisation: string, debutTravaux:
                 string, finTravaux: string, reception: string, poseCompteur: string, btA: number, btS: number, btSRf: number, btNiche: number, ok: number) {
+
     this.codeSite = codeSite;
     this.dateGo = dateGo;
     this.typologie = typologie;

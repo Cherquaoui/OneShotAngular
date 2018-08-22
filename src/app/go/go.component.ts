@@ -14,18 +14,27 @@ export class GoComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
   site:string;
 
-  constructor(private goService:GoService,private router:Router) { }
-  afficher(data){
-    console.log(data)
-    this.site=data;
-  }
+  constructor(private goService:GoService,
+              private router:Router) { }
+
   dataSource;
+  interval;
+  refreshData(){
+    console.log("coucou!")
+
+  }
+
+
   ngOnInit() {
-    console.log("ngoninit")
+    console.log("OnInit");
+
     this.goService.getGo().subscribe(data=>{
         this.dataSource=new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      this.interval = setInterval(() => {
+        this.refreshData();
+      }, 5000);
       } );
   }
   displayedColumns: string[] = ['codeSite','dateGo','region', 'typologie','hauteur','latitude','longitude'];
@@ -39,9 +48,11 @@ export class GoComponent implements OnInit{
   }
 
   modifier(data){
-
+    console.log(data)
     this.router.navigate(['go',data]);
+
   }
+
 
 
 
