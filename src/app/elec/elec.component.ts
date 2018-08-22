@@ -3,6 +3,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 import {GoService} from '../go.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-elec',
@@ -17,7 +18,8 @@ export class ElecComponent implements OnInit {
   elec:electrification2[]=[];
 
 
-  constructor(private goService:GoService) { }
+  constructor(private goService:GoService,
+              private router:Router) { }
 
   afficher(data){
     console.log(data)
@@ -63,6 +65,11 @@ export class ElecComponent implements OnInit {
   monClique(){this.displayedColumns=this.displayedColumnsDivers}
   monClique1(){this.displayedColumns=this.displayedColumnsDate}
   monClique2(){this.displayedColumns=this.displayedColumnsTrav}
+
+  modifier(data){
+    console.log(data)
+    this.router.navigate(['elec',data]);
+  }
 
 
 

@@ -1,10 +1,11 @@
 <div class="d-flex justify-content-center">
   <div style="width: 70%;margin-top: 10px" class="d-flex align-items-center">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" (mouseup)="applyFilter($event.target.value)" placeholder="Rechercher">
+      <input matInput (keyup)="applyFilter($event.target.value)" (mouseup)="applyFilter($event.target.value)"
+             placeholder="Rechercher">
 
     </mat-form-field>
-    <mat-button-toggle-group  style="margin-left: 60px">
+    <mat-button-toggle-group style="margin-left: 60px">
       <mat-button-toggle (mouseup)="monClique()">Suivi</mat-button-toggle>
       <mat-button-toggle (mouseup)="monClique1()">Dates</mat-button-toggle>
       <mat-button-toggle (mouseup)="monClique2()">Travaux</mat-button-toggle>
@@ -12,18 +13,18 @@
     <button mat-button class="ml-auto">vers Excel</button>
   </div>
 </div>
-<div  class="d-flex justify-content-center" style="width: 100%; font-size: 10px">
-  <div style="width: 70%">
-    <table mat-table  [dataSource]="dataSource" matSort class="table-hover table-sm" style="border: dashed; width: 100%;font-size: 10px">
+<div class="d-flex justify-content-center" style="width: 100%; font-size: 10px">
+  <div style="width: 90%">
+    <table mat-table [dataSource]="dataSource" matSort class="table-hover table-sm"
+           style="border: dashed; width: 100%;font-size: 10px">
 
       <ng-container matColumnDef="codeSite">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Code site</th>
 
-        <td mat-cell *matCellDef="let elec" (click)="afficher($event.target.innerHTML)" style="cursor: pointer">
+        <td mat-cell *matCellDef="let elec" style="cursor: pointer">
           <button mat-button [matMenuTriggerFor]="lvl1">{{elec.codeSite}}</button>
           <mat-menu #lvl1="matMenu">
-            <button mat-menu-item>Modifier</button>
-
+            <button mat-menu-item (click)="modifier(elec.codeSite)">Modifier</button>
             <button mat-menu-item>Détails</button>
             <button mat-menu-item>Google Maps</button>
             <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
@@ -40,105 +41,105 @@
       </ng-container>
 
 
-      <ng-container matColumnDef="regie" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Régie</th>
-        <td mat-cell *matCellDef="let elec" > {{elec.regie}} </td>
+      <ng-container matColumnDef="regie">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Régie</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.regie}}</td>
 
       </ng-container>
 
-      <ng-container matColumnDef="dateGo" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header  >Date GO</th>
-      <td mat-cell *matCellDef="let elec" > {{elec.dateGo}} </td>
+      <ng-container matColumnDef="dateGo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date GO</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.dateGo}}</td>
 
-    </ng-container>
-
-      <ng-container matColumnDef="typologie" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Typologie</th>
-        <td mat-cell *matCellDef="let elec" > {{elec.typologie}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="etatCw" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Typologie</th>
-        <td mat-cell *matCellDef="let elec" > {{elec.etatCw}} </td>
+      <ng-container matColumnDef="typologie">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Typologie</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.typologie}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="etatCw">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Typologie</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.etatCw}}</td>
       </ng-container>
 
       <ng-container matColumnDef="nDossier">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>N Dossier</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.nDossier}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>N Dossier</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.nDossier}}</td>
 
       </ng-container>
       <ng-container matColumnDef="elecEtat">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Etat</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.elecEtat}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.elecEtat}}</td>
       </ng-container>
 
 
-      <ng-container matColumnDef="depotDemande" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Demande</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.depotDemande}} </td>
+      <ng-container matColumnDef="depotDemande">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Demande</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.depotDemande}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="etude" >
+      <ng-container matColumnDef="etude">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Etude</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.etude}} </td>
+        <td mat-cell *matCellDef="let elec"> {{elec.etude}}</td>
       </ng-container>
 
       <ng-container matColumnDef="devis">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Devis</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.devis}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Devis</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.devis}}</td>
       </ng-container>
       <ng-container matColumnDef="payementDevis">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Payement</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.payementDevis}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Payement</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.payementDevis}}</td>
       </ng-container>
       <ng-container matColumnDef="autorisation">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Autorisation</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.autorisation}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Autorisation</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.autorisation}}</td>
       </ng-container>
       <ng-container matColumnDef="debutTravaux">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Début travaux</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.debutTravaux}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Début travaux</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.debutTravaux}}</td>
       </ng-container>
       <ng-container matColumnDef="finTravaux">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Fin travaux</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.finTravaux}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fin travaux</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.finTravaux}}</td>
       </ng-container>
       <ng-container matColumnDef="reception">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Reception</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.reception}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Reception</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.reception}}</td>
       </ng-container>
       <ng-container matColumnDef="abonnement">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Abonnement</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.abonnement}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Abonnement</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.abonnement}}</td>
       </ng-container>
       <ng-container matColumnDef="poseCompteur">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Pose compteur</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.poseCompteur}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pose compteur</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.poseCompteur}}</td>
       </ng-container>
       <ng-container matColumnDef="bta">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>BT Aérien</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.btA}}  </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>BT Aérien</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.btA}}</td>
       </ng-container>
       <ng-container matColumnDef="bts">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>BT sous terrain</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.btS}}  </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>BT sous terrain</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.btS}}</td>
       </ng-container>
       <ng-container matColumnDef="btsrf">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>BT refection</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.btSRf}}  </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>BT refection</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.btSRf}}</td>
       </ng-container>
       <ng-container matColumnDef="btniche">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Murette</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.btNiche}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Murette</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.btNiche}}</td>
       </ng-container>
       <ng-container matColumnDef="ok">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Travaux</th>
-        <td mat-cell *matCellDef="let elec"> {{elec.ok}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Travaux</th>
+        <td mat-cell *matCellDef="let elec"> {{elec.ok}}</td>
       </ng-container>
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="height: 30px" ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="height: 30px"></tr>
 
     </table>
 

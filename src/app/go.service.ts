@@ -37,4 +37,8 @@ export class GoService {
     return this.http.get<cw[]>('http://localhost:8090/cw')
   }
 
+  getCwByCodeSite(codeSite:string){
+    return this.http.get<cw>('http://localhost:8090/cw/'+codeSite);
+  }
+
 }

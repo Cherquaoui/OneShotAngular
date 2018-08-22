@@ -30,7 +30,10 @@ import { ElecComponent } from './elec/elec.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import {MatDialogModule} from '@angular/material/dialog';
-import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';;
+import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';
+import { CwModifierComponent } from './cw/cw-modifier/cw-modifier.component';
+import { CwAjouterComponent } from './cw/cw-ajouter/cw-ajouter.component';
+import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.component';;
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,10 @@ import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';;
     AjouterGoComponent,
     CwComponent,
     ElecComponent,
-    ModifierGoComponent
+    ModifierGoComponent,
+    CwModifierComponent,
+    CwAjouterComponent,
+    ElecModifierComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +60,8 @@ import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';;
       {path:'ajouter',component:AjouterGoComponent},
       {path:'go/ajouter',component:AjouterGoComponent},
       {path:'go/:codeSite',component:ModifierGoComponent},
+      {path:'cw/:codeSite',component:CwModifierComponent},
+      {path:'elec/:codeSite',component:ElecModifierComponent}
 
     ]),
 

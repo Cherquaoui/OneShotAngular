@@ -5,6 +5,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Observable} from 'rxjs';
 import {GoService} from '../go.service';
 import {OneShot} from '../entities/composition/OneShot';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cw',
@@ -19,7 +20,8 @@ export class CwComponent implements OnInit {
   codeSites = [];
   cwObject:CwObject[] = [];
 
-  constructor(private goService:GoService) { }
+  constructor(private goService:GoService,
+              private router:Router) { }
   afficher(data){
     console.log(data)
   }
@@ -31,7 +33,7 @@ export class CwComponent implements OnInit {
         if(monsite.cw !=null){
           let cw = new CwObject( monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,
             monsite.cw.etatCw,monsite.electrification.elecEtat,monsite.cw.ouverture,monsite.cw.fouilles,
-            monsite.cw.coulage,monsite.cw.montage,monsite.cw.finCw,monsite.electrification.poseCompteur);
+            monsite.cw.coulage,monsite.cw.montage,monsite.cw.finCw,monsite.electrification.poseCompteur,monsite.cw.commentairesCw);
           this.cwObject.push(cw);
           console.log(monsite.cw.etatCw)
         }
@@ -48,7 +50,7 @@ export class CwComponent implements OnInit {
                                   'coulage','montage','finCw'];
   displayedColumns1: string[] = ['codeSite','ouverture','fouilles',
     'coulage','montage','finCw'];
-  displayedColumns2: string[] = ['codeSite','dateGo','typologie','etatCw','elecEtat'];
+  displayedColumns2: string[] = ['codeSite','dateGo','typologie','etatCw','elecEtat','commentairesCw'];
   monClique(){
     this.displayedColumns=this.displayedColumns1;
   }
@@ -63,17 +65,25 @@ export class CwComponent implements OnInit {
     }
   }
 
+  modifier(data){
+    console.log(data)
+    this.router.navigate(['cw',data]);
+  }
+
 
 
 }
 
+
+///////////////////////////////////////
 class CwObject{
 
   constructor(codeSite: string, dateGo: string, typologie: string,  etatCw: string, elecEtat:
-    string, ouverture: string, fouilles: string, coulage: string, montage: string, finCw: string,poseCompteur:string) {
+    string, ouverture: string, fouilles: string, coulage: string, montage: string, finCw: string,poseCompteur:string,commentairesCw:string) {
     this.codeSite = codeSite;
     this.dateGo = dateGo;
     this.typologie = typologie;
+
 
     this.etatCw = etatCw;
     this.elecEtat = elecEtat;
@@ -83,6 +93,7 @@ class CwObject{
     this.montage = montage;
     this.finCw = finCw;
     this.poseCompteur=poseCompteur;
+    this.commentairesCw=commentairesCw;
   }
 
   codeSite:string;
@@ -96,6 +107,7 @@ class CwObject{
   coulage:string;
   montage:string;
   finCw:string;
-  poseCompteur:string
+  poseCompteur:string;
+  commentairesCw:string;
 
 }
