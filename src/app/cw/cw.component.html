@@ -96,6 +96,10 @@
         <th mat-header-cell *matHeaderCellDef   mat-sort-header >Commentaires</th>
         <td mat-cell *matCellDef="let oneshot" style="max-width: 60px"> {{oneshot.cw.commentairesCw}} </td>
       </ng-container>
+      <ng-container matColumnDef="commentairesCw" style="max-width: 60px">
+        <th mat-header-cell *matHeaderCellDef   mat-sort-header >Commentaires</th>
+        <td mat-cell *matCellDef="let oneshot" style="max-width: 60px"> {{oneshot.commentairesCw}} </td>
+      </ng-container>
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" style="height: 35px" ></tr>
