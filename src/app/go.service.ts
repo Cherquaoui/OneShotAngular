@@ -41,4 +41,8 @@ export class GoService {
     return this.http.get<cw>('http://localhost:8090/cw/'+codeSite);
   }
 
+  updateCw(moncw:cw){
+    return this.http.put('http://localhost:8090/cw/'+moncw.codeSite,moncw)
+  }
+
 }

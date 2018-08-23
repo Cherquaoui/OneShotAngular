@@ -32,7 +32,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';
 import { CwModifierComponent } from './cw/cw-modifier/cw-modifier.component';
-import { CwAjouterComponent } from './cw/cw-ajouter/cw-ajouter.component';
+
 import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.component';;
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.compon
     ElecComponent,
     ModifierGoComponent,
     CwModifierComponent,
-    CwAjouterComponent,
+
     ElecModifierComponent
   ],
   imports: [

@@ -26,4 +26,13 @@ export class CwModifierComponent implements OnInit {
     });
 
   }
+  envoyer(){
+    this.go.updateCw(this.cw).subscribe(data=>console.log(data));
+    this.router.navigate(['/cw']);
+
+  }
+
+  retour(){
+    this.router.navigate(['/cw']);
+  }
 }

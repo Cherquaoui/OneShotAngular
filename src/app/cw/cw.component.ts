@@ -1,10 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {map, startWith} from 'rxjs/internal/operators';
-import {FormControl} from '@angular/forms';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Observable} from 'rxjs';
 import {GoService} from '../go.service';
-import {OneShot} from '../entities/composition/OneShot';
 import {Router} from '@angular/router';
 
 @Component({
@@ -16,46 +12,51 @@ export class CwComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  site;
-  codeSites = [];
-  cwObject:CwObject[] = [];
 
-  constructor(private goService:GoService,
-              private router:Router) { }
-  afficher(data){
-    console.log(data)
+  interval;
+  cwObject: CwObject[] = [];
+
+  constructor(private goService: GoService,
+              private router: Router) {
   }
-  dataSource = new MatTableDataSource();
-  ngOnInit() {
-    this.goService.getOneShot().subscribe(data =>{
 
-      for(let monsite of data){
-        if(monsite.cw !=null){
-          let cw = new CwObject( monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,
-            monsite.cw.etatCw,monsite.electrification.elecEtat,monsite.cw.ouverture,monsite.cw.fouilles,
-            monsite.cw.coulage,monsite.cw.montage,monsite.cw.finCw,monsite.electrification.poseCompteur,monsite.cw.commentairesCw);
+
+  dataSource = new MatTableDataSource();
+
+  refreshData(){
+    this.goService.getOneShot().subscribe(data => {
+      for (let monsite of data) {
+        if (monsite.cw != null) {
+          let cw = new CwObject(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie,
+            monsite.cw.etatCw,monsite.cw.equipeCw ,monsite.electrification.elecEtat, monsite.cw.ouverture, monsite.cw.fouilles,
+            monsite.cw.coulage, monsite.cw.montage, monsite.cw.finCw, monsite.electrification.poseCompteur, monsite.cw.commentairesCw);
           this.cwObject.push(cw);
-          console.log(monsite.cw.etatCw)
         }
       }
-        this.dataSource.data=this.cwObject;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-
-      }
-    );
+      this.dataSource.data = this.cwObject;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+    clearInterval(this.interval);
   }
 
-  displayedColumns: string[] = ['codeSite','ouverture','fouilles',
-                                  'coulage','montage','finCw'];
-  displayedColumns1: string[] = ['codeSite','ouverture','fouilles',
-    'coulage','montage','finCw'];
-  displayedColumns2: string[] = ['codeSite','dateGo','typologie','etatCw','elecEtat','commentairesCw'];
-  monClique(){
-    this.displayedColumns=this.displayedColumns1;
+  ngOnInit() {
+    this.interval = setInterval(() => {
+      this.refreshData();
+    }, 100);
   }
-  monClique2(){
-    this.displayedColumns=this.displayedColumns2;
+
+  displayedColumns: string[] = ['codeSite','etatCw', 'typologie', 'equipeCw', 'elecEtat', 'commentairesCw'];
+  displayedColumns1: string[] = ['codeSite','dateGo',  'ouverture', 'fouilles',
+    'coulage', 'montage', 'finCw'];
+  displayedColumns2: string[] = ['codeSite','etatCw', 'typologie', 'equipeCw', 'elecEtat', 'commentairesCw'];
+
+  monClique() {
+    this.displayedColumns = this.displayedColumns1;
+  }
+
+  monClique2() {
+    this.displayedColumns = this.displayedColumns2;
   }
 
   applyFilter(filterValue: string) {
@@ -65,49 +66,46 @@ export class CwComponent implements OnInit {
     }
   }
 
-  modifier(data){
-    console.log(data)
-    this.router.navigate(['cw',data]);
+  modifier(data) {
+    console.log(data);
+    this.router.navigate(['cw', data]);
   }
-
 
 
 }
 
 
 ///////////////////////////////////////
-class CwObject{
+class CwObject {
 
-  constructor(codeSite: string, dateGo: string, typologie: string,  etatCw: string, elecEtat:
-    string, ouverture: string, fouilles: string, coulage: string, montage: string, finCw: string,poseCompteur:string,commentairesCw:string) {
+  constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string,equipeCw:string, elecEtat:
+    string, ouverture: string, fouilles: string, coulage: string, montage: string, finCw: string, poseCompteur: string, commentairesCw: string) {
     this.codeSite = codeSite;
     this.dateGo = dateGo;
     this.typologie = typologie;
-
-
     this.etatCw = etatCw;
+    this.equipeCw=equipeCw;
     this.elecEtat = elecEtat;
     this.ouverture = ouverture;
     this.fouilles = fouilles;
     this.coulage = coulage;
     this.montage = montage;
     this.finCw = finCw;
-    this.poseCompteur=poseCompteur;
-    this.commentairesCw=commentairesCw;
+    this.poseCompteur = poseCompteur;
+    this.commentairesCw = commentairesCw;
   }
-
-  codeSite:string;
-  dateGo:string;
-  typologie:string;
-  equipeCw:string;
-  etatCw:string;
-  elecEtat:string;
-  ouverture:string;
-  fouilles:string;
-  coulage:string;
-  montage:string;
-  finCw:string;
-  poseCompteur:string;
-  commentairesCw:string;
+  codeSite: string;
+  dateGo: string;
+  typologie: string;
+  equipeCw: string;
+  etatCw: string;
+  elecEtat: string;
+  ouverture: string;
+  fouilles: string;
+  coulage: string;
+  montage: string;
+  finCw: string;
+  poseCompteur: string;
+  commentairesCw: string;
 
 }
