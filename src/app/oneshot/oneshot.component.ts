@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GoService} from '../go.service';
+import {GoService} from '../services/go.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
