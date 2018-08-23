@@ -2,6 +2,7 @@ export class ElecSuivi {
   codeSite:string;
   regie :string;
   nDossier:number;
+  elecCommentaires:string
   elecEtat:string;
   depotDemande:string;
   etude:string;

@@ -11,8 +11,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule, MatCheckboxModule,  MatNativeDateModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
-import {GoService} from './go.service';
-import {Inject} from '@angular/core';
+import {GoService} from './services/go.service';
 
 import { OneshotComponent } from './oneshot/oneshot.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -33,7 +32,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';
 import { CwModifierComponent } from './cw/cw-modifier/cw-modifier.component';
 
-import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.component';;
+import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.component';
+import {ElecService} from './services/elec.service';
+
+;
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +92,7 @@ import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.compon
 
 
   ],
-  providers: [GoService],
+  providers: [GoService,ElecService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

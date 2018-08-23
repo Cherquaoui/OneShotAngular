@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {GoService} from '../go.service';
+import {GoService} from '../services/go.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
 
@@ -12,7 +12,6 @@ import {Router} from '@angular/router';
 export class GoComponent implements OnInit, OnDestroy{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  site:string;
 
   constructor(private goService:GoService,
               private router:Router) { }
@@ -28,25 +27,18 @@ export class GoComponent implements OnInit, OnDestroy{
 
     } );
     clearInterval(this.interval);
-
-
-
   }
-
 
   ngOnInit() {
     console.log("OnInit");
 
       this.interval = setInterval(() => {
         this.refreshData();
-
       }, 100);
 
   }
   displayedColumns: string[] = ['codeSite','dateGo','region', 'typologie','hauteur','latitude','longitude'];
   applyFilter(filterValue: string) {
-
-
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -59,16 +51,10 @@ export class GoComponent implements OnInit, OnDestroy{
 
   }
 
+  goCw(data){this.router.navigate(['cw',data]);}
+  goElec(data){this.router.navigate(['elec',data]);}
   ngOnDestroy(){
     console.log("destroy")
     clearInterval(this.interval)
   }
-
-
-
-
-
-
 }
-
-

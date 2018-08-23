@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GoService} from '../../go.service';
+import {GoService} from '../../services/go.service';
 import {Go} from '../../entities/Go';
 
 @Component({
@@ -23,8 +23,8 @@ export class ModifierGoComponent implements OnInit {
   ngOnInit() {
     this.go.getGoByCodeSite(this.activatedRoute.snapshot.params['codeSite']).subscribe(data=>{
       this.monGo=data;
-      data.codeSite=this.activatedRoute.snapshot.params['codeSite'];
-
+   /*   data.codeSite=this.activatedRoute.snapshot.params['codeSite'];
+*/
     }  )
 
 

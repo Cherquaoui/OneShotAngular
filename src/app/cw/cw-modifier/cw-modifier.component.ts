@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {cw} from '../../entities/cw';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GoService} from '../../go.service';
+import {GoService} from '../../services/go.service';
 
 @Component({
   selector: 'app-cw-modifier',

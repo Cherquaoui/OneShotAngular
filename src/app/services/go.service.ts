@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Go} from './entities/Go';
+import {Go} from '../entities/Go';
 import {Observable} from 'rxjs';
-import {OneShot} from './entities/composition/OneShot';
-import {ElecSuivi} from './entities/ElecSuivi';
-import {cw} from './entities/cw';
+import {OneShot} from '../entities/composition/OneShot';
+import {ElecSuivi} from '../entities/ElecSuivi';
+import {cw} from '../entities/cw';
 
 
 @Injectable()
@@ -29,9 +29,7 @@ export class GoService {
     return this.http.put('http://localhost:8090/go/'+go.codeSite,go)
   }
 
-  getElecSuivi(){
-    return this.http.get<ElecSuivi[]>('http://localhost:8090/elec')
-  }
+
 
   getCW(){
     return this.http.get<cw[]>('http://localhost:8090/cw')

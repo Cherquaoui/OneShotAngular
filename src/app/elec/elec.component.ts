@@ -2,8 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
-import {GoService} from '../go.service';
+import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
+import {ElecSuivi} from '../entities/ElecSuivi';
 
 @Component({
   selector: 'app-elec',
@@ -11,6 +12,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./elec.component.css']
 })
 export class ElecComponent implements OnInit {
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

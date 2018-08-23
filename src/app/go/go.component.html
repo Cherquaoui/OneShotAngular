@@ -28,8 +28,8 @@
         <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
       </mat-menu>
       <mat-menu #lvl2="matMenu">
-        <button mat-menu-item>CW</button>
-        <button mat-menu-item>Electrification</button>
+        <button mat-menu-item (click)="goCw(go.codeSite)">CW</button>
+        <button mat-menu-item (click)="goElec(go.codeSite)">Electrification</button>
         <button mat-menu-item>Radio</button>
         <button mat-menu-item>Transmission</button>
       </mat-menu>
