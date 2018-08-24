@@ -19,7 +19,6 @@ export class GoComponent implements OnInit, OnDestroy{
   dataSource;
   interval;
   refreshData(){
-
     this.goService.getGo().subscribe(data=>{
       this.dataSource=new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;

@@ -5,6 +5,7 @@ export class Electrification {
   codeSite : string;
   elecEtat:string;
   regie : string;
+  ndossier:number;
   depotDemande : string;
   etude : string;
   devis : string;

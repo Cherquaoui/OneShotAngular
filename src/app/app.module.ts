@@ -12,7 +12,6 @@ import {MatButtonModule, MatCheckboxModule,  MatNativeDateModule} from '@angular
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import {GoService} from './services/go.service';
-
 import { OneshotComponent } from './oneshot/oneshot.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
@@ -27,13 +26,13 @@ import {RouterModule} from '@angular/router';
 import { CwComponent } from './cw/cw.component';
 import { ElecComponent } from './elec/elec.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
 import {MatDialogModule} from '@angular/material/dialog';
 import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';
 import { CwModifierComponent } from './cw/cw-modifier/cw-modifier.component';
-
 import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.component';
-import {ElecService} from './services/elec.service';
+import {ElecService} from "./services/elec.service";
+import { ElecTravModifierComponent } from './elec/elec-trav-modifier/elec-trav-modifier.component';
+
 
 ;
 @NgModule({
@@ -46,8 +45,8 @@ import {ElecService} from './services/elec.service';
     ElecComponent,
     ModifierGoComponent,
     CwModifierComponent,
-
-    ElecModifierComponent
+    ElecModifierComponent,
+    ElecTravModifierComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +62,9 @@ import {ElecService} from './services/elec.service';
       {path:'go/ajouter',component:AjouterGoComponent},
       {path:'go/:codeSite',component:ModifierGoComponent},
       {path:'cw/:codeSite',component:CwModifierComponent},
-      {path:'elec/:codeSite',component:ElecModifierComponent}
+      {path:'elec/:codeSite',component:ElecModifierComponent},
+      {path:'elec/trav/:codeSite',component:ElecTravModifierComponent},
+
 
     ]),
 

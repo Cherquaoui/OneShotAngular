@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GoService} from '../../services/go.service';
 import {Go} from '../../entities/Go';
@@ -10,30 +10,29 @@ import {Go} from '../../entities/Go';
 })
 export class ModifierGoComponent implements OnInit {
 
-  monGo:Go = new Go();
-  codeSite="initial";
+  monGo: Go = new Go();
+  codeSite = "initial";
 
-  constructor(public activatedRoute:ActivatedRoute,
-              private go:GoService,
-              private router:Router) {
+  constructor(public activatedRoute: ActivatedRoute,
+              private go: GoService,
+              private router: Router) {
 
 
   }
 
   ngOnInit() {
-    this.go.getGoByCodeSite(this.activatedRoute.snapshot.params['codeSite']).subscribe(data=>{
-      this.monGo=data;
-   /*   data.codeSite=this.activatedRoute.snapshot.params['codeSite'];
-*/
-    }  )
-
-
+    this.go.getGoByCodeSite(this.activatedRoute.snapshot.params['codeSite']).subscribe(data => {
+      this.monGo = data;
+      this.monGo.codeSite = this.activatedRoute.snapshot.params['codeSite'];
+    })
   }
-  envoyer(){
-    this.go.updateGo(this.monGo).subscribe(data=>console.log(data));
+
+  envoyer() {
+    this.go.updateGo(this.monGo).subscribe(data => console.log(data));
     this.router.navigate(['/go']);
   }
-  retour(){
+
+  retour() {
     this.router.navigate(['/go']);
   }
 

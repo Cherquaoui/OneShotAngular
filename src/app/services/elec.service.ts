@@ -12,6 +12,18 @@ export class ElecService {
     return this.http.get('http://localhost:8090/elec/'+codeSite)
   }
 
+  updateElecSuivi(elec){
+    return this.http.put('http://localhost:8090/elec/'+elec.codeSite,elec)
+  }
+
+  getElecTrav(codeSite:string){
+    return this.http.get('http://localhost:8090/elec/trav/'+codeSite);
+  }
+
+  updateElecTrav(elecTrav){
+    return this.http.put('http://localhost:8090/elec/trav/'+elecTrav.codeSite,elecTrav)
+  }
+
 
 
 }
