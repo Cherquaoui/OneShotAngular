@@ -2,7 +2,7 @@ import {cw} from '../cw';
 import {Electrification} from './Electrification';
 
 export class OneShot {
-  codeSite:String;
+  codeSite:string;
   latitude:number;
   longitude:number;
   dateGo:string;

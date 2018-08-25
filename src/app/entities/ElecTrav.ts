@@ -5,6 +5,7 @@ export class ElecTrav {
    btS : number;
    btSRf : number;
    btNiche : number;
+   equipeElec:string;
    ok : number;
 
 }

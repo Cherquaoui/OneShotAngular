@@ -1,40 +1,39 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { GoComponent } from './go/go.component';
+import {AppComponent} from './app.component';
+import {GoComponent} from './go/go.component';
 
 
 //Angular Material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule, MatCheckboxModule,  MatNativeDateModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatNativeDateModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import {GoService} from './services/go.service';
-import { OneshotComponent } from './oneshot/oneshot.component';
+import {OneshotComponent} from './oneshot/oneshot.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AjouterGoComponent } from './go/ajouter-go/ajouter-go.component';
+import {AjouterGoComponent} from './go/ajouter-go/ajouter-go.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {RouterModule} from '@angular/router';
-import { CwComponent } from './cw/cw.component';
-import { ElecComponent } from './elec/elec.component';
+import {CwComponent} from './cw/cw.component';
+import {ElecComponent} from './elec/elec.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ModifierGoComponent } from './go/modifier-go/modifier-go.component';
-import { CwModifierComponent } from './cw/cw-modifier/cw-modifier.component';
-import { ElecModifierComponent } from './elec/elec-modifier/elec-modifier.component';
+import {ModifierGoComponent} from './go/modifier-go/modifier-go.component';
+import {CwModifierComponent} from './cw/cw-modifier/cw-modifier.component';
+import {ElecModifierComponent} from './elec/elec-modifier/elec-modifier.component';
 import {ElecService} from "./services/elec.service";
-import { ElecTravModifierComponent } from './elec/elec-trav-modifier/elec-trav-modifier.component';
+import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-modifier.component';
 
 
-;
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,22 +53,16 @@ import { ElecTravModifierComponent } from './elec/elec-trav-modifier/elec-trav-m
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
-      {path:'go',component:GoComponent},
-      {path:'cw',component:CwComponent},
-      {path:'elec',component:ElecComponent},
-      {path:'oneshot',component:OneshotComponent},
-      {path:'ajouter',component:AjouterGoComponent},
-      {path:'go/ajouter',component:AjouterGoComponent},
-      {path:'go/:codeSite',component:ModifierGoComponent},
-      {path:'cw/:codeSite',component:CwModifierComponent},
-      {path:'elec/:codeSite',component:ElecModifierComponent},
-      {path:'elec/trav/:codeSite',component:ElecTravModifierComponent},
-
-
+      {path: 'go', component: GoComponent},
+      {path: 'cw', component: CwComponent},
+      {path: 'elec', component: ElecComponent},
+      {path: 'ajouter', component: AjouterGoComponent},
+      {path: 'go/ajouter', component: AjouterGoComponent},
+      {path: 'go/:codeSite', component: ModifierGoComponent},
+      {path: 'cw/:codeSite', component: CwModifierComponent},
+      {path: 'elec/:codeSite', component: ElecModifierComponent},
+      {path: 'elec/trav/:codeSite', component: ElecTravModifierComponent},
     ]),
-
-
-
     //Angular Material
     MatButtonModule,
     MatCheckboxModule,
@@ -89,11 +82,9 @@ import { ElecTravModifierComponent } from './elec/elec-trav-modifier/elec-trav-m
     MatNativeDateModule,
     MatDialogModule,
     MatButtonToggleModule
-
-
-
   ],
-  providers: [GoService,ElecService],
+  providers: [GoService, ElecService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

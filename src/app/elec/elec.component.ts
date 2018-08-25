@@ -1,10 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-
 import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
-import {ElecSuivi} from '../entities/ElecSuivi';
 
 @Component({
   selector: 'app-elec',
@@ -12,7 +9,6 @@ import {ElecSuivi} from '../entities/ElecSuivi';
   styleUrls: ['./elec.component.css']
 })
 export class ElecComponent implements OnInit {
-
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -28,7 +24,7 @@ export class ElecComponent implements OnInit {
               monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
               monsite.electrification.payementDevis,monsite.electrification.autorisation,monsite.electrification.debutTravaux,monsite.electrification.finTravaux,
               monsite.electrification.reception,monsite.electrification.poseCompteur,monsite.electrification.elecTrav.btA,monsite.electrification.elecTrav.btS,
-              monsite.electrification.elecTrav.btSRf,monsite.electrification.elecTrav.btNiche,monsite.electrification.elecTrav.ok);
+              monsite.electrification.elecTrav.btSRf,monsite.electrification.elecTrav.btNiche,monsite.electrification.elecTrav.equipeElec);
             this.elec.push(elect);
           }}
         this.dataSource.data=this.elec;
@@ -47,7 +43,7 @@ export class ElecComponent implements OnInit {
   ngOnInit() {
     this.interval = setInterval(() => {
       this.refreshData();
-    }, 100);
+    }, 1000);
 
   }
 
@@ -57,9 +53,8 @@ export class ElecComponent implements OnInit {
     'etude','devis','payementDevis','autorisation','debutTravaux','finTravaux','reception',
     'abonnement','poseCompteur'];
   displayedColumnsDivers:string[] = ['codeSite','dateGo','typologie','etatCw','elecEtat','regie','ndossier',
-    'ok','poseCompteur'];
-  displayedColumnsTrav:string[] = ['codeSite','typologie','bta','bts','btsrf','btniche',
-    'ok','poseCompteur'];
+    'poseCompteur'];
+  displayedColumnsTrav:string[] = ['codeSite','typologie','equipeElec','bta','bts','btsrf','btniche','poseCompteur'];
 
   displayedColumns: string[] = this.displayedColumnsDivers;
   applyFilter(filterValue: string) {
@@ -91,7 +86,7 @@ export class electrification2{
 
   constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string, elecEtat: string, regie: string,ndossier:number,
               depotDemande: string, etude: string, devis: string, payementDevis: string, autorisation: string, debutTravaux:
-                string, finTravaux: string, reception: string, poseCompteur: string, btA: number, btS: number, btSRf: number, btNiche: number, ok: number) {
+                string, finTravaux: string, reception: string, poseCompteur: string, btA: number, btS: number, btSRf: number, btNiche: number, equipeElec:string) {
 
     this.codeSite = codeSite;
     this.dateGo = dateGo;
@@ -113,7 +108,7 @@ export class electrification2{
     this.btS = btS;
     this.btSRf = btSRf;
     this.btNiche = btNiche;
-    this.ok = ok;
+    this.equipeElec = equipeElec;
   }
 
   codeSite : string;
@@ -136,5 +131,5 @@ export class electrification2{
   btS : number;
   btSRf : number;
   btNiche : number;
-  ok : number;
+  equipeElec : string;
 }

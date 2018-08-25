@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Go} from '../entities/Go';
 import {Observable} from 'rxjs';
 import {OneShot} from '../entities/composition/OneShot';
-import {ElecSuivi} from '../entities/ElecSuivi';
 import {cw} from '../entities/cw';
 
 
@@ -13,34 +12,34 @@ export class GoService {
   constructor(private http:HttpClient) { }
 
   getGo(): Observable<Go[]>{
-    return this.http.get<Go[]>('http://localhost:8090/go');
+    return this.http.get<Go[]>('https://one-shot-app.herokuapp.com/go');
   }
   getGoByCodeSite(codeSite:string){
-    return this.http.get<Go>('http://localhost:8090/go/'+codeSite);
+    return this.http.get<Go>('https://one-shot-app.herokuapp.com/go/'+codeSite);
   }
 
   getOneShot():Observable<OneShot[]>{
-    return this.http.get<OneShot[]>('http://localhost:8090/oneshot')
+    return this.http.get<OneShot[]>('https://one-shot-app.herokuapp.com/oneshot')
 }
   saveGo(go:Go){
-    return this.http.post('http://localhost:8090/go',go);
+    return this.http.post('https://one-shot-app.herokuapp.com/go',go);
   }
   updateGo(go:Go){
-    return this.http.put('http://localhost:8090/go/'+go.codeSite,go)
+    return this.http.put('https://one-shot-app.herokuapp.com/go/'+go.codeSite,go)
   }
 
 
 
   getCW(){
-    return this.http.get<cw[]>('http://localhost:8090/cw')
+    return this.http.get<cw[]>('https://one-shot-app.herokuapp.com/cw')
   }
 
   getCwByCodeSite(codeSite:string){
-    return this.http.get<cw>('http://localhost:8090/cw/'+codeSite);
+    return this.http.get<cw>('https://one-shot-app.herokuapp.com/cw/'+codeSite);
   }
 
   updateCw(moncw:cw){
-    return this.http.put('http://localhost:8090/cw/'+moncw.codeSite,moncw)
+    return this.http.put('https://one-shot-app.herokuapp.com/cw/'+moncw.codeSite,moncw)
   }
 
 }
