@@ -6,7 +6,7 @@ import {ElecSuivi} from "../entities/ElecSuivi";
 @Injectable({
   providedIn: 'root'
 })
-/*export class ElecService {
+export class ElecService {
 
   constructor(private http:HttpClient) { }
 
@@ -28,8 +28,8 @@ import {ElecSuivi} from "../entities/ElecSuivi";
 
 
 
-}*/
-
+}
+/*
 export class ElecService {
 
   constructor(private http:HttpClient) { }
@@ -52,4 +52,4 @@ export class ElecService {
 
 
 
-}
+}*/
