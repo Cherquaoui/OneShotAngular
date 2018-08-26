@@ -43,7 +43,7 @@ export class CwComponent implements OnInit {
   ngOnInit() {
     this.interval = setInterval(() => {
       this.refreshData();
-    }, 100);
+    }, 1000);
   }
 
   displayedColumns: string[] = ['codeSite','etatCw', 'typologie', 'equipeCw', 'elecEtat', 'commentairesCw'];
