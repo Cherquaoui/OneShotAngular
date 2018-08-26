@@ -7,7 +7,7 @@ import {cw} from '../entities/cw';
 
 
 @Injectable()
-/*export class GoService {
+export class GoService {
 
   constructor(private http:HttpClient) { }
 
@@ -42,8 +42,9 @@ import {cw} from '../entities/cw';
     return this.http.put('https://one-shot-app.herokuapp.com/cw/'+moncw.codeSite,moncw)
   }
 
-}*/
+}
 
+/*
 export class GoService {
 
   constructor(private http:HttpClient) { }
@@ -80,3 +81,4 @@ export class GoService {
   }
 
 }
+*/
