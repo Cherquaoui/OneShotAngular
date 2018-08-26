@@ -8,7 +8,7 @@ app.use(express.static('./dist/OneShotAngular'));
 
 app.get('/*', (req,res)=>{
 
-  res.sendFile(path.join(__dirname,'/dist/OneShotAngular/index.html'));
+  res.sendFile(path.join(__dirname,'/dist/your_app_name/index.html'));
 
 });
 
