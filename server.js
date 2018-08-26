@@ -4,11 +4,11 @@ const express= require('express'),
 const app =express();
 
 
-app.use(express.static('./dist/OneShotAngular'));
+app.use(express.static('./dist/Angular6demo'));
 
 app.get('/*', (req,res)=>{
 
-  res.sendFile(path.join(__dirname,'/dist/your_app_name/index.html'));
+  res.sendFile(path.join(__dirname,'/dist/Angular6demo/index.html'));
 
 });
 
