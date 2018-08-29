@@ -33,7 +33,11 @@ import {ElecModifierComponent} from './elec/elec-modifier/elec-modifier.componen
 import {ElecService} from "./services/elec.service";
 import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-modifier.component';
 
-
+const config = {
+  issuer: 'https://dev-627638.oktapreview.com/oauth2/default',
+  redirectUri: 'http://localhost:4200/implicit/callback',
+  clientId: '{clientId}'
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +66,10 @@ import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-mod
       {path: 'cw/:codeSite', component: CwModifierComponent},
       {path: 'elec/:codeSite', component: ElecModifierComponent},
       {path: 'elec/trav/:codeSite', component: ElecTravModifierComponent},
+      {
+        path: 'implicit/callback',
+        component: OktaCallbackComponent
+      }
     ]),
     //Angular Material
     MatButtonModule,
