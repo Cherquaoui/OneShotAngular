@@ -7,7 +7,7 @@ import {cw} from '../entities/cw';
 
 
 @Injectable()
-export class GoService {
+/*export class GoService {
 
   constructor(private http:HttpClient) { }
 
@@ -42,43 +42,43 @@ export class GoService {
     return this.http.put('https://one-shot-app.herokuapp.com/cw/'+moncw.codeSite,moncw)
   }
 
-}
+}*/
 
-/*
+
 export class GoService {
 
   constructor(private http:HttpClient) { }
 
   getGo(): Observable<Go[]>{
-    return this.http.get<Go[]>('https:/localhost:8090/go');
+    return this.http.get<Go[]>('http://localhost:8090/go');
   }
   getGoByCodeSite(codeSite:string){
-    return this.http.get<Go>('https://localhost:8090/go/'+codeSite);
+    return this.http.get<Go>('http://localhost:8090/go/'+codeSite);
   }
 
   getOneShot():Observable<OneShot[]>{
-    return this.http.get<OneShot[]>('https://localhost:8090/oneshot')
+    return this.http.get<OneShot[]>('http://localhost:8090/oneshot')
   }
   saveGo(go:Go){
-    return this.http.post('https://localhost:8090/go',go);
+    return this.http.post('http://localhost:8090/go',go);
   }
   updateGo(go:Go){
-    return this.http.put('https://localhost:8090/go/'+go.codeSite,go)
+    return this.http.put('http://localhost:8090/go/'+go.codeSite,go)
   }
 
 
 
   getCW(){
-    return this.http.get<cw[]>('https://localhost:8090.com/cw')
+    return this.http.get<cw[]>('http://localhost:8090.com/cw')
   }
 
   getCwByCodeSite(codeSite:string){
-    return this.http.get<cw>('https://localhost:8090/cw/'+codeSite);
+    return this.http.get<cw>('http://localhost:8090/cw/'+codeSite);
   }
 
   updateCw(moncw:cw){
-    return this.http.put('https://localhost:8090/cw/'+moncw.codeSite,moncw)
+    return this.http.put('http://localhost:8090/cw/'+moncw.codeSite,moncw)
   }
 
 }
-*/
+
