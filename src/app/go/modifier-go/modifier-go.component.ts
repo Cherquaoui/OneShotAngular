@@ -24,11 +24,14 @@ export class ModifierGoComponent implements OnInit {
     this.go.getGoByCodeSite(this.activatedRoute.snapshot.params['codeSite']).subscribe(data => {
       this.monGo = data;
       this.monGo.codeSite = this.activatedRoute.snapshot.params['codeSite'];
+    },error1 => {
+      console.log(error1);
+      this.router.navigate(['/home']);
     })
   }
 
   envoyer() {
-    this.go.updateGo(this.monGo).subscribe(data => console.log(data));
+    this.go.updateGo(this.monGo).subscribe(data => console.log(data),error1 => this.router.navigate(['/home']));
     this.router.navigate(['/go']);
   }
 

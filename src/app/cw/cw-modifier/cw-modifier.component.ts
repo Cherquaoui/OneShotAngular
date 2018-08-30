@@ -22,12 +22,17 @@ export class CwModifierComponent implements OnInit {
       this.cw = data;
       console.log(data);
       data.codeSite = this.activatedRoute.snapshot.params['codeSite'];
-
+    },error1 => {
+      console.log(error1);
+      this.router.navigate(['/home']);
     });
 
   }
   envoyer(){
-    this.go.updateCw(this.cw).subscribe(data=>console.log(data));
+    this.go.updateCw(this.cw).subscribe(data=>console.log(data),error1 => {
+      console.log(error1);
+      this.router.navigate(['/home']);
+    });
     this.router.navigate(['/cw']);
 
   }

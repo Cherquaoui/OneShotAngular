@@ -19,7 +19,10 @@ export class AjouterGoComponent implements OnInit {
     console.log(data);
 
 
-    this.service.saveGo(data).subscribe(data=>console.log(data));
+    this.service.saveGo(data).subscribe(data=>console.log(data),error1 => {
+      console.log(error1);
+      this.router.navigate(['/home']);
+    });
     this.router.navigate(['go']);
   }
 

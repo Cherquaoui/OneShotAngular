@@ -6,6 +6,7 @@ import {GoComponent} from './go/go.component';
 
 
 //Angular Material
+import {MatCardModule} from '@angular/material/card';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule, MatCheckboxModule, MatNativeDateModule} from '@angular/material';
@@ -32,11 +33,15 @@ import {CwModifierComponent} from './cw/cw-modifier/cw-modifier.component';
 import {ElecModifierComponent} from './elec/elec-modifier/elec-modifier.component';
 import {ElecService} from "./services/elec.service";
 import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-modifier.component';
+import {OktaAuthModule, OktaCallbackComponent} from '@okta/okta-angular';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {AuthInterceptor} from './services/auth.interceptor';
+import { HomeComponent } from './home/home.component';
 
 const config = {
   issuer: 'https://dev-627638.oktapreview.com/oauth2/default',
   redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '{clientId}'
+  clientId: '0oag2zdm4dwCTyJ4Q0h7'
 };
 @NgModule({
   declarations: [
@@ -49,14 +54,21 @@ const config = {
     ModifierGoComponent,
     CwModifierComponent,
     ElecModifierComponent,
-    ElecTravModifierComponent
+    ElecTravModifierComponent,
+    HomeComponent
   ],
   imports: [
+    OktaAuthModule.initAuth(config),
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
+      {path: '', redirectTo: '/home', pathMatch: 'full'},
+      {
+        path: 'home',
+        component: HomeComponent
+      },
       {path: 'go', component: GoComponent},
       {path: 'cw', component: CwComponent},
       {path: 'elec', component: ElecComponent},
@@ -69,6 +81,7 @@ const config = {
       {
         path: 'implicit/callback',
         component: OktaCallbackComponent
+
       }
     ]),
     //Angular Material
@@ -89,9 +102,10 @@ const config = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatCardModule
   ],
-  providers: [GoService, ElecService],
+  providers: [GoService, ElecService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

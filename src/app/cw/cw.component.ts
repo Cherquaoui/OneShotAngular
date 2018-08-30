@@ -36,7 +36,10 @@ export class CwComponent implements OnInit {
       this.dataSource.data = this.cwObject;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
+    },error1 => {
+      console.log(error1);
+      this.router.navigate(['/home']);
+    });
     clearInterval(this.interval);
   }
 

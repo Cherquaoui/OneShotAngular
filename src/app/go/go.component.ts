@@ -24,7 +24,10 @@ export class GoComponent implements OnInit, OnDestroy{
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
-    } );
+    },error1 => {
+      console.log(error1);
+      this.router.navigate(['/home']);
+    });
     clearInterval(this.interval);
   }
 

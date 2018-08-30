@@ -20,7 +20,10 @@ export class ElecTravModifierComponent implements OnInit {
     this.elecService.getElecTrav(this.activatedRoute.snapshot.params['codeSite']).subscribe(data=>{
       this.elecTrav=data;
       this.elecTrav.codeSite=this.activatedRoute.snapshot.params['codeSite'];
-      console.log(this.elecTrav)})
+      console.log(this.elecTrav)},error1 => {
+      console.log(error1);
+      this.router.navigate(['/home']);
+    })
   }
 
   modifier(){
