@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GoService} from '../services/go.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
+import {HttpClient} from '../../../node_modules/@angular/common/http';
+import {OktaAuthService} from '@okta/okta-angular';
 
 
 @Component({
@@ -14,7 +16,8 @@ export class GoComponent implements OnInit, OnDestroy{
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private goService:GoService,
-              private router:Router) { }
+              private router:Router
+              ,private oktaAuth:OktaAuthService) { }
 
   dataSource;
   interval;
@@ -26,7 +29,7 @@ export class GoComponent implements OnInit, OnDestroy{
 
     },error1 => {
       console.log(error1);
-      this.router.navigate(['/home']);
+      this.oktaAuth.logout();
     });
     clearInterval(this.interval);
   }

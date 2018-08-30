@@ -5,9 +5,10 @@ import {Observable, throwError} from 'rxjs';
 import {OneShot} from '../entities/composition/OneShot';
 import {cw} from '../entities/cw';
 import {catchError} from 'rxjs/operators';
+import {OktaAuthService} from '@okta/okta-angular';
 
 @Injectable()
-/*export class GoService {
+export class GoService {
 
   constructor(private http:HttpClient) { }
 
@@ -42,10 +43,10 @@ import {catchError} from 'rxjs/operators';
     return this.http.put('https://one-shot-app.herokuapp.com/cw/'+moncw.codeSite,moncw)
   }
 
-}*/
+}
 
 
-export class GoService {
+/*export class GoService {
 
   constructor(private http:HttpClient) { }
 
@@ -98,5 +99,5 @@ export class GoService {
       'Something bad happened; please try again later.');
   };
 
-}
+}*/
 

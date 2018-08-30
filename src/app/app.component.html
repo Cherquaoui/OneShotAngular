@@ -15,8 +15,6 @@
     <button mat-button [routerLink]="['/elec']" routerLinkActive="active">Electrification</button>
     <button mat-button>Radio</button>
     <button mat-button>Transmission</button>
-    <button mat-button (click)="click()">Login status</button>
-
     <button mat-raised-button  *ngIf="isAuthenticated"
             (click)="oktaAuth.logout()">Logout
     </button>
