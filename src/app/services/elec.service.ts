@@ -6,6 +6,7 @@ import {ElecSuivi} from "../entities/ElecSuivi";
 @Injectable({
   providedIn: 'root'
 })
+/*
 export class ElecService {
 
   constructor(private http:HttpClient) { }
@@ -25,11 +26,8 @@ export class ElecService {
   updateElecTrav(elecTrav){
     return this.http.put('https://one-shot-app.herokuapp.com/elec/trav/'+elecTrav.codeSite,elecTrav)
   }
-
-
-
 }
-/*
+*/
 export class ElecService {
 
   constructor(private http:HttpClient) { }
@@ -49,7 +47,4 @@ export class ElecService {
   updateElecTrav(elecTrav){
     return this.http.put('https://localhost:8090/elec/trav/'+elecTrav.codeSite,elecTrav)
   }
-
-
-
-}*/
+}
