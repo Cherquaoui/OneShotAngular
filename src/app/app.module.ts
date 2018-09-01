@@ -32,6 +32,8 @@ import {CwModifierComponent} from './cw/cw-modifier/cw-modifier.component';
 import {ElecModifierComponent} from './elec/elec-modifier/elec-modifier.component';
 import {ElecService} from "./services/elec.service";
 import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-modifier.component';
+import { LoginComponent } from './login/login.component';
+import {AuthenticationService} from "./services/authentication.service";
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-mod
     ModifierGoComponent,
     CwModifierComponent,
     ElecModifierComponent,
-    ElecTravModifierComponent
+    ElecTravModifierComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,8 @@ import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-mod
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
+      {path:'',redirectTo:'/login',pathMatch:'full'},
+      {path: 'login', component: LoginComponent},
       {path: 'go', component: GoComponent},
       {path: 'cw', component: CwComponent},
       {path: 'elec', component: ElecComponent},
@@ -83,7 +88,7 @@ import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-mod
     MatDialogModule,
     MatButtonToggleModule
   ],
-  providers: [GoService, ElecService],
+  providers: [GoService, ElecService,AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
