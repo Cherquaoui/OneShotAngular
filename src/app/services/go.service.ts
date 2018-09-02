@@ -22,10 +22,9 @@ export class GoService {
 
 
   getGo(){
-    return this.http.get(this.url+'/go',{
+    return this.http.get<Go[]>(this.url+'/go',{
       headers: new HttpHeaders({ 'Content-Type': 'application/json',
-        'authorization': this.authentication.token }),
-      observe: 'response' as 'response'
+        'authorization': this.authentication.token })
     });
   }
   getGoByCodeSite(codeSite:string){
