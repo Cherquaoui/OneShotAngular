@@ -2,7 +2,11 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GoService} from '../services/go.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
+import {AuthenticationService} from "../services/authentication.service";
 
+
+class AuthoriastionService {
+}
 
 @Component({
   selector: 'app-go',
@@ -14,17 +18,20 @@ export class GoComponent implements OnInit, OnDestroy{
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private goService:GoService,
-              private router:Router) { }
+              private router:Router,
+              private authentication:AuthenticationService) { }
 
   dataSource;
   interval;
   refreshData(){
     this.goService.getGo().subscribe(data=>{
-      this.dataSource=new MatTableDataSource(data);
+      this.dataSource=new MatTableDataSource(data.body);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+
+
     },error1 => {
-      console.log(error1);
       this.router.navigateByUrl('/login');
     } );
     clearInterval(this.interval);
@@ -32,6 +39,7 @@ export class GoComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     console.log("OnInit");
+    console.log(this.authentication.token)
 
       this.interval = setInterval(() => {
         this.refreshData();

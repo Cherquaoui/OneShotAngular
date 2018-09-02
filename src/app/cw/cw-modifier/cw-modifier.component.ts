@@ -23,7 +23,7 @@ export class CwModifierComponent implements OnInit {
       console.log(data);
       data.codeSite = this.activatedRoute.snapshot.params['codeSite'];
 
-    });
+    },error1 => this.router.navigateByUrl('/login'));
 
   }
   envoyer(){

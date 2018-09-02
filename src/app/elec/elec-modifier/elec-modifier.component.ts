@@ -21,7 +21,7 @@ export class ElecModifierComponent implements OnInit {
     this.elecService.getElecSuivi(this.activatedRoute.snapshot.params['codeSite']).subscribe(data=>{
       this.elecSuivi=data;
       this.elecSuivi.codeSite=this.activatedRoute.snapshot.params['codeSite'];
-      console.log(this.elecSuivi)})
+      console.log(this.elecSuivi)},error1 => this.router.navigateByUrl('/login'))
   }
   modifier(){
     this.elecService.updateElecSuivi(this.elecSuivi).subscribe(data=>console.log(data));

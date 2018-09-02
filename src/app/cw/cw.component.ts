@@ -36,7 +36,7 @@ export class CwComponent implements OnInit {
       this.dataSource.data = this.cwObject;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
+    },error1 => this.router.navigateByUrl('/login'))
     clearInterval(this.interval);
   }
 

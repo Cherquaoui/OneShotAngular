@@ -30,8 +30,8 @@ export class ElecComponent implements OnInit {
         this.dataSource.data=this.elec;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }
-    );
+      },error1 => this.router.navigateByUrl('/login'))
+
     clearInterval(this.interval);
 
   }
