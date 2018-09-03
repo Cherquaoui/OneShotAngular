@@ -1,13 +1,17 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
+
 
 @Injectable()
 export class AuthenticationService {
 
   private url='https://one-shot-app.herokuapp.com/login';
   public token:string = null;
+
+
+  private tokenSubject:Subject<string>=new Subject<string>();
 
 
 
@@ -17,7 +21,9 @@ export class AuthenticationService {
 
 
   constructor(private  http:HttpClient,
-              private router:Router){}
+              private router:Router){
+    this.tokenSubject.subscribe(data=>console.log(data))
+  }
 
   saveToken(token){
     this.token=token;
