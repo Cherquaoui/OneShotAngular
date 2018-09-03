@@ -16,5 +16,9 @@ export class AppComponent {
               public authentication: AuthenticationService) {
   }
 
+  logOut(){
+    this.authentication.logOut();
+  }
+
 
 }

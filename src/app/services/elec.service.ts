@@ -15,21 +15,21 @@ export class ElecService {
 
   getElecSuivi(codeSite:string){
     return this.http.get<ElecSuivi>(this.url+'/elec/'+codeSite,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.token}})
+        'authorization': this.authentication.getToken()}})
   }
 
   updateElecSuivi(elec){
     return this.http.put(this.url+'/elec/'+elec.codeSite,elec,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.token}})
+        'authorization': this.authentication.getToken()}})
   }
 
   getElecTrav(codeSite:string){
     return this.http.get<ElecTrav>(this.url+'/elec/trav/'+codeSite, {headers:{'content-type': 'application/json',
-        'authorization': this.authentication.token}});
+        'authorization': this.authentication.getToken()}});
   }
 
   updateElecTrav(elecTrav){
     return this.http.put(this.url+'/elec/trav/'+elecTrav.codeSite,elecTrav,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.token}})
+        'authorization': this.authentication.getToken()}})
   }
 }

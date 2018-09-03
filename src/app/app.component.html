@@ -1,4 +1,4 @@
-<mat-toolbar class="d-flex">
+<mat-toolbar class="d-flex justify-content-center" >
 
   <div>
   <button mat-button routerLink="go" routerLinkActive="active">Go</button>
@@ -7,8 +7,13 @@
   <button mat-button routerLink="oneshot" routerLinkActive="active">Radio</button>
   <button mat-button>Transmission</button>
   </div>
-  <button mat-button>Carte des sites</button>
 
+  <button mat-button>Carte des sites</button>
+  <div class="ml-auto">
+  <button mat-button *ngIf="authentication.getIsLog()"  (click)="logOut()" >Logout</button>
+
+</div>
+  <div class="ml-auto p-1"></div>
 
 
 </mat-toolbar>

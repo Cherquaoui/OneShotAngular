@@ -18,8 +18,7 @@ export class GoComponent implements OnInit, OnDestroy{
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private goService:GoService,
-              private router:Router,
-              private authentication:AuthenticationService) { }
+              private router:Router) { }
 
   dataSource;
   interval;
@@ -39,7 +38,6 @@ export class GoComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     console.log("OnInit");
-    console.log(this.authentication.token)
 
       this.interval = setInterval(() => {
         this.refreshData();

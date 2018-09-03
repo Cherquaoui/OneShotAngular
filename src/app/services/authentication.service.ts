@@ -1,49 +1,47 @@
-import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {Observable, Subject} from "rxjs";
-
+import {Injectable, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
 
-  private url='https://one-shot-app.herokuapp.com/login';
-  public token:string = null;
+  private url = 'https://one-shot-app.herokuapp.com/login';
+  private token: string = null;
+
+  private isLog = false;
 
 
-  private tokenSubject:Subject<string>=new Subject<string>();
-
-
-
-
-  public isLog=false;
-
-
-
-  constructor(private  http:HttpClient,
-              private router:Router){
-    this.tokenSubject.subscribe(data=>console.log(data))
+  constructor(private  http: HttpClient,
+              private router: Router) {
   }
 
-  saveToken(token){
-    this.token=token;
+  saveToken(token) {
+    this.token = token;
+    this.isLog = true;
   }
 
-  logIn(data){
+  logIn(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
       observe: 'response' as 'response'
     };
-    return this.http.post(this.url,data,{
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    return this.http.post(this.url, data, {
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
       observe: 'response' as 'response'
     });
   }
 
-  logOut(){
-    this.token=null;
+  getToken(){
+    return this.token;
+  }
+  getIsLog(){
+    return this.isLog;
+  }
+
+  logOut() {
+    this.token = null;
     this.router.navigateByUrl('/login');
-    this.isLog=false;
+    this.isLog = false;
   }
 
 
