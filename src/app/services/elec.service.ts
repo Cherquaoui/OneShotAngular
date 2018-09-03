@@ -8,28 +8,27 @@ import {AuthenticationService} from "./authentication.service";
 
 export class ElecService {
 
-  private  url = 'https://one-shot-app.herokuapp.com';
 
   constructor(private http:HttpClient,
               private authentication:AuthenticationService) { }
 
   getElecSuivi(codeSite:string){
-    return this.http.get<ElecSuivi>(this.url+'/elec/'+codeSite,{headers:{'content-type': 'application/json',
+    return this.http.get<ElecSuivi>(this.authentication.getUrl()+'/elec/'+codeSite,{headers:{'content-type': 'application/json',
         'authorization': this.authentication.getToken()}})
   }
 
   updateElecSuivi(elec){
-    return this.http.put(this.url+'/elec/'+elec.codeSite,elec,{headers:{'content-type': 'application/json',
+    return this.http.put(this.authentication.getUrl()+'/elec/'+elec.codeSite,elec,{headers:{'content-type': 'application/json',
         'authorization': this.authentication.getToken()}})
   }
 
   getElecTrav(codeSite:string){
-    return this.http.get<ElecTrav>(this.url+'/elec/trav/'+codeSite, {headers:{'content-type': 'application/json',
+    return this.http.get<ElecTrav>(this.authentication.getUrl()+'/elec/trav/'+codeSite, {headers:{'content-type': 'application/json',
         'authorization': this.authentication.getToken()}});
   }
 
   updateElecTrav(elecTrav){
-    return this.http.put(this.url+'/elec/trav/'+elecTrav.codeSite,elecTrav,{headers:{'content-type': 'application/json',
+    return this.http.put(this.authentication.getUrl()+'/elec/trav/'+elecTrav.codeSite,elecTrav,{headers:{'content-type': 'application/json',
         'authorization': this.authentication.getToken()}})
   }
 }

@@ -5,10 +5,14 @@ import {Router} from '@angular/router';
 @Injectable()
 export class AuthenticationService {
 
-  private url = 'https://one-shot-app.herokuapp.com/login';
+  private url = 'https://one-shot-app.herokuapp.com';
   private token: string = null;
 
   private isLog = false;
+
+  getUrl(){
+    return this.url;
+  }
 
 
   constructor(private  http: HttpClient,
@@ -21,11 +25,7 @@ export class AuthenticationService {
   }
 
   logIn(data) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      observe: 'response' as 'response'
-    };
-    return this.http.post(this.url, data, {
+    return this.http.post(this.url+'/login', data, {
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
       observe: 'response' as 'response'
     });
