@@ -13,22 +13,23 @@ export class ElecService {
               private authentication:AuthenticationService) { }
 
   getElecSuivi(codeSite:string){
-    return this.http.get<ElecSuivi>(this.authentication.getUrl()+'/elec/'+codeSite,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}})
+    return this.http.get<ElecSuivi>(this.authentication.getUrl()+'/elec/'+codeSite,
+      {observe: 'response' as 'response'})
   }
 
   updateElecSuivi(elec){
-    return this.http.put(this.authentication.getUrl()+'/elec/'+elec.codeSite,elec,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}})
+    return this.http.put(this.authentication.getUrl()+'/elec/'+elec.codeSite,elec,
+      {observe: 'response' as 'response'})
   }
 
   getElecTrav(codeSite:string){
-    return this.http.get<ElecTrav>(this.authentication.getUrl()+'/elec/trav/'+codeSite, {headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}});
+    return this.http.get<ElecTrav>(this.authentication.getUrl()+'/elec/trav/'+codeSite,
+      {observe: 'response' as 'response'});
   }
 
   updateElecTrav(elecTrav){
-    return this.http.put(this.authentication.getUrl()+'/elec/trav/'+elecTrav.codeSite,elecTrav,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}})
+    return this.http.put(this.authentication.getUrl()+'/elec/trav/'+elecTrav.codeSite,
+      elecTrav,
+      {observe: 'response' as 'response'})
   }
 }

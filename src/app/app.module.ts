@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {GoComponent} from './go/go.component';
 
@@ -34,6 +34,7 @@ import {ElecService} from "./services/elec.service";
 import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-modifier.component';
 import { LoginComponent } from './login/login.component';
 import {AuthenticationService} from "./services/authentication.service";
+import {AuthGuard} from "./services/auth.guard";
 
 
 @NgModule({
@@ -88,7 +89,11 @@ import {AuthenticationService} from "./services/authentication.service";
     MatDialogModule,
     MatButtonToggleModule
   ],
-  providers: [GoService, ElecService,AuthenticationService],
+  providers: [GoService, ElecService,AuthenticationService,    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthGuard,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

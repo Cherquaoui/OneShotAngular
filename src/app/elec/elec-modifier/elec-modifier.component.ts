@@ -19,7 +19,7 @@ export class ElecModifierComponent implements OnInit {
 
   ngOnInit() {
     this.elecService.getElecSuivi(this.activatedRoute.snapshot.params['codeSite']).subscribe(data=>{
-      this.elecSuivi=data;
+      this.elecSuivi=data.body;
       this.elecSuivi.codeSite=this.activatedRoute.snapshot.params['codeSite'];
       console.log(this.elecSuivi)},error1 => this.router.navigateByUrl('/login'))
   }

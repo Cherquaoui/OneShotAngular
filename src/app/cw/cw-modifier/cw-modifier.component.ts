@@ -19,9 +19,9 @@ export class CwModifierComponent implements OnInit {
 
   ngOnInit() {
     this.go.getCwByCodeSite(this.activatedRoute.snapshot.params['codeSite']).subscribe(data => {
-      this.cw = data;
+      this.cw = data.body;
       console.log(data);
-      data.codeSite = this.activatedRoute.snapshot.params['codeSite'];
+      data.body.codeSite = this.activatedRoute.snapshot.params['codeSite'];
 
     },error1 => this.router.navigateByUrl('/login'));
 

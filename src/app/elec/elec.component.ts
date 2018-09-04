@@ -18,7 +18,7 @@ export class ElecComponent implements OnInit {
   interval
   refreshData(){
     this.goService.getOneShot().subscribe(data=>{
-        for(let monsite of data){
+        for(let monsite of data.body){
           if(monsite.cw!==null){
             let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
               monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,

@@ -2,11 +2,8 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GoService} from '../services/go.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
-import {AuthenticationService} from "../services/authentication.service";
 
 
-class AuthoriastionService {
-}
 
 @Component({
   selector: 'app-go',
@@ -24,7 +21,7 @@ export class GoComponent implements OnInit, OnDestroy{
   interval;
   refreshData(){
     this.goService.getGo().subscribe(data=>{
-      this.dataSource=new MatTableDataSource(data);
+      this.dataSource=new MatTableDataSource(data.body);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 

@@ -17,44 +17,37 @@ export class GoService {
 
 
   getGo(){
+    console.log("chargement des go");
     return this.http.get<Go[]>(this.authentication.getUrl()+'/go',{
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-        'authorization': this.authentication.getToken() })
+       observe: 'response' as 'response'
     });
   }
   getGoByCodeSite(codeSite:string){
-    return this.http.get<Go>(this.authentication.getUrl()+'/go/'+codeSite,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}});
+    return this.http.get<Go>(this.authentication.getUrl()+'/go/'+codeSite,{observe: 'response' as 'response'});
   }
 
-  getOneShot():Observable<OneShot[]>{
-    return this.http.get<OneShot[]>(this.authentication.getUrl()+'/oneshot',{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}})
+  getOneShot(){
+    return this.http.get<OneShot[]>(this.authentication.getUrl()+'/oneshot',{observe: 'response' as 'response'})
   }
   saveGo(go:Go){
-    return this.http.post(this.authentication.getUrl()+'/go',go,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}});
+    return this.http.post(this.authentication.getUrl()+'/go',go,{observe: 'response' as 'response'});
   }
   updateGo(go:Go){
-    return this.http.put(this.authentication.getUrl()+'/go/'+go.codeSite,go,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}})
+    return this.http.put(this.authentication.getUrl()+'/go/'+go.codeSite,go,{observe: 'response' as 'response'})
   }
 
 
 
   getCW(){
-    return this.http.get<cw[]>(this.authentication.getUrl()+'/cw',{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}})
+    return this.http.get<cw[]>(this.authentication.getUrl()+'/cw',{observe: 'response' as 'response'})
   }
 
   getCwByCodeSite(codeSite:string){
-    return this.http.get<cw>(this.authentication.getUrl()+'/cw/'+codeSite,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}});
+    return this.http.get<cw>(this.authentication.getUrl()+'/cw/'+codeSite,{observe: 'response' as 'response'});
   }
 
   updateCw(moncw:cw){
-    return this.http.put(this.authentication.getUrl()+'/cw/'+moncw.codeSite,moncw,{headers:{'content-type': 'application/json',
-        'authorization': this.authentication.getToken()}})
+    return this.http.put(this.authentication.getUrl()+'/cw/'+moncw.codeSite,moncw,{observe: 'response' as 'response'})
   }
 
 }

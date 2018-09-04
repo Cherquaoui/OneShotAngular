@@ -24,8 +24,10 @@ export class LoginComponent implements OnInit {
     this.authentication.logIn(value).
     subscribe(resp=>{
 
+
     if(resp.headers.get('Authorization')!==null){
       this.authentication.saveToken( resp.headers.get('Authorization'));
+
       this.router.navigateByUrl('/go');
     } else{
       console.log("username or password incorrect");
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
     },error1 => {
       console.log(error1);
       console.log("username or password incorrect");
-      this.user.password="";
+
     })
   }
 

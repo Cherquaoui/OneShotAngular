@@ -22,7 +22,7 @@ export class ModifierGoComponent implements OnInit {
 
   ngOnInit() {
     this.go.getGoByCodeSite(this.activatedRoute.snapshot.params['codeSite']).subscribe(data => {
-      this.monGo = data;
+      this.monGo = data.body;
       this.monGo.codeSite = this.activatedRoute.snapshot.params['codeSite'];
     },error1 => this.router.navigateByUrl('/login'))
   }

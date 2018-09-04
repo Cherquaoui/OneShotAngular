@@ -18,7 +18,7 @@ export class ElecTravModifierComponent implements OnInit {
 
   ngOnInit() {
     this.elecService.getElecTrav(this.activatedRoute.snapshot.params['codeSite']).subscribe(data=>{
-      this.elecTrav=data;
+      this.elecTrav=data.body;
       this.elecTrav.codeSite=this.activatedRoute.snapshot.params['codeSite'];
       console.log(this.elecTrav)})
   }
