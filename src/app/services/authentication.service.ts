@@ -5,8 +5,8 @@ import {Router} from '@angular/router';
 @Injectable()
 export class AuthenticationService {
 
-/*  private url = 'https://one-shot-app.herokuapp.com';*/
-  private  url = 'http://localhost:8090';
+  private url = 'https://one-shot-app.herokuapp.com';
+/*  private  url = 'http://localhost:8090';*/
   private token: string = null;
 
   private isLog = false;
