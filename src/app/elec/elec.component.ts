@@ -13,54 +13,57 @@ export class ElecComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource();
-  elec:electrification2[]=[];
-  length=0
+  elec: electrification2[] = [];
+  length = 0;
 
-  interval
-  refreshData(){
-    this.goService.getOneShot(0).subscribe(data=>{
-        for(let monsite of data.body["content"]){
-          if(monsite.cw!==null && monsite.electrification!==null && monsite.electrification.elecTrav!==null){
-            let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
-              monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
-              monsite.electrification.payementDevis,monsite.electrification.autorisation,monsite.electrification.debutTravaux,monsite.electrification.finTravaux,
-              monsite.electrification.reception,monsite.electrification.poseCompteur,monsite.electrification.elecTrav.btA,monsite.electrification.elecTrav.btS,
-              monsite.electrification.elecTrav.btSRf,monsite.electrification.elecTrav.btNiche,monsite.electrification.elecTrav.equipeElec);
-            this.elec.push(elect);
-          }}
-        this.dataSource.data=this.elec;
-        this.dataSource.paginator = this.paginator;
+  interval;
 
-      this.length=data.body["totalElements"];
+  refreshData(data) {
+    this.goService.getOneShot(data).subscribe(data => {
+      for (let monsite of data.body['content']) {
+        if (monsite.cw !== null && monsite.electrification !== null && monsite.electrification.elecTrav !== null) {
+          let elect = new electrification2(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie, monsite.cw.etatCw,
+            monsite.electrification.elecEtat, monsite.electrification.regie, monsite.electrification.ndossier, monsite.electrification.depotDemande, monsite.electrification.etude, monsite.electrification.devis,
+            monsite.electrification.payementDevis, monsite.electrification.autorisation, monsite.electrification.debutTravaux, monsite.electrification.finTravaux,
+            monsite.electrification.reception, monsite.electrification.poseCompteur, monsite.electrification.elecTrav.btA, monsite.electrification.elecTrav.btS,
+            monsite.electrification.elecTrav.btSRf, monsite.electrification.elecTrav.btNiche, monsite.electrification.elecTrav.equipeElec);
+          this.elec.push(elect);
+        }
+      }
+      this.dataSource.data = this.elec;
 
-      console.log(this.length)
-      },error1 => this.router.navigateByUrl('/login'))
+
+      this.length = data.body['totalElements'];
+
+      console.log(this.length);
+    }, error1 => this.router.navigateByUrl('/login'));
 
     clearInterval(this.interval);
 
   }
 
-  constructor(private goService:GoService,
-              private router:Router) { }
+  constructor(private goService: GoService,
+              private router: Router) {
+  }
 
 
   ngOnInit() {
-    this.interval = setInterval(() => {
-      this.refreshData();
-    }, 10);
+
+    this.refreshData(0);
+
 
   }
 
 
-
-  displayedColumnsDate:string[] = ['codeSite', 'depotDemande',
-    'etude','devis','payementDevis','autorisation','debutTravaux','finTravaux','reception',
-    'abonnement','poseCompteur'];
-  displayedColumnsDivers:string[] = ['codeSite','dateGo','typologie','etatCw','elecEtat','regie','ndossier',
+  displayedColumnsDate: string[] = ['codeSite', 'depotDemande',
+    'etude', 'devis', 'payementDevis', 'autorisation', 'debutTravaux', 'finTravaux', 'reception',
+    'abonnement', 'poseCompteur'];
+  displayedColumnsDivers: string[] = ['codeSite', 'dateGo', 'typologie', 'etatCw', 'elecEtat', 'regie', 'ndossier',
     'poseCompteur'];
-  displayedColumnsTrav:string[] = ['codeSite','typologie','equipeElec','bta','bts','btsrf','btniche','poseCompteur'];
+  displayedColumnsTrav: string[] = ['codeSite', 'typologie', 'equipeElec', 'bta', 'bts', 'btsrf', 'btniche', 'poseCompteur'];
 
   displayedColumns: string[] = this.displayedColumnsDivers;
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
@@ -68,49 +71,57 @@ export class ElecComponent implements OnInit {
     }
   }
 
-  monClique(){this.displayedColumns=this.displayedColumnsDivers}
-  monClique1(){this.displayedColumns=this.displayedColumnsDate}
-  monClique2(){this.displayedColumns=this.displayedColumnsTrav}
-
-  modifier(data){
-    console.log(data)
-    this.router.navigate(['elec',data]);
+  monClique() {
+    this.displayedColumns = this.displayedColumnsDivers;
   }
 
-  modifierTrav(data){
-    this.router.navigate(['elec/trav',data]);
+  monClique1() {
+    this.displayedColumns = this.displayedColumnsDate;
   }
 
-  page(page:PageEvent){
-    this.elec=[];
-    this.goService.getOneShot(page.pageIndex).subscribe(data=>{
-      for(let monsite of data.body["content"]){
-        if(monsite.cw!==null && monsite.electrification!==null && monsite.electrification.elecTrav!==null){
-          let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
-            monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
-            monsite.electrification.payementDevis,monsite.electrification.autorisation,monsite.electrification.debutTravaux,monsite.electrification.finTravaux,
-            monsite.electrification.reception,monsite.electrification.poseCompteur,monsite.electrification.elecTrav.btA,monsite.electrification.elecTrav.btS,
-            monsite.electrification.elecTrav.btSRf,monsite.electrification.elecTrav.btNiche,monsite.electrification.elecTrav.equipeElec);
+  monClique2() {
+    this.displayedColumns = this.displayedColumnsTrav;
+  }
+
+  modifier(data) {
+    console.log(data);
+    this.router.navigate(['elec', data]);
+  }
+
+  modifierTrav(data) {
+    this.router.navigate(['elec/trav', data]);
+  }
+
+  page(page: PageEvent) {
+    this.elec = [];
+    this.goService.getOneShot(page.pageIndex).subscribe(data => {
+      for (let monsite of data.body['content']) {
+        if (monsite.cw !== null && monsite.electrification !== null && monsite.electrification.elecTrav !== null) {
+          let elect = new electrification2(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie, monsite.cw.etatCw,
+            monsite.electrification.elecEtat, monsite.electrification.regie, monsite.electrification.ndossier, monsite.electrification.depotDemande, monsite.electrification.etude, monsite.electrification.devis,
+            monsite.electrification.payementDevis, monsite.electrification.autorisation, monsite.electrification.debutTravaux, monsite.electrification.finTravaux,
+            monsite.electrification.reception, monsite.electrification.poseCompteur, monsite.electrification.elecTrav.btA, monsite.electrification.elecTrav.btS,
+            monsite.electrification.elecTrav.btSRf, monsite.electrification.elecTrav.btNiche, monsite.electrification.elecTrav.equipeElec);
           this.elec.push(elect);
-        }}
-      this.dataSource= new MatTableDataSource(this.elec);
+        }
+      }
+      this.dataSource = new MatTableDataSource(this.elec);
       this.dataSource.sort = this.sort;
-      this.dataSource["pageIndex"] = page.pageIndex;
-    },error1 => this.router.navigateByUrl('/login'))
+      this.dataSource['pageIndex'] = page.pageIndex;
+    }, error1 => this.router.navigateByUrl('/login'));
 
 
   }
-
 
 
 }
 
-export class electrification2{
+export class electrification2 {
 
 
-  constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string, elecEtat: string, regie: string,ndossier:number,
+  constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string, elecEtat: string, regie: string, ndossier: number,
               depotDemande: string, etude: string, devis: string, payementDevis: string, autorisation: string, debutTravaux:
-                string, finTravaux: string, reception: string, poseCompteur: string, btA: number, btS: number, btSRf: number, btNiche: number, equipeElec:string) {
+                string, finTravaux: string, reception: string, poseCompteur: string, btA: number, btS: number, btSRf: number, btNiche: number, equipeElec: string) {
 
     this.codeSite = codeSite;
     this.dateGo = dateGo;
@@ -118,7 +129,7 @@ export class electrification2{
     this.etatCw = etatCw;
     this.elecEtat = elecEtat;
     this.regie = regie;
-    this.ndossier=ndossier;
+    this.ndossier = ndossier;
     this.depotDemande = depotDemande;
     this.etude = etude;
     this.devis = devis;
@@ -135,25 +146,25 @@ export class electrification2{
     this.equipeElec = equipeElec;
   }
 
-  codeSite : string;
-  dateGo:string;
-  typologie:string;
-  etatCw:string;
-  elecEtat:string;
-  regie : string;
-  ndossier:number;
-  depotDemande : string;
-  etude : string;
-  devis : string;
-  payementDevis : string;
-  autorisation : string;
-  debutTravaux : string;
-  finTravaux : string;
-  reception : string;
-  poseCompteur : string;
-  btA : number;
-  btS : number;
-  btSRf : number;
-  btNiche : number;
-  equipeElec : string;
+  codeSite: string;
+  dateGo: string;
+  typologie: string;
+  etatCw: string;
+  elecEtat: string;
+  regie: string;
+  ndossier: number;
+  depotDemande: string;
+  etude: string;
+  devis: string;
+  payementDevis: string;
+  autorisation: string;
+  debutTravaux: string;
+  finTravaux: string;
+  reception: string;
+  poseCompteur: string;
+  btA: number;
+  btS: number;
+  btSRf: number;
+  btNiche: number;
+  equipeElec: string;
 }
