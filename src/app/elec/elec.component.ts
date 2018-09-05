@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
 
@@ -14,12 +14,13 @@ export class ElecComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource();
   elec:electrification2[]=[];
+  length=0
 
   interval
   refreshData(){
-    this.goService.getOneShot().subscribe(data=>{
-        for(let monsite of data.body){
-          if(monsite.cw!==null){
+    this.goService.getOneShot(0).subscribe(data=>{
+        for(let monsite of data.body.content){
+          if(monsite.cw!==null && monsite.electrification!==null && monsite.electrification.elecTrav!==null){
             let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
               monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
               monsite.electrification.payementDevis,monsite.electrification.autorisation,monsite.electrification.debutTravaux,monsite.electrification.finTravaux,
@@ -30,6 +31,9 @@ export class ElecComponent implements OnInit {
         this.dataSource.data=this.elec;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      this.length=data.body.totalElements;
+      this.dataSource.length=data.body.totalElements;
+      console.log(this.length)
       },error1 => this.router.navigateByUrl('/login'))
 
     clearInterval(this.interval);
@@ -75,6 +79,26 @@ export class ElecComponent implements OnInit {
 
   modifierTrav(data){
     this.router.navigate(['elec/trav',data]);
+  }
+
+  page(page:PageEvent){
+    this.elec=[];
+    this.goService.getOneShot(page.pageIndex).subscribe(data=>{
+      for(let monsite of data.body.content){
+        if(monsite.cw!==null && monsite.electrification!==null && monsite.electrification.elecTrav!==null){
+          let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
+            monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
+            monsite.electrification.payementDevis,monsite.electrification.autorisation,monsite.electrification.debutTravaux,monsite.electrification.finTravaux,
+            monsite.electrification.reception,monsite.electrification.poseCompteur,monsite.electrification.elecTrav.btA,monsite.electrification.elecTrav.btS,
+            monsite.electrification.elecTrav.btSRf,monsite.electrification.elecTrav.btNiche,monsite.electrification.elecTrav.equipeElec);
+          this.elec.push(elect);
+        }}
+      this.dataSource= new MatTableDataSource<any>(this.elec);
+      this.dataSource.sort = this.sort;
+      this.dataSource.pageIndex = page.pageIndex;
+    },error1 => this.router.navigateByUrl('/login'))
+
+
   }
 
 

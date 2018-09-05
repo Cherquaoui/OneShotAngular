@@ -12,7 +12,6 @@ import {MatButtonModule, MatCheckboxModule, MatNativeDateModule} from '@angular/
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import {GoService} from './services/go.service';
-import {OneshotComponent} from './oneshot/oneshot.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -35,6 +34,7 @@ import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-mod
 import { LoginComponent } from './login/login.component';
 import {AuthenticationService} from "./services/authentication.service";
 import {AuthGuard} from "./services/auth.guard";
+import {OneshotComponent} from './oneshot/oneshot.component';
 
 
 @NgModule({

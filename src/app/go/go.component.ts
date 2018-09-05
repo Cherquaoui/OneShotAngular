@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GoService} from '../services/go.service';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
 
 
@@ -12,18 +12,32 @@ import {Router} from '@angular/router';
 })
 export class GoComponent implements OnInit, OnDestroy{
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
   @ViewChild(MatSort) sort: MatSort;
+  length:number=0
 
   constructor(private goService:GoService,
               private router:Router) { }
 
   dataSource;
   interval;
-  refreshData(){
-    this.goService.getGo().subscribe(data=>{
-      this.dataSource=new MatTableDataSource(data.body);
+
+  newPage(data){
+    this.goService.getGo(data).subscribe(data=>{
+      this.dataSource.data = data.body;
+
+    });
+
+  }
+  refreshData(data){
+    this.goService.getGo(data).subscribe(data=>{
+
+      this.dataSource=new MatTableDataSource(data.body.content);
+      console.log(this.dataSource)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.length=data.body.totalElements;
+
 
 
 
@@ -37,7 +51,7 @@ export class GoComponent implements OnInit, OnDestroy{
     console.log("OnInit");
 
       this.interval = setInterval(() => {
-        this.refreshData();
+        this.refreshData(0);
       }, 500);
 
   }
@@ -61,4 +75,15 @@ export class GoComponent implements OnInit, OnDestroy{
     console.log("destroy")
     clearInterval(this.interval)
   }
+  page(page:PageEvent){
+    this.goService.getGo(page.pageIndex).subscribe(data=>{
+
+      this.dataSource=new MatTableDataSource(data.body.content);
+      console.log(this.dataSource)
+      this.dataSource.sort = this.sort;
+      this.dataSource.pageIndex = page.pageIndex;
+      this.dataSource.totalSize=page.length;
+        this.length=data.body.totalElements;
+  }
+}
 }

@@ -1,4 +1,6 @@
-<mat-toolbar class="d-flex justify-content-center" >
+<mat-toolbar class="d-flex justify-content-center"  *ngIf="!authentication.getIsLog()">SBI One Shot Application </mat-toolbar>
+
+<mat-toolbar class="d-flex justify-content-center" *ngIf="authentication.getIsLog()">
 
   <div>
   <button mat-button routerLink="go" routerLinkActive="active">Go</button>

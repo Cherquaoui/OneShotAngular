@@ -3,7 +3,6 @@ import {GoService} from '../services/go.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {OneShot} from '../entities/composition/OneShot';
 import {map, startWith} from 'rxjs/internal/operators';
 
 @Component({
@@ -33,7 +32,7 @@ export class OneshotComponent implements OnInit {
 
 
     this.goService.getOneShot().subscribe(data=>{
-        this.dataSource=new MatTableDataSource(data);
+        this.dataSource=new MatTableDataSource(data.body);
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

@@ -15,6 +15,6 @@ export class Electrification {
   finTravaux : string;
   reception : string;
   poseCompteur : string;
-  elecTrav : ElecTrav;
+  elecTrav ?: ElecTrav;
 
 }

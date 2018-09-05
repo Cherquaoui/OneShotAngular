@@ -26,7 +26,7 @@ export class CwComponent implements OnInit {
   refreshData(){
     this.goService.getOneShot().subscribe(data => {
       for (let monsite of data.body) {
-        if (monsite.cw != null) {
+        if (monsite.cw != null && monsite.electrification!=null) {
           let cw = new CwObject(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie,
             monsite.cw.etatCw,monsite.cw.equipeCw ,monsite.electrification.elecEtat, monsite.cw.ouverture, monsite.cw.fouilles,
             monsite.cw.coulage, monsite.cw.montage, monsite.cw.finCw, monsite.electrification.poseCompteur, monsite.cw.commentairesCw);
