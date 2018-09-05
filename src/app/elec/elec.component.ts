@@ -30,9 +30,9 @@ export class ElecComponent implements OnInit {
           }}
         this.dataSource.data=this.elec;
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+
       this.length=data.body.totalElements;
-      this.dataSource.length=data.body.totalElements;
+
       console.log(this.length)
       },error1 => this.router.navigateByUrl('/login'))
 

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
 
@@ -12,6 +12,7 @@ export class CwComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  lenght
 
   interval;
   cwObject: CwObject[] = [];
@@ -24,8 +25,8 @@ export class CwComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   refreshData(){
-    this.goService.getOneShot().subscribe(data => {
-      for (let monsite of data.body) {
+    this.goService.getOneShot(0).subscribe(data => {
+      for (let monsite of data.body.content) {
         if (monsite.cw != null && monsite.electrification!=null) {
           let cw = new CwObject(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie,
             monsite.cw.etatCw,monsite.cw.equipeCw ,monsite.electrification.elecEtat, monsite.cw.ouverture, monsite.cw.fouilles,
@@ -33,9 +34,10 @@ export class CwComponent implements OnInit {
           this.cwObject.push(cw);
         }
       }
-      this.dataSource.data = this.cwObject;
+      this.dataSource = new MatTableDataSource<any>(this.cwObject);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.lenght=data.body.totalElements;
     },error1 => this.router.navigateByUrl('/login'))
     clearInterval(this.interval);
   }
@@ -69,6 +71,25 @@ export class CwComponent implements OnInit {
   modifier(data) {
     console.log(data);
     this.router.navigate(['cw', data]);
+  }
+
+  page(page:PageEvent){
+
+    this.goService.getOneShot(page.pageIndex).subscribe(data => {
+      this.cwObject=[]
+
+      for (let monsite of data.body.content) {
+        if (monsite.cw != null && monsite.electrification!=null) {
+          let cw = new CwObject(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie,
+            monsite.cw.etatCw,monsite.cw.equipeCw ,monsite.electrification.elecEtat, monsite.cw.ouverture, monsite.cw.fouilles,
+            monsite.cw.coulage, monsite.cw.montage, monsite.cw.finCw, monsite.electrification.poseCompteur, monsite.cw.commentairesCw);
+          this.cwObject.push(cw);
+        }
+      }
+      this.dataSource = new MatTableDataSource<any>(this.cwObject);
+      this.dataSource.pageIndex = page.pageIndex;
+      this.dataSource.sort = this.sort;
+
   }
 
 
