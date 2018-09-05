@@ -90,14 +90,14 @@ export class CwComponent implements OnInit {
       this.dataSource.pageIndex = page.pageIndex;
       this.dataSource.sort = this.sort;
 
-  }
+  })
 
 
 }
 
 
 ///////////////////////////////////////
-class CwObject {
+export class CwObject {
 
   constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string,equipeCw:string, elecEtat:
     string, ouverture: string, fouilles: string, coulage: string, montage: string, finCw: string, poseCompteur: string, commentairesCw: string) {
