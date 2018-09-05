@@ -34,14 +34,12 @@ import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-mod
 import { LoginComponent } from './login/login.component';
 import {AuthenticationService} from "./services/authentication.service";
 import {AuthGuard} from "./services/auth.guard";
-import {OneshotComponent} from './oneshot/oneshot.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GoComponent,
-    OneshotComponent,
     AjouterGoComponent,
     CwComponent,
     ElecComponent,

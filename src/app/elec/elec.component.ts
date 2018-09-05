@@ -93,7 +93,7 @@ export class ElecComponent implements OnInit {
             monsite.electrification.elecTrav.btSRf,monsite.electrification.elecTrav.btNiche,monsite.electrification.elecTrav.equipeElec);
           this.elec.push(elect);
         }}
-      this.dataSource= new MatTableDataSource<any>(this.elec);
+      this.dataSource= new MatTableDataSource(this.elec);
       this.dataSource.sort = this.sort;
       this.dataSource.pageIndex = page.pageIndex;
     },error1 => this.router.navigateByUrl('/login'))

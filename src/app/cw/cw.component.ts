@@ -86,7 +86,7 @@ export class CwComponent implements OnInit {
           this.cwObject.push(cw);
         }
       }
-      this.dataSource = new MatTableDataSource<any>(this.cwObject);
+      this.dataSource = new MatTableDataSource(this.cwObject);
       this.dataSource.pageIndex = page.pageIndex;
       this.dataSource.sort = this.sort;
 

@@ -21,7 +21,7 @@ export class GoService {
     console.log("chargement des go");
     if(page==null){page=0}
 
-    return this.http.get<Go[]>(this.authentication.getUrl()+'/go?page='+page,{
+    return this.http.get(this.authentication.getUrl()+'/go?page='+page,{
 
       observe: 'response' as 'response'
     });
@@ -32,7 +32,7 @@ export class GoService {
 
   getOneShot(page:number){
     if(page==null){page=0}
-    return this.http.get<OneShot[]>(this.authentication.getUrl()+'/oneshot?page='+page,{observe: 'response' as 'response'})
+    return this.http.get(this.authentication.getUrl()+'/oneshot?page='+page,{observe: 'response' as 'response'})
   }
   saveGo(go:Go){
     return this.http.post(this.authentication.getUrl()+'/go',go,{observe: 'response' as 'response'});
