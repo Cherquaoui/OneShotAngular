@@ -53,7 +53,7 @@ export class GoComponent implements OnInit, OnDestroy{
 
       this.interval = setInterval(() => {
         this.refreshData(0);
-      }, 500);
+      }, 10);
 
   }
   displayedColumns: string[] = ['codeSite','dateGo','region', 'typologie','hauteur','latitude','longitude'];

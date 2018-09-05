@@ -47,7 +47,7 @@ export class ElecComponent implements OnInit {
   ngOnInit() {
     this.interval = setInterval(() => {
       this.refreshData();
-    }, 500);
+    }, 10);
 
   }
 
