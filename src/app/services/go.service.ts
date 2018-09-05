@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {OneShot} from '../entities/composition/OneShot';
 import {cw} from '../entities/cw';
 import {AuthenticationService} from "./authentication.service";
+import {Habib} from './Habib';
 
 
 @Injectable()

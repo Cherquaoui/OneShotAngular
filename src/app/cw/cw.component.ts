@@ -26,7 +26,7 @@ export class CwComponent implements OnInit {
 
   refreshData(){
     this.goService.getOneShot(0).subscribe(data => {
-      for (let monsite of data.body.content) {
+      for (let monsite of data.body["content"]) {
         if (monsite.cw != null && monsite.electrification!=null) {
           let cw = new CwObject(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie,
             monsite.cw.etatCw,monsite.cw.equipeCw ,monsite.electrification.elecEtat, monsite.cw.ouverture, monsite.cw.fouilles,
@@ -37,7 +37,7 @@ export class CwComponent implements OnInit {
       this.dataSource = new MatTableDataSource<any>(this.cwObject);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.lenght=data.body.totalElements;
+      this.lenght=data.body["totalElements"];
     },error1 => this.router.navigateByUrl('/login'))
     clearInterval(this.interval);
   }
@@ -78,7 +78,7 @@ export class CwComponent implements OnInit {
     this.goService.getOneShot(page.pageIndex).subscribe(data => {
       this.cwObject=[]
 
-      for (let monsite of data.body.content) {
+      for (let monsite of data.body["content"]) {
         if (monsite.cw != null && monsite.electrification!=null) {
           let cw = new CwObject(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie,
             monsite.cw.etatCw,monsite.cw.equipeCw ,monsite.electrification.elecEtat, monsite.cw.ouverture, monsite.cw.fouilles,
@@ -87,7 +87,7 @@ export class CwComponent implements OnInit {
         }
       }
       this.dataSource = new MatTableDataSource(this.cwObject);
-      this.dataSource.pageIndex = page.pageIndex;
+      this.dataSource["pageIndex"] = page.pageIndex;
       this.dataSource.sort = this.sort;
 
   })

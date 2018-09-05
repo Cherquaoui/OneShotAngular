@@ -19,7 +19,7 @@ export class ElecComponent implements OnInit {
   interval
   refreshData(){
     this.goService.getOneShot(0).subscribe(data=>{
-        for(let monsite of data.body.content){
+        for(let monsite of data.body["content"]){
           if(monsite.cw!==null && monsite.electrification!==null && monsite.electrification.elecTrav!==null){
             let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
               monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
@@ -31,7 +31,7 @@ export class ElecComponent implements OnInit {
         this.dataSource.data=this.elec;
         this.dataSource.paginator = this.paginator;
 
-      this.length=data.body.totalElements;
+      this.length=data.body["totalElements"];
 
       console.log(this.length)
       },error1 => this.router.navigateByUrl('/login'))
@@ -84,7 +84,7 @@ export class ElecComponent implements OnInit {
   page(page:PageEvent){
     this.elec=[];
     this.goService.getOneShot(page.pageIndex).subscribe(data=>{
-      for(let monsite of data.body.content){
+      for(let monsite of data.body["content"]){
         if(monsite.cw!==null && monsite.electrification!==null && monsite.electrification.elecTrav!==null){
           let elect = new electrification2(monsite.codeSite.toString(),monsite.dateGo,monsite.typologie,monsite.cw.etatCw,
             monsite.electrification.elecEtat,monsite.electrification.regie,monsite.electrification.ndossier,monsite.electrification.depotDemande,monsite.electrification.etude,monsite.electrification.devis,
@@ -95,7 +95,7 @@ export class ElecComponent implements OnInit {
         }}
       this.dataSource= new MatTableDataSource(this.elec);
       this.dataSource.sort = this.sort;
-      this.dataSource.pageIndex = page.pageIndex;
+      this.dataSource["pageIndex"] = page.pageIndex;
     },error1 => this.router.navigateByUrl('/login'))
 
 
