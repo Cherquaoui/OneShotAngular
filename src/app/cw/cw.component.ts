@@ -92,15 +92,17 @@ export class CwComponent implements OnInit {
 
   })
 
-
+  }
 }
 
 
 ///////////////////////////////////////
-export class CwObject {
+  export class CwObject {
 
-  constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string,equipeCw:string, elecEtat:
-    string, ouverture: string, fouilles: string, coulage: string, montage: string, finCw: string, poseCompteur: string, commentairesCw: string) {
+  constructor(codeSite: string, dateGo: string, typologie: string,
+              etatCw: string,equipeCw:string, elecEtat:string,
+              ouverture: string, fouilles: string, coulage: string,
+              montage: string, finCw: string, poseCompteur: string, commentairesCw: string) {
     this.codeSite = codeSite;
     this.dateGo = dateGo;
     this.typologie = typologie;
