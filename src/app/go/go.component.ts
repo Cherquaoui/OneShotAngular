@@ -79,11 +79,11 @@ export class GoComponent implements OnInit, OnDestroy{
     this.goService.getGo(page.pageIndex).subscribe(data=>{
 
       this.dataSource=new MatTableDataSource(data.body.content);
-      console.log(this.dataSource)
+      console.log(this.dataSource);
       this.dataSource.sort = this.sort;
       this.dataSource.pageIndex = page.pageIndex;
       this.dataSource.totalSize=page.length;
         this.length=data.body.totalElements;
-  }
+  })
 }
 }
