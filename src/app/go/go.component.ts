@@ -60,7 +60,11 @@ export class GoComponent implements OnInit {
       data => {
         this.dataSource.data = data.body['content'];
         this.monlength = data.body['totalElements'];
+      },error1 => {
+        this.router.navigate(['login']);
+        console.log("error")
       }
+
     );
 
     if(this.recherche=="" && this.filtreTypologie=="" && this.filtreRegion==""){

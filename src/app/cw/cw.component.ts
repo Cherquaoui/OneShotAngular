@@ -9,34 +9,23 @@ import {Router} from '@angular/router';
   styleUrls: ['./cw.component.css']
 })
 export class CwComponent implements OnInit {
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   lenght;
+  dataSource:MatTableDataSource<any>;
 
   cwObject: CwObject[] = [];
 
   constructor(private goService: GoService,
               private router: Router) {
+    this.dataSource = new MatTableDataSource();
   }
 
 
-  dataSource = new MatTableDataSource();
+
+
 
   refreshData(data) {
-    this.cwObject = [];
     this.goService.getOneShot(data).subscribe(data => {
-      for (let monsite of data.body['content']) {
-        if (monsite.cw != null && monsite.electrification != null) {
-          let cw = new CwObject(monsite.codeSite.toString(), monsite.dateGo, monsite.typologie,
-            monsite.cw.etatCw, monsite.cw.equipeCw, monsite.electrification.elecEtat, monsite.cw.ouverture, monsite.cw.fouilles,
-            monsite.cw.coulage, monsite.cw.montage, monsite.cw.finCw, monsite.electrification.poseCompteur, monsite.cw.commentairesCw);
-          this.cwObject.push(cw);
-        }
-      }
-      this.dataSource = new MatTableDataSource(this.cwObject);
-
-      this.dataSource.sort = this.sort;
+      this.dataSource.data=data.body["content"];
       this.lenght = data.body['totalElements'];
     }, error1 => this.router.navigateByUrl('/login'));
 
@@ -78,7 +67,7 @@ export class CwComponent implements OnInit {
 
     this.refreshData(page.pageIndex);
       this.dataSource['pageIndex'] = page.pageIndex;
-      this.dataSource.sort = this.sort;
+
 
     };
 

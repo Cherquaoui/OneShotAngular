@@ -44,7 +44,7 @@
       </ng-container>
       <ng-container matColumnDef="etatCw" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header  >Etat CW</th>
-        <td mat-cell *matCellDef="let oneshot" > {{oneshot.etatCw}} </td>
+        <td mat-cell *matCellDef="let oneshot " > {{oneshot.cw.etatCw}} </td>
       </ng-container>
 
       <ng-container matColumnDef="typologie" >
@@ -54,47 +54,47 @@
 
       <ng-container matColumnDef="poseCompteur" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header  >Date Electrification</th>
-        <td mat-cell *matCellDef="let oneshot" > {{oneshot.poseCompteur}} </td>
+        <td mat-cell *matCellDef="let oneshot" > {{oneshot.electrification.poseCompteur}} </td>
       </ng-container>
       <ng-container matColumnDef="elecEtat" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header  >Etat Electrification</th>
-        <td mat-cell *matCellDef="let oneshot" > {{oneshot.elecEtat}} </td>
+        <td mat-cell *matCellDef="let oneshot" > {{oneshot.electrification?.elecEtat}} </td>
       </ng-container>
 
 
 
       <ng-container matColumnDef="equipeCw">
         <th mat-header-cell *matHeaderCellDef  mat-sort-header>Equipe</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.equipeCw}} </td>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.equipeCw}} </td>
 
       </ng-container>
       <ng-container matColumnDef="ouverture">
         <th mat-header-cell *matHeaderCellDef  mat-sort-header>Ouverture</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.ouverture}} </td>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.ouverture}} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="fouilles" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header  >Fouilles</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.fouilles}} </td>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.fouilles}} </td>
       </ng-container>
 
       <ng-container matColumnDef="coulage" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Coulage</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.coulage}} </td>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.coulage}} </td>
       </ng-container>
 
       <ng-container matColumnDef="montage">
         <th mat-header-cell *matHeaderCellDef   mat-sort-header>Montage</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.montage}} </td>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.montage}} </td>
       </ng-container>
       <ng-container matColumnDef="finCw">
         <th mat-header-cell *matHeaderCellDef   mat-sort-header>finCw</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.finCw}} </td>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.finCw}} </td>
       </ng-container>
       <ng-container matColumnDef="commentairesCw" >
         <th mat-header-cell *matHeaderCellDef   mat-sort-header >Commentaires</th>
-        <td mat-cell *matCellDef="let oneshot" style="max-width: 60px"> {{oneshot.commentairesCw}} </td>
+        <td mat-cell *matCellDef="let oneshot" style="max-width: 60px"> {{oneshot.cw.commentairesCw}} </td>
       </ng-container>
 
 
