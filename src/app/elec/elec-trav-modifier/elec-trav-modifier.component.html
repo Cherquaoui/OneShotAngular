@@ -1,0 +1,27 @@
+<form class="d-flex justify-content-center" #myForm="ngForm" (ngSubmit)="modifier()">
+  <div class="col-3 d-flex flex-column">
+    <div style="margin-top: 30px">
+      <h3>Modifier travaux : {{elecTrav.codeSite}}</h3>
+    </div>
+    <mat-form-field style="margin-top: 30px">
+      <input matInput placeholder="Equipe" name="equipeElec" type="string" [(ngModel)]="elecTrav.equipeElec">
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="BT Aérien" name="btA" type="number" [(ngModel)]="elecTrav.btA">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="BT Sous-terrain" name="btS" type="number" [(ngModel)]="elecTrav.btS">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="BT avec réfection trottoir" name="btSRf" type="number" [(ngModel)]="elecTrav.btSRf">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Murette" name="btNiche" type="number" [(ngModel)]="elecTrav.btNiche">
+    </mat-form-field>
+    <div class="d-flex justify-content-center">
+      <button mat-raised-button color="primary" class="col-4" type="submit">Modifier</button>
+      <div class="col-2"></div>
+      <button mat-raised-button color="primary" class="col-4" (click)="retour()">Retour</button>
+    </div>
+  </div>
+</form>

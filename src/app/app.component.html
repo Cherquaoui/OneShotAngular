@@ -1,0 +1,25 @@
+<mat-toolbar class="d-flex justify-content-center"  *ngIf="!authentication.getIsLog()">SBI One Shot Application </mat-toolbar>
+
+<mat-toolbar class="d-flex justify-content-center" *ngIf="authentication.getIsLog()">
+
+  <div>
+  <button mat-button routerLink="go" routerLinkActive="active">Go</button>
+  <button mat-button routerLink="cw" routerLinkActive="active">CW</button>
+  <button mat-button routerLink="elec" routerLinkActive="active">Electrification</button>
+  <button mat-button routerLink="oneshot" routerLinkActive="active">Radio</button>
+  <button mat-button>Transmission</button>
+  </div>
+
+  <button mat-button>Carte des sites</button>
+  <div class="ml-auto">
+  <button mat-button *ngIf="authentication.getIsLog()"  (click)="logOut()" >Logout</button>
+
+</div>
+  <div class="ml-auto p-1"></div>
+
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+

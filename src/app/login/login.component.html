@@ -1,0 +1,18 @@
+
+<div class="d-flex justify-content-center" style="margin-top: 100px">
+
+
+<form #f="ngForm" class="d-flex flex-column justify-content-center" (ngSubmit)="submit(f.value)" style="width: 20%">
+
+  <h3 style="margin-bottom: 20px">Identifiez vous :</h3>
+    <mat-form-field>
+    <input matInput type="text" placeholder="username" [(ngModel)]="user.username" name="username" required>
+    </mat-form-field>
+
+<mat-form-field>
+
+  <input matInput type="password" placeholder="password" [(ngModel)]="user.password" name="password" required>
+</mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Log In</button>
+</form>
+</div>

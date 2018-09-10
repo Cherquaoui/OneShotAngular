@@ -1,0 +1,33 @@
+.centrer{
+  width: 80%;
+}
+.recherche{
+
+  text-align:center; vertical-align:middle;
+
+  margin-top: 10px;
+  height: 40px;
+
+}
+
+button{
+  text-align:center; vertical-align:middle;
+  height: 40px;
+  margin-right: 10px;
+}
+th{
+
+  font-size: 15px;
+  font-weight:bold;
+
+
+}
+td{
+}
+mat-form-field{
+  margin-right: 10px;
+}
+
+mat-slide-toggle{
+  margin-left: 15px;
+}

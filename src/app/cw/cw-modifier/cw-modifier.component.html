@@ -1,0 +1,77 @@
+<div class="d-flex justify-content-center" style="margin-top: 30px">
+  <h3>Modifier CW : {{cw.codeSite}}</h3>
+</div>
+<div class="d-flex justify-content-center" style="margin-top: 10px">
+
+  <form class="d-flex justify-content-center" #myForm="ngForm" (ngSubmit)="envoyer()" style="width: 50%;">
+
+    <div class="d-flex flex-column  col-6">
+      <mat-form-field>
+        <mat-select placeholder="Etat Cw" [(ngModel)]="cw.etatCw" name="etatCw">
+          <mat-option value="00-Attente ouverture">00-Attente ouverture</mat-option>
+          <mat-option value="01-Attente fouilles">01-Attente fouilles</mat-option>
+          <mat-option value="02-Attente coulage">02-Attente coulage</mat-option>
+          <mat-option value="03-Attente montage">03-Attente montage</mat-option>
+          <mat-option value="04-Attente fin CW">04-Attente fin CW</mat-option>
+          <mat-option va lue="TT-Temporisé">XX-Temporisé</mat-option>
+          <mat-option value="XX-Bloqué">XX-Bloqué</mat-option>
+          <mat-option value="LL-Livré">LL-Livré</mat-option>
+          <mat-option value="ZZ-Cw non SBI">ZZ-CW non SBI</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Equipe" [(ngModel)]="cw.equipeCw" name="equipeCw">
+      </mat-form-field>
+
+
+      <mat-form-field >
+        <textarea rows="10" matInput placeholder="Commentaires" [(ngModel)]="cw.commentairesCw" name="commentairesCw"></textarea>
+      </mat-form-field>
+
+    </div>
+    <div class="d-flex flex-column  col-6">
+      <mat-form-field>
+        <input matInput placeholder="Ouverture" [matDatepicker]="picker" bsDatepicker [(ngModel)]="cw.ouverture"
+               name="ouverture">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Fouilles" [matDatepicker]="picker1" bsDatepicker [(ngModel)]="cw.fouilles"
+               name="fouilles">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Coulage" [matDatepicker]="picker2" bsDatepicker [(ngModel)]="cw.coulage"
+               name="coulage">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Montage" [matDatepicker]="picker3" bsDatepicker [(ngModel)]="cw.montage"
+               name="montage">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Fin CW" [matDatepicker]="picker4" bsDatepicker [(ngModel)]="cw.finCw"
+               name="finCw">
+        <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+        <mat-datepicker #picker4></mat-datepicker>
+      </mat-form-field>
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button class="col-6" color="primary" type="submit" style="border-style: dot-dash">Valider</button>
+        <button mat-raised-button class="col-6" color="primary" (click)="retour()" style="border-style: dot-dash">Retour</button>
+      </div>
+
+    </div>
+
+
+
+  </form>
+
+
+</div>
+
