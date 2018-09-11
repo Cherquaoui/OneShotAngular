@@ -18,16 +18,19 @@ export class GoService {
 
   getGo(){
     console.log("chargement des go");
-    return this.http.get<Go[]>(this.authentication.getUrl()+'/go',{
+    return this.http.get<Go[]>(this.authentication.getUrl()+'/go',
+      {
        observe: 'response' as 'response'
     });
   }
   getGoByCodeSite(codeSite:string){
-    return this.http.get<Go>(this.authentication.getUrl()+'/go/'+codeSite,{observe: 'response' as 'response'});
+    return this.http.get<Go>(this.authentication.getUrl()+'/go/'+codeSite,
+      {observe: 'response' as 'response'});
   }
 
-  getOneShot(){
-    return this.http.get<OneShot[]>(this.authentication.getUrl()+'/oneshot',{observe: 'response' as 'response'})
+  getOneShot(page,size){
+    return this.http.get<OneShot[]>(this.authentication.getUrl()+'/oneshot?page='+page+'&&size='+size,
+      {observe: 'response' as 'response'})
   }
   saveGo(go:Go){
     return this.http.post(this.authentication.getUrl()+'/go',go,{observe: 'response' as 'response'});

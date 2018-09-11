@@ -10,29 +10,22 @@ import {Router} from '@angular/router';
 })
 export class CwComponent implements OnInit {
   lenght;
-  dataSource:MatTableDataSource<any>;
-
-  cwObject: CwObject[] = [];
+  dataSource: MatTableDataSource<any>;
 
   constructor(private goService: GoService,
               private router: Router) {
     this.dataSource = new MatTableDataSource();
   }
 
-
-
-
-
   refreshData(data) {
-    this.goService.getOneShot(data).subscribe(data => {
-      this.dataSource.data=data.body["content"];
+    this.goService.getOneShot().subscribe(data => {
+      this.dataSource.data = data.body["content"];
       this.lenght = data.body['totalElements'];
     }, error1 => this.router.navigateByUrl('/login'));
 
   }
 
   ngOnInit() {
-    console.log("----------init-----------------")
 
     this.refreshData(0);
 
@@ -51,12 +44,6 @@ export class CwComponent implements OnInit {
     this.displayedColumns = this.displayedColumns2;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
   modifier(data) {
     console.log(data);
@@ -64,51 +51,9 @@ export class CwComponent implements OnInit {
   }
 
   page(page: PageEvent) {
-
     this.refreshData(page.pageIndex);
-      this.dataSource['pageIndex'] = page.pageIndex;
+    this.dataSource['pageIndex'] = page.pageIndex;
+  };
 
-
-    };
-
-
-}
-
-
-///////////////////////////////////////
-export class CwObject {
-
-  constructor(codeSite: string, dateGo: string, typologie: string,
-              etatCw: string, equipeCw: string, elecEtat: string,
-              ouverture: string, fouilles: string, coulage: string,
-              montage: string, finCw: string, poseCompteur: string, commentairesCw: string) {
-    this.codeSite = codeSite;
-    this.dateGo = dateGo;
-    this.typologie = typologie;
-    this.etatCw = etatCw;
-    this.equipeCw = equipeCw;
-    this.elecEtat = elecEtat;
-    this.ouverture = ouverture;
-    this.fouilles = fouilles;
-    this.coulage = coulage;
-    this.montage = montage;
-    this.finCw = finCw;
-    this.poseCompteur = poseCompteur;
-    this.commentairesCw = commentairesCw;
-  }
-
-  codeSite: string;
-  dateGo: string;
-  typologie: string;
-  equipeCw: string;
-  etatCw: string;
-  elecEtat: string;
-  ouverture: string;
-  fouilles: string;
-  coulage: string;
-  montage: string;
-  finCw: string;
-  poseCompteur: string;
-  commentairesCw: string;
 
 }
