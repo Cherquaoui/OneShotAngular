@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GoService} from '../../services/go.service';
 import {Go} from '../../entities/Go';
+import {throttleTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-modifier-go',
@@ -29,7 +30,11 @@ export class ModifierGoComponent implements OnInit {
 
   envoyer() {
     this.go.updateGo(this.monGo).subscribe(data => console.log(data));
-    this.router.navigate(['/go']);
+    setTimeout(()=>{
+      this.router.navigate(['/go'])
+    },1000)
+
+    ;
   }
 
   retour() {

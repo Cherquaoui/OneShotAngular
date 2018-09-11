@@ -4,7 +4,7 @@
 <div class="col-7 d-flex flex-column justify-content-center">
 <div style="height: 50px">
   <mat-form-field >
-    <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="recherche" placeholder="Rechercher"
+    <input matInput [(ngModel)]="recherche" placeholder="Rechercher"
     [matAutocomplete]="auto" [formControl]="myControl">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let item of searchResult" [value]="item">

@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GoService} from '../services/go.service';
 import {MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
+import {debounceTime, throttleTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-go',
@@ -21,8 +22,12 @@ export class GoComponent implements OnInit {
 
   constructor(private goService: GoService,
               private router: Router) {
-    this.myControl.valueChanges.subscribe(data => this.goService.getCodeSite(data)
-      .subscribe(data2 => this.searchResult = data2.body));
+    this.myControl.valueChanges.pipe(debounceTime(500)).
+    subscribe(data => {
+      this.goService.getCodeSite(data,this.filtreRegion,this.filtreTypologie)
+        .subscribe(data2 => this.searchResult=data2);
+    this.maRecherche(0,10)});
+
   }
 
   dataSource = new MatTableDataSource();
@@ -34,9 +39,7 @@ export class GoComponent implements OnInit {
 
   displayedColumns: string[] = ['codeSite', 'dateGo', 'region', 'typologie', 'hauteur', 'latitude', 'longitude'];
 
-  applyFilter() {
-    this.maRecherche(0, 10);
-  }
+
 
   checked = false;
 
@@ -56,10 +59,14 @@ export class GoComponent implements OnInit {
 
   maRecherche(index, size) {
     console.log('recherche --------------------------------------');
-    this.goService.rechercheGo(this.recherche, index, size, this.filtreTypologie, this.filtreRegion).subscribe(
+    this.goService.rechercheGo(index, size,this.recherche,  this.filtreTypologie, this.filtreRegion).subscribe(
       data => {
+
         this.dataSource.data = data.body['content'];
+        console.log("datasource : " + this.dataSource.data);
         this.monlength = data.body['totalElements'];
+
+
       },error1 => {
         this.router.navigate(['login']);
         console.log("error")
@@ -79,6 +86,7 @@ export class GoComponent implements OnInit {
 
   modifier(data) {
     console.log(data);
+
     this.router.navigate(['go', data]);
   }
 
@@ -91,6 +99,6 @@ export class GoComponent implements OnInit {
   }
 
   page(page: PageEvent) {
-        this.maRecherche(page.pageIndex, page.pageSize)
+        this.maRecherche(page.pageIndex, page.pageSize);
   }
 }

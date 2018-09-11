@@ -4,13 +4,13 @@
     <input matInput placeholder="Code site" ngModel name="codeSite" required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Date Go" [matDatepicker]="picker" ngModel name="dateGo" required>
+    <input matInput placeholder="Date Go" [matDatepicker]="picker" ngModel name="dateGo" >
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Typologie" ngModel name="typologie" required>
+    <mat-select placeholder="Typologie" ngModel name="typologie" >
       <mat-option value="Lampadaire" >Lampadaire</mat-option>
       <mat-option value="LampadaireEsth">Lampadaire Esthétique</mat-option>
       <mat-option value="RT">Rooftop</mat-option>
@@ -19,10 +19,10 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Hauteur" ngModel type="number" name="hauteur" required>
+    <input matInput placeholder="Hauteur" ngModel type="number" name="hauteur" >
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="Région" ngModel type="text" name="region" required>
+    <mat-select placeholder="Région" ngModel type="text" name="region" >
       <mat-option value="Casablanca" >Casablanca</mat-option>
       <mat-option value="Rabat">Rabat</mat-option>
       <mat-option value="Agadir">Agadir</mat-option>
@@ -31,10 +31,10 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Latitude" ngModel type="number" name="latitude" required>
+    <input matInput placeholder="Latitude" ngModel type="number" name="latitude" >
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Longitude" ngModel type="number" name="longitude" required>
+    <input matInput placeholder="Longitude" ngModel type="number" name="longitude" >
   </mat-form-field>
   <div class="d-flex justify-content-around">
   <button mat-raised-button [disabled]="goForm.invalid" type="submit" style="width: 110%">Ajouter</button>

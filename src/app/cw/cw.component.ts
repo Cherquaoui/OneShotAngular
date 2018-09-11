@@ -17,8 +17,8 @@ export class CwComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
   }
 
-  refreshData(data) {
-    this.goService.getOneShot().subscribe(data => {
+  refreshData(page:number,size:number) {
+    this.goService.getOneShot(page, size).subscribe(data => {
       this.dataSource.data = data.body["content"];
       this.lenght = data.body['totalElements'];
     }, error1 => this.router.navigateByUrl('/login'));
@@ -27,7 +27,7 @@ export class CwComponent implements OnInit {
 
   ngOnInit() {
 
-    this.refreshData(0);
+    this.refreshData(0,10);
 
   }
 
@@ -51,8 +51,8 @@ export class CwComponent implements OnInit {
   }
 
   page(page: PageEvent) {
-    this.refreshData(page.pageIndex);
-    this.dataSource['pageIndex'] = page.pageIndex;
+    this.refreshData(page.pageIndex,page.pageSize);
+
   };
 
 

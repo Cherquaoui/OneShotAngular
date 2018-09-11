@@ -53,5 +53,15 @@ export class GoService {
     return this.http.put(this.authentication.getUrl()+'/cw/'+moncw.codeSite,moncw,{observe: 'response' as 'response'})
   }
 
+  rechercheGo(page:number,size:number,recherche:string,typologie:string,region:string){
+    return this.http.get(this.authentication.getUrl()+'/go/recherche?page='+page+'&&size='+size+'&&codeSite='+recherche
+    +'&&region='+region+'&&typologie='+typologie,{observe: 'response' as 'response'});
+
+  }
+
+  getCodeSite(codesite:string,region,typologie){
+    return this.http.get(this.authentication.getUrl()+'/codesite?codeSite='+codesite+'&&region='+region+'&&typologie='+typologie);
+  }
+
 }
 
