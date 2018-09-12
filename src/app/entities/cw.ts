@@ -1,6 +1,8 @@
+import {equipe} from "./equipe";
+
 export class cw{
   codeSite:string;
-  equipeCw:string;
+  equipeCw:equipe;
   commentairesCw:string;
   etatCw:string;
   ouverture:string;

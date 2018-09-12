@@ -1,6 +1,4 @@
-button{
-  font-weight:bold;
-}
+
 mat-toolbar{
   border: 1px solid;
 
@@ -8,4 +6,25 @@ mat-toolbar{
 }
 .active{
   background-color: lightgrey ;
+}
+button{
+  text-align:center; vertical-align:middle;
+  height: 40px;
+  margin-right: 10px;
+}
+th{
+
+  font-size: 15px;
+  font-weight:bold;
+
+
+}
+td{
+}
+mat-form-field{
+  margin-right: 10px;
+}
+
+mat-slide-toggle{
+  margin-left: 15px;
 }

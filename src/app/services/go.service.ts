@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {OneShot} from '../entities/composition/OneShot';
 import {cw} from '../entities/cw';
 import {AuthenticationService} from "./authentication.service";
+import {equipe} from "../entities/equipe";
 
 
 @Injectable()
@@ -28,8 +29,9 @@ export class GoService {
       {observe: 'response' as 'response'});
   }
 
-  getOneShot(page,size){
-    return this.http.get<OneShot[]>(this.authentication.getUrl()+'/oneshot?page='+page+'&&size='+size,
+  getOneShot(page,size,codeSite,region,typologie){
+    return this.http.get<OneShot[]>(this.authentication.getUrl()+'/oneshot?page='+page+'&&size='+size
+      +'&&codeSite='+codeSite+'&&region='+region+'&&typologie='+typologie,
       {observe: 'response' as 'response'})
   }
   saveGo(go:Go){
@@ -61,6 +63,10 @@ export class GoService {
 
   getCodeSite(codesite:string,region,typologie){
     return this.http.get(this.authentication.getUrl()+'/codesite?codeSite='+codesite+'&&region='+region+'&&typologie='+typologie);
+  }
+
+  getEquipe():Observable<equipe[]>{
+    return this.http.get<equipe[]>(this.authentication.getUrl()+'/equipe');
   }
 
 }

@@ -1,22 +1,84 @@
-<div class="d-flex justify-content-center">
-  <div style="width: 70%;margin-top: 10px" class="d-flex align-items-center">
-    <mat-form-field>
-      <input matInput  placeholder="Rechercher">
-    </mat-form-field>
+<div class="d-flex justify-content-center" style="margin-top: 10px">
+  <div class="d-flex justify-content-center col-12" style="height:70px">
 
-    <mat-button-toggle-group  style="margin-left: 60px">
-      <mat-button-toggle (mouseup)="monClique2()">Suivi</mat-button-toggle>
-      <mat-button-toggle (mouseup)="monClique()">Dates</mat-button-toggle>
-    </mat-button-toggle-group>
+    <div class="col-10 d-flex flex-column justify-content-center">
+      <div style="height: 50px">
+        <mat-form-field>
+          <input matInput [(ngModel)]="filtreRecherche" placeholder="Rechercher"
+                 [matAutocomplete]="auto" [formControl]="myControl">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let item of searchResult" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreRegion" placeholder="Filtrer par région :" (valueChange)="refreshData(0,10)">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="Rabat">Rabat</mat-option>
+            <mat-option value="Casablanca">Casablanca</mat-option>
+            <mat-option value="Tanger">Tanger</mat-option>
+            <mat-option value="Agadir">Agadir</mat-option>
+            <mat-option value="Meknes">Meknes</mat-option>
+            <mat-option value="Marrakech">Marrakech</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreTypologie" placeholder="Filtrer par typologie" (valueChange)="refreshData(0,10)">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="RT">RoofTop</mat-option>
+            <mat-option value="Lampadaire">Lampadaire</mat-option>
+            <mat-option value="Lampadaire Esth">Lampadaire Esth</mat-option>
+            <mat-option value="GF">GreenField</mat-option>
+            <mat-option value="Palmier">Palmier</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreCw" placeholder="Filtrer etat CW" (valueChange)="refreshData(0,10)">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="encours">En cours</mat-option>
+            <mat-option value="Livré">Livré</mat-option>
+            <mat-option value="XX">Bloqué</mat-option>
+            <mat-option value="Tempo">Temporisé</mat-option>
+            <mat-option value="ZZ">CW non SBI</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreElec" placeholder="Filtrer etat Elec" (valueChange)="refreshData(0,10)">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="encours">En cours</mat-option>
+            <mat-option value="Electrifié">Electrifié</mat-option>
+            <mat-option value="XX">Bloqué</mat-option>
+            <mat-option value="Tempo">Temporisé</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Filtrer equipe" [(value)]="filtreEquipe" (valueChange)="refreshData(0,10)">
+            <mat-option value="">Aucun</mat-option>
+            <ng-container *ngFor="let monequipe of listeEquipe">
+              <mat-option *ngIf="monequipe.cw==1" value="{{monequipe.nom}}">{{monequipe.nom}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle [disabled]="!filtre" [checked]="checked" (click)="check($event)">Filtre</mat-slide-toggle>
+      </div>
+    </div>
+    <div class="d-flex flex-column col-2 justify-content-center">
+      <div style="height: 50px" class="d-flex">
 
 
-
-    <button mat-stroked-button  class="ml-auto">vers Excel</button>
+        <button mat-raised-button>vers Excel</button>
+        <div></div>
+      </div>
+    </div>
   </div>
 </div>
-<div  class="d-flex justify-content-center" style="width: 100%; font-size: 10px">
+
+
+<div class="d-flex justify-content-center" style="width: 100%; font-size: 10px">
   <div style="width: 90%">
-    <table mat-table  [dataSource]="dataSource" matSort class="table-hover table-sm" style="border: dashed; width: 100%;font-size: 10px">
+    <table mat-table [dataSource]="dataSource" matSort class="table-hover table-sm"
+           style="border: dashed; width: 100%;font-size: 10px">
 
       <ng-container matColumnDef="codeSite">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Code site</th>
@@ -38,73 +100,72 @@
         </td>
 
       </ng-container>
-      <ng-container matColumnDef="dateGo" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Date Go</th>
-        <td mat-cell *matCellDef="let oneshot" > {{oneshot.dateGo}} </td>
+      <ng-container matColumnDef="dateGo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Go</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.dateGo}}</td>
       </ng-container>
-      <ng-container matColumnDef="etatCw" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Etat CW</th>
-        <td mat-cell *matCellDef="let oneshot " > {{oneshot.cw.etatCw}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="typologie" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Typologie</th>
-        <td mat-cell *matCellDef="let oneshot" > {{oneshot.typologie}} </td>
+      <ng-container matColumnDef="etatCw">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat CW</th>
+        <td mat-cell *matCellDef="let oneshot "> {{oneshot.cw.etatCw}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="poseCompteur" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Date Electrification</th>
-        <td mat-cell *matCellDef="let oneshot" > {{oneshot.electrification.poseCompteur}} </td>
-      </ng-container>
-      <ng-container matColumnDef="elecEtat" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Etat Electrification</th>
-        <td mat-cell *matCellDef="let oneshot" > {{oneshot.electrification?.elecEtat}} </td>
+      <ng-container matColumnDef="typologie">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Typologie</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.typologie}}</td>
       </ng-container>
 
+      <ng-container matColumnDef="poseCompteur">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Electrification</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.electrification.poseCompteur}}</td>
+      </ng-container>
+      <ng-container matColumnDef="elecEtat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat Electrification</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.electrification?.elecEtat}}</td>
+      </ng-container>
 
 
       <ng-container matColumnDef="equipeCw">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Equipe</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.equipeCw}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Equipe</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.equipeCw}}</td>
 
       </ng-container>
       <ng-container matColumnDef="ouverture">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Ouverture</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.ouverture}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ouverture</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.ouverture}}</td>
       </ng-container>
 
 
-      <ng-container matColumnDef="fouilles" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  >Fouilles</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.fouilles}} </td>
+      <ng-container matColumnDef="fouilles">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fouilles</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.fouilles}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="coulage" >
+      <ng-container matColumnDef="coulage">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Coulage</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.coulage}} </td>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.coulage}}</td>
       </ng-container>
 
       <ng-container matColumnDef="montage">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>Montage</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.montage}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Montage</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.montage}}</td>
       </ng-container>
       <ng-container matColumnDef="finCw">
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header>finCw</th>
-        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.finCw}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>finCw</th>
+        <td mat-cell *matCellDef="let oneshot"> {{oneshot.cw.finCw}}</td>
       </ng-container>
-      <ng-container matColumnDef="commentairesCw" >
-        <th mat-header-cell *matHeaderCellDef   mat-sort-header >Commentaires</th>
-        <td mat-cell *matCellDef="let oneshot" style="max-width: 60px"> {{oneshot.cw.commentairesCw}} </td>
+      <ng-container matColumnDef="commentairesCw">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Commentaires</th>
+        <td mat-cell *matCellDef="let oneshot" style="max-width: 60px"> {{oneshot.cw.commentairesCw}}</td>
       </ng-container>
 
 
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" style="height: 35px" ></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="height: 25px" ></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" style="height: 35px"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="height: 25px"></tr>
 
     </table>
 
-    <mat-paginator (page)="page($event)" [length]="lenght" [pageSizeOptions]="[10, 20, 50,100]" showFirstLastButtons></mat-paginator>
+    <mat-paginator (page)="page($event)" [length]="lenght" [pageSizeOptions]="[10, 20, 50,100]"
+                   showFirstLastButtons></mat-paginator>
   </div>
 </div>
 
