@@ -7,7 +7,7 @@
 
     <div class="d-flex flex-column  col-6">
       <mat-form-field>
-        <mat-select placeholder="Etat Cw" [ngModel]="moncw?.etatCw"  name="etatCw">
+        <mat-select placeholder="Etat Cw" [(ngModel)]="moncw.etatCw"  name="etatCw">
           <mat-option value="00-Att ouverture_encours">00-Att ouverture</mat-option>
           <mat-option value="01-Att fouilles_encours">01-Att fouilles</mat-option>
           <mat-option value="02-Att coulage_encours">02-Att coulage</mat-option>
@@ -15,7 +15,7 @@
           <mat-option value="04-Att fin CW">04-Att fin CW</mat-option>
           <mat-option value="TT-Temporisé">TT-Temporisé</mat-option>
           <mat-option value="XX-Bloqué">XX-Bloqué</mat-option>
-          <mat-option value="LL-Livré">Livré</mat-option>
+          <mat-option value="LL-Livré">LL-Livré</mat-option>
           <mat-option value="ZZ-Cw non SBI">ZZ-CW non SBI</mat-option>
         </mat-select>
       </mat-form-field>

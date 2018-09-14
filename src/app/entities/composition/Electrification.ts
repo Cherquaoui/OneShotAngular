@@ -14,6 +14,7 @@ export class Electrification {
   debutTravaux : string;
   finTravaux : string;
   reception : string;
+  abonnement:string;
   poseCompteur : string;
   elecTrav ?: ElecTrav;
 

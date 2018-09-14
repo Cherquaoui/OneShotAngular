@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {debounceTime} from 'rxjs/operators';
+import {OneShot} from '../entities/composition/OneShot';
 
 @Component({
   selector: 'app-elec',
@@ -23,22 +24,27 @@ export class ElecComponent implements OnInit {
   filtre = false;
   filtreCw="";
   filtreElec="";
-  sortHeader="codeSite";
-  sortDierction="asc"
   monlength;
   monhidden=false;
 
-  dataSource = new MatTableDataSource();
+  suivi=true;
+  date=false;
+  trav=false;
+
+  dataSource:OneShot[];
 
   length ;
+
+  sortActive='codeSite'
+  sortDirection='asc'
 
   interval;
 
   refreshData(page:number,size:number) {
     this.goService.getOneShot(page, size,this.filtreRecherche,this.filtreRegion,this.filtreTypologie,
-      this.filtreCw,this.filtreEquipe,this.filtreElec,this.dataSource.sort.active,this.dataSource.sort.direction).
+      this.filtreCw,this.filtreEquipe,this.filtreElec,this.sortActive,this.sortDirection).
     subscribe(data => {
-      this.dataSource.data = data.body["content"];
+      this.dataSource = data.body["content"];
       this.length = data.body['totalElements'];
     }, error1 => this.router.navigateByUrl('/login'));
 
@@ -46,41 +52,39 @@ export class ElecComponent implements OnInit {
 
   constructor(private goService: GoService,
               private router: Router) {
+    this.myControl.valueChanges.pipe(debounceTime(500)).
+    subscribe(data => {
+      this.goService.getCodeSite(data,this.filtreRegion,this.filtreTypologie)
+        .subscribe(data2 => this.searchResult=data2);
+      this.refreshData(0,15)});
   }
 
 
   ngOnInit() {
-    this.dataSource.sort=this.sort;
-    this.dataSource.sort.disableClear=true;
-    this.dataSource.sort.direction="asc";
-    this.dataSource.sort.active="codeSite";
     this.refreshData(0,15);
-    this.filter();
+
   }
 
 
-  displayedColumnsDate: string[] = ['codeSite', 'elec.depotDemande',
-    'elec.etude', 'elec.devis', 'elec.payementDevis', 'elec.autorisation', 'elec.debutTravaux', 'elec.finTravaux', 'elec.reception',
-    'elec.abonnement', 'elec.poseCompteur'];
-  displayedColumnsDivers: string[] = ['codeSite', 'dateGo', 'typologie', 'cw.etatCw', 'elec.elecEtat', 'elec.regie',
-    'elec.numDossier','elec.poseCompteur'];
-  displayedColumnsTrav: string[] = ['codeSite','elec.elecEtat', 'typologie', 'elec.electrav.equipeElec', 'elec.electrav.bta',
-    'elec.electrav.bts','elec.electrav.btsrf', 'elec.electrav.btniche','elec.electrav.ok' ,'elec.poseCompteur'];
-
-  displayedColumns: string[] = this.displayedColumnsDivers;
 
 
 
-  monClique() {
-    this.displayedColumns = this.displayedColumnsDivers;
+  cliqueSuivi() {
+    this.suivi=true;
+    this.trav=false;
+    this.date=false;
   }
 
-  monClique1() {
-    this.displayedColumns = this.displayedColumnsDate;
+  cliqueDates() {
+    this.suivi=false;
+    this.trav=false;
+    this.date=true;
   }
 
-  monClique2() {
-    this.displayedColumns = this.displayedColumnsTrav;
+  cliqueTravaux() {
+    this.suivi=false;
+    this.trav=true;
+    this.date=false;
   }
 
   modifier(data) {
@@ -95,22 +99,19 @@ export class ElecComponent implements OnInit {
   page(page: PageEvent) {
     this.refreshData(page.pageIndex,page.pageSize);
 }
-  filter(){
-    this.monhidden=false;
-    this.dataSource.sort.sortChange.pipe(debounceTime(150)).subscribe(
-      data=>{
-        this.monhidden=false
-        console.log(this.monhidden)
 
-        this.sortHeader=data.active;
-        this.refreshData(0,15);
-
-      }
-    )
-    setTimeout(()=>{
-      this.monhidden=true;
-      console.log(this.monhidden);
-    },500);
+  sortData(sort:Sort)
+  {
+    console.log(sort)
+    this.sortActive=sort.active;
+    this.sortDirection=sort.direction;
+    this.sort.disableClear=true;
+    this.refreshData(0,15);
 
   }
+
+
+
+
+
 }

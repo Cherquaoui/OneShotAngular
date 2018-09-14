@@ -6,7 +6,7 @@ import {OneShot} from '../entities/composition/OneShot';
 import {cw} from '../entities/cw';
 import {AuthenticationService} from "./authentication.service";
 import {equipe} from "../entities/equipe";
-import {map} from 'rxjs/operators';
+import {debounceTime, map} from 'rxjs/operators';
 import {OneShot2} from '../entities/composition/OneShot2';
 
 
@@ -85,33 +85,37 @@ export class GoService {
       '&&etatCw='+etatCw+'&&equipeCw='+equipeCw+
       '&&etatElec='+etatElec+'&&sort='+sortHeader+','+sortDirection,
       {observe: 'response' as 'response'}).pipe(map(data=>{
+        console.log('données brutes : '+data.body);
+
         let oneshot2 :OneShot2[] = [];
         let oneshot1:OneShot[] =  data.body['content'];
         oneshot1.forEach(site=>{
           let temp = new OneShot2();
 
-          temp.codeSite= site.codeSite
-          temp.latitude= site.latitude
-          temp.longitude= site.longitude
-          temp.dateGo= site.dateGo
-          temp.region= site.region
-          temp.typologie= site.typologie
-          temp.hauteur= site.hauteur
-          temp.commentairesCw= site.cw.commentairesCw
-          temp.etatCw= site.cw.etatCw
-          temp.ouverture= site.cw.ouverture
-          temp.fouilles= site.cw.fouilles
-          temp.coulage= site.cw.coulage
-          temp.montage= site.cw.montage
-          temp.finCw= site.cw.finCw
-          temp.blocage= site.cw.blocage
-          temp.deblocage= site.cw.deblocage
-          temp.equipeCw=site.cw.equipeCw.nom
+          temp.codeSite= site.codeSite;
+          temp.latitude= site.latitude;
+          temp.longitude= site.longitude;
+          temp.dateGo= site.dateGo;
+          temp.region= site.region;
+          temp.typologie= site.typologie;
+          temp.hauteur= site.hauteur;
+          temp.commentairesCw= site.cw.commentairesCw;
+          temp.etatCw= site.cw.etatCw;
+          temp.ouverture= site.cw.ouverture;
+          temp.fouilles= site.cw.fouilles;
+          temp.coulage= site.cw.coulage;
+          temp.montage= site.cw.montage;
+          temp.finCw= site.cw.finCw;
+          temp.blocage= site.cw.blocage;
+          temp.deblocage= site.cw.deblocage;
+          temp.equipeCw=site.cw.equipeCw.nom;
 
-          oneshot2.push(temp)
-        })
+          oneshot2.push(temp);
+          oneshot2.sort()
+
+        });
         return oneshot2;
-    }))
+    })).pipe(debounceTime(100))
   }
 
 }

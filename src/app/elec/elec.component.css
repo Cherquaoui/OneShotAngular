@@ -19,17 +19,17 @@ mat-form-field{
 
   font-weight: bold;
 }
-th{
 
-  font-size: 15px;
-  font-weight:bold;
-
-
-
-}
-td{
-  min-height: 30px;
-}
 mat-form-field{
   margin-right: 10px;
 }
+
+th{
+  max-width: 50px;
+  min-width: 100px;
+}
+td{
+  max-width: 50px;
+  min-width: 100px;
+}
+
