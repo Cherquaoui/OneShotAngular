@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center" style="margin-top: 30px">
-  <h3>Modifier CW : {{cw.codeSite}}</h3>
+  <h3>Modifier CW : {{moncw.codeSite}}</h3>
 </div>
 <div class="d-flex justify-content-center" style="margin-top: 10px">
 
@@ -7,56 +7,63 @@
 
     <div class="d-flex flex-column  col-6">
       <mat-form-field>
-        <mat-select placeholder="Etat Cw" [(ngModel)]="cw.etatCw" name="etatCw">
-          <mat-option value="00-Attente ouverture">00-Attente ouverture</mat-option>
-          <mat-option value="01-Attente fouilles">01-Attente fouilles</mat-option>
-          <mat-option value="02-Attente coulage">02-Attente coulage</mat-option>
-          <mat-option value="03-Attente montage">03-Attente montage</mat-option>
-          <mat-option value="04-Attente fin CW">04-Attente fin CW</mat-option>
-          <mat-option va lue="TT-Temporisé">XX-Temporisé</mat-option>
+        <mat-select placeholder="Etat Cw" [ngModel]="moncw?.etatCw"  name="etatCw">
+          <mat-option value="00-Att ouverture_encours">00-Att ouverture</mat-option>
+          <mat-option value="01-Att fouilles_encours">01-Att fouilles</mat-option>
+          <mat-option value="02-Att coulage_encours">02-Att coulage</mat-option>
+          <mat-option value="03-Att montage">03-Att montage</mat-option>
+          <mat-option value="04-Att fin CW">04-Att fin CW</mat-option>
+          <mat-option value="TT-Temporisé">TT-Temporisé</mat-option>
           <mat-option value="XX-Bloqué">XX-Bloqué</mat-option>
-          <mat-option value="LL-Livré">LL-Livré</mat-option>
+          <mat-option value="LL-Livré">Livré</mat-option>
           <mat-option value="ZZ-Cw non SBI">ZZ-CW non SBI</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Equipe" [(ngModel)]="cw.equipeCw" name="equipeCw">
+        <mat-select  placeholder="Equipe" [(ngModel)]="moncw.equipeCw.id" (click)="click($event)" name="equipeCw" >
+        <mat-option *ngFor="let equipe of listeEquipe" [value]="equipe.id" >{{equipe.nom}}</mat-option>
+
+        </mat-select>
       </mat-form-field>
+<!--      <mat-form-field>
+        <input matInput placeholder="Equipe" [ngModel]="moncw.equipeCw?.id" name="equipe"/>
+      </mat-form-field>-->
+
 
 
       <mat-form-field >
-        <textarea rows="10" matInput placeholder="Commentaires" [(ngModel)]="cw.commentairesCw" name="commentairesCw"></textarea>
+        <textarea rows="10" matInput placeholder="Commentaires" [(ngModel)]="moncw.commentairesCw" name="commentairesCw"></textarea>
       </mat-form-field>
 
     </div>
     <div class="d-flex flex-column  col-6">
       <mat-form-field>
-        <input matInput placeholder="Ouverture" [matDatepicker]="picker" bsDatepicker [(ngModel)]="cw.ouverture"
+        <input matInput placeholder="Ouverture" [matDatepicker]="picker" bsDatepicker [(ngModel)]="moncw.ouverture"
                name="ouverture">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Fouilles" [matDatepicker]="picker1" bsDatepicker [(ngModel)]="cw.fouilles"
+        <input matInput placeholder="Fouilles" [matDatepicker]="picker1" bsDatepicker [(ngModel)]="moncw.fouilles"
                name="fouilles">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Coulage" [matDatepicker]="picker2" bsDatepicker [(ngModel)]="cw.coulage"
+        <input matInput placeholder="Coulage" [matDatepicker]="picker2" bsDatepicker [(ngModel)]="moncw.coulage"
                name="coulage">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Montage" [matDatepicker]="picker3" bsDatepicker [(ngModel)]="cw.montage"
+        <input matInput placeholder="Montage" [matDatepicker]="picker3" bsDatepicker [(ngModel)]="moncw.montage"
                name="montage">
         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Fin CW" [matDatepicker]="picker4" bsDatepicker [(ngModel)]="cw.finCw"
+        <input matInput placeholder="Fin CW" [matDatepicker]="picker4" bsDatepicker [(ngModel)]="moncw.finCw"
                name="finCw">
         <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
         <mat-datepicker #picker4></mat-datepicker>

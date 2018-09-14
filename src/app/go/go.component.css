@@ -12,8 +12,17 @@
 
 button{
   text-align:center; vertical-align:middle;
-  height: 40px;
-  margin-right: 10px;
+  height:35px;
+margin:0;
+  line-height: 35px;
+  box-sizing: border-box;
+}
+.monbutton{
+  text-align:center; vertical-align:middle;
+  height: 25px;
+  margin:0 auto;
+  line-height: 25px;
+  box-sizing: border-box;
 }
 th{
 

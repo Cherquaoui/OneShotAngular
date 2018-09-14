@@ -8,19 +8,20 @@
 
       <mat-form-field>
         <mat-select placeholder="Etat elec" name="elecEtat" [(ngModel)]="elecSuivi.elecEtat" required>
-          <mat-option value="00-Attente demande">00-Attente demande</mat-option>
-          <mat-option value="01-Attente sortie">01-Attente sortie</mat-option>
-          <mat-option value="02-Attente devis">02-Attente devis</mat-option>
-          <mat-option value="03-Attente payement">03-Attente payement</mat-option>
-          <mat-option value="04-Attente autorisation">04-Attente autorisation</mat-option>
-          <mat-option value="05-Attente travaux">05-Attente travaux</mat-option>
-          <mat-option value="06-Attente fin travaux">06-Attente fin travaux</mat-option>
-          <mat-option value="07-Attente réception">07-Attente reception</mat-option>
-          <mat-option value="08-Attente abonnement">08-Attente abonnement</mat-option>
-          <mat-option value="09-Attente pose compteur">09-Attente pose compteur</mat-option>
-          <mat-option value="EE-Electrifié">04-Attente pose compteur</mat-option>
+          <mat-option value="00-Att demande_encours">00-Att demande</mat-option>
+          <mat-option value="01-Att sortie_encours">01-Att sortie</mat-option>
+          <mat-option value="02-Att devis_encours">02-Att devis</mat-option>
+          <mat-option value="03-Att payement_encours">03-Att payement</mat-option>
+          <mat-option value="04-Att autorisation_encours">04-Att autorisation</mat-option>
+          <mat-option value="05-Att travaux_encours">05-Att travaux</mat-option>
+          <mat-option value="06-Att fin travaux_encours">06-Att fin travaux</mat-option>
+          <mat-option value="07-Att réception_encours">07-Att reception</mat-option>
+          <mat-option value="08-Att abonnement_encours">08-Att abonnement</mat-option>
+          <mat-option value="09-Att pose compteur_encours">09-Att pose compteur</mat-option>
+          <mat-option value="EE-Electrifié">04-Att pose compteur</mat-option>
           <mat-option value="XX-Bloqué Elec">XX-Bloqué Elec</mat-option>
-          <mat-option value="TT-Temporisé Elec">TT-Temporisé Elec</mat-option>
+          <mat-option value="WW-Bloqué CW">XX-Bloqué CW</mat-option>
+          <mat-option value="TT-Temporisé">TT-Temporisé</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
@@ -40,7 +41,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="N de dossier" name="ndossier" [(ngModel)]="elecSuivi.ndossier">
+        <input matInput placeholder="N de dossier" name="ndossier" [(ngModel)]="elecSuivi.numDossier">
       </mat-form-field>
       <mat-form-field>
         <textarea rows="6" matInput placeholder="Commentaires" name="elecCommentaires"

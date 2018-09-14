@@ -7,7 +7,8 @@ export class AuthenticationService {
 /*
   private url = 'https://one-shot-app.herokuapp.com';*/
   private  url = 'http://localhost:8090';
-  private token: string = null;
+  private token: string = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUzNzY5OTI1MSwicm9sZXMiOltdfQ.lcxNPmcg2qLvqLvIk" +
+    "l6PFG8UasfLi0zTotTGRhiEz0uorsxFPkV6HYsBKzrJzmDzyLvX0_f0vIbzKdZAL6B1Hw";
 
   private isLog = false;
 

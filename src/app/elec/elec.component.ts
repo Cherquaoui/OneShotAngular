@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
+import {FormControl} from '@angular/forms';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-elec',
@@ -10,26 +12,35 @@ import {Router} from '@angular/router';
 })
 export class ElecComponent implements OnInit {
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort:MatSort
+
+  myControl:FormControl = new FormControl();
+  searchResult;
+  filtreRegion: string = '';
+  filtreTypologie: string = '';
+  filtreRecherche: string = '';
+  filtreEquipe:string='';
+  filtre = false;
+  filtreCw="";
+  filtreElec="";
+  sortHeader="codeSite";
+  sortDierction="asc"
+  monlength;
+  monhidden=false;
+
   dataSource = new MatTableDataSource();
-  elec: electrification2[] = [];
-  length = 0;
+
+  length ;
 
   interval;
 
-  refreshData(data) {
-    this.goService.getOneShot(data).subscribe(data => {
-
+  refreshData(page:number,size:number) {
+    this.goService.getOneShot(page, size,this.filtreRecherche,this.filtreRegion,this.filtreTypologie,
+      this.filtreCw,this.filtreEquipe,this.filtreElec,this.dataSource.sort.active,this.dataSource.sort.direction).
+    subscribe(data => {
       this.dataSource.data = data.body["content"];
-
-
       this.length = data.body['totalElements'];
-
-      console.log(this.length);
     }, error1 => this.router.navigateByUrl('/login'));
-
-    clearInterval(this.interval);
 
   }
 
@@ -39,28 +50,26 @@ export class ElecComponent implements OnInit {
 
 
   ngOnInit() {
-
-    this.refreshData(0);
-
-
+    this.dataSource.sort=this.sort;
+    this.dataSource.sort.disableClear=true;
+    this.dataSource.sort.direction="asc";
+    this.dataSource.sort.active="codeSite";
+    this.refreshData(0,15);
+    this.filter();
   }
 
 
-  displayedColumnsDate: string[] = ['codeSite', 'depotDemande',
-    'etude', 'devis', 'payementDevis', 'autorisation', 'debutTravaux', 'finTravaux', 'reception',
-    'abonnement', 'poseCompteur'];
-  displayedColumnsDivers: string[] = ['codeSite', 'dateGo', 'typologie', 'etatCw', 'elecEtat', 'regie', 'ndossier',
-    'poseCompteur'];
-  displayedColumnsTrav: string[] = ['codeSite', 'typologie', 'equipeElec', 'bta', 'bts', 'btsrf', 'btniche', 'poseCompteur'];
+  displayedColumnsDate: string[] = ['codeSite', 'elec.depotDemande',
+    'elec.etude', 'elec.devis', 'elec.payementDevis', 'elec.autorisation', 'elec.debutTravaux', 'elec.finTravaux', 'elec.reception',
+    'elec.abonnement', 'elec.poseCompteur'];
+  displayedColumnsDivers: string[] = ['codeSite', 'dateGo', 'typologie', 'cw.etatCw', 'elec.elecEtat', 'elec.regie',
+    'elec.numDossier','elec.poseCompteur'];
+  displayedColumnsTrav: string[] = ['codeSite','elec.elecEtat', 'typologie', 'elec.electrav.equipeElec', 'elec.electrav.bta',
+    'elec.electrav.bts','elec.electrav.btsrf', 'elec.electrav.btniche','elec.electrav.ok' ,'elec.poseCompteur'];
 
   displayedColumns: string[] = this.displayedColumnsDivers;
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+
 
   monClique() {
     this.displayedColumns = this.displayedColumnsDivers;
@@ -84,70 +93,24 @@ export class ElecComponent implements OnInit {
   }
 
   page(page: PageEvent) {
-    this.elec = [];
-    this.goService.getOneShot(page.pageIndex).subscribe(data => {
-
-
-      this.dataSource = new MatTableDataSource(this.elec);
-      this.dataSource.sort = this.sort;
-      this.dataSource['pageIndex'] = page.pageIndex;
-    }, error1 => this.router.navigateByUrl('/login'));
-
-
-  }
-
-
+    this.refreshData(page.pageIndex,page.pageSize);
 }
+  filter(){
+    this.monhidden=false;
+    this.dataSource.sort.sortChange.pipe(debounceTime(150)).subscribe(
+      data=>{
+        this.monhidden=false
+        console.log(this.monhidden)
 
-export class electrification2 {
+        this.sortHeader=data.active;
+        this.refreshData(0,15);
 
+      }
+    )
+    setTimeout(()=>{
+      this.monhidden=true;
+      console.log(this.monhidden);
+    },500);
 
-  constructor(codeSite: string, dateGo: string, typologie: string, etatCw: string, elecEtat: string, regie: string, ndossier: number,
-              depotDemande: string, etude: string, devis: string, payementDevis: string, autorisation: string, debutTravaux:
-                string, finTravaux: string, reception: string, poseCompteur: string, btA: number, btS: number, btSRf: number, btNiche: number, equipeElec: string) {
-
-    this.codeSite = codeSite;
-    this.dateGo = dateGo;
-    this.typologie = typologie;
-    this.etatCw = etatCw;
-    this.elecEtat = elecEtat;
-    this.regie = regie;
-    this.ndossier = ndossier;
-    this.depotDemande = depotDemande;
-    this.etude = etude;
-    this.devis = devis;
-    this.payementDevis = payementDevis;
-    this.autorisation = autorisation;
-    this.debutTravaux = debutTravaux;
-    this.finTravaux = finTravaux;
-    this.reception = reception;
-    this.poseCompteur = poseCompteur;
-    this.btA = btA;
-    this.btS = btS;
-    this.btSRf = btSRf;
-    this.btNiche = btNiche;
-    this.equipeElec = equipeElec;
   }
-
-  codeSite: string;
-  dateGo: string;
-  typologie: string;
-  etatCw: string;
-  elecEtat: string;
-  regie: string;
-  ndossier: number;
-  depotDemande: string;
-  etude: string;
-  devis: string;
-  payementDevis: string;
-  autorisation: string;
-  debutTravaux: string;
-  finTravaux: string;
-  reception: string;
-  poseCompteur: string;
-  btA: number;
-  btS: number;
-  btSRf: number;
-  btNiche: number;
-  equipeElec: string;
 }

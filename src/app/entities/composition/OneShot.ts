@@ -10,9 +10,10 @@ export class OneShot {
   dateGo:string;
   region:string;
   typologie:string;
+  hauteur:number;
 
   cw?:cw;
-  electrification?:Electrification;
+  elec?:Electrification;
 
 
 

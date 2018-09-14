@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GoService} from '../services/go.service';
-import {MatSort, MatTableDataSource, PageEvent} from '@angular/material';
+import {MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {debounceTime, throttleTime} from "rxjs/operators";
@@ -12,6 +12,7 @@ import {debounceTime, throttleTime} from "rxjs/operators";
 })
 export class GoComponent implements OnInit {
 
+  monhidden:boolean=true;
   myControl:FormControl = new FormControl();
   searchResult;
   filtreRegion: string = '';
@@ -19,6 +20,8 @@ export class GoComponent implements OnInit {
   recherche: string = '';
   filtre = false;
   monlength;
+  sortHeader='codeSite';
+
 
   constructor(private goService: GoService,
               private router: Router) {
@@ -26,44 +29,33 @@ export class GoComponent implements OnInit {
     subscribe(data => {
       this.goService.getCodeSite(data,this.filtreRegion,this.filtreTypologie)
         .subscribe(data2 => this.searchResult=data2);
-    this.maRecherche(0,10)});
-
+    this.maRecherche(0,15);
+    });
   }
 
   dataSource = new MatTableDataSource();
 
   ngOnInit() {
     console.log('----------init-----------------');
-    this.maRecherche(0, 10);
+
+    this.dataSource.sort = this.sort;
+    this.dataSource.sort.direction="asc";
+    this.dataSource.sort.start="asc";
+    this.dataSource.sort.disableClear=true;
+    this.dataSource.sort.active="codeSite";
+
+    this.test();
   }
 
   displayedColumns: string[] = ['codeSite', 'dateGo', 'region', 'typologie', 'hauteur', 'latitude', 'longitude'];
 
-
-
-  checked = false;
-
-  check(data) {
-    if(this.filtre=true){
-      console.log(data);
-      this.filtreRegion="";
-      this.recherche="";
-      this.filtreTypologie="";
-      this.checked=false;
-      this.filtre=false;
-      this.ngOnInit();
-    }
-
-
-  }
-
   maRecherche(index, size) {
     console.log('recherche --------------------------------------');
-    this.goService.rechercheGo(index, size,this.recherche,  this.filtreTypologie, this.filtreRegion).subscribe(
+    this.goService.rechercheGo(index, size,this.recherche,  this.filtreTypologie,
+      this.filtreRegion,this.sortHeader,this.dataSource.sort.direction).subscribe(
       data => {
 
         this.dataSource.data = data.body['content'];
-        console.log("datasource : " + this.dataSource.data);
         this.monlength = data.body['totalElements'];
 
 
@@ -74,14 +66,7 @@ export class GoComponent implements OnInit {
 
     );
 
-    if(this.recherche=="" && this.filtreTypologie=="" && this.filtreRegion==""){
-      this.filtre=false;
-      this.checked=false;
-    }
-    if(!(this.recherche=="" && this.filtreTypologie=="" && this.filtreRegion=="")){
-      this.checked=true;
-      this.filtre=true;
-    }
+
   }
 
   modifier(data) {
@@ -101,4 +86,23 @@ export class GoComponent implements OnInit {
   page(page: PageEvent) {
         this.maRecherche(page.pageIndex, page.pageSize);
   }
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  test(){
+
+    this.monhidden=false;
+    this.dataSource.sort.sortChange.pipe(debounceTime(150)).subscribe(data=>{
+      this.sortHeader=data.active;
+      this.maRecherche(0,15);
+      ;
+    });
+    setTimeout(()=>{
+      this.monhidden=true;
+      console.log(this.monhidden);
+    },350)
+
+
+  }
+
 }

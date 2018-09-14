@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource, PageEvent} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
 import {FormControl} from "@angular/forms";
@@ -23,22 +23,13 @@ export class CwComponent implements OnInit {
   filtreCw="";
   filtreElec="";
   monlength;
-
+  monhidden=false;
+  sortHeader:string='codeSite';
   listeEquipe:equipe[];
 
-  checked = false;
+  @ViewChild(MatSort) sort:MatSort;
 
-  check(data) {
-    if(this.filtre=true){
-      console.log(data);
-      this.filtreRegion="";
-      this.filtreRecherche="";
-      this.filtreTypologie="";
-      this.checked=false;
-      this.filtre=false;
-      this.ngOnInit();
-    }
-  }
+
 
 
 
@@ -54,13 +45,14 @@ export class CwComponent implements OnInit {
     subscribe(data => {
       this.goService.getCodeSite(data,this.filtreRegion,this.filtreTypologie)
         .subscribe(data2 => this.searchResult=data2);
-      this.refreshData(0,10)});
+      this.refreshData(0,15)});
 
     this.goService.getEquipe().subscribe(data=>this.listeEquipe=data);
   }
 
   refreshData(page:number,size:number) {
-    this.goService.getOneShot(page, size,this.filtreRecherche,this.filtreRegion,this.filtreTypologie).
+    this.goService.getOneShot(page, size,this.filtreRecherche,this.filtreRegion,this.filtreTypologie,
+      this.filtreCw,this.filtreEquipe,this.filtreElec,this.sortHeader,this.dataSource.sort.direction).
     subscribe(data => {
       this.dataSource.data = data.body["content"];
       this.lenght = data.body['totalElements'];
@@ -69,22 +61,24 @@ export class CwComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.refreshData(0,10);
-
+    this.dataSource.sort=this.sort;
+    this.dataSource.sort.direction="asc";
+    this.dataSource.sort.disableClear=true;
+    this.dataSource.sort.active="codeSite";
+    this.filter();
   }
 
-  displayedColumns: string[] = ['codeSite', 'etatCw', 'typologie', 'equipeCw', 'elecEtat', 'commentairesCw'];
-  displayedColumns1: string[] = ['codeSite', 'dateGo', 'ouverture', 'fouilles',
-    'coulage', 'montage', 'finCw'];
-  displayedColumns2: string[] = ['codeSite', 'etatCw', 'typologie', 'equipeCw', 'elecEtat', 'commentairesCw'];
+  displayedColumns: string[] = ['codeSite', 'cw.etatCw', 'typologie', 'cw.equipeCw.nom', 'elec.elecEtat', 'cw.commentairesCw'];
+  displayedColumns1: string[] = ['codeSite', 'dateGo', 'cw.ouverture', 'cw.fouilles',
+    'cw.coulage', 'cw.montage', 'cw.finCw'];
+  displayedColumns2: string[] = ['codeSite', 'cw.etatCw', 'typologie', 'cw.equipeCw.nom', 'elec.elecEtat', 'cw.commentairesCw'];
 
-  monClique() {
-    this.displayedColumns = this.displayedColumns1;
-  }
-
-  monClique2() {
+  cliqueSuivi() {
     this.displayedColumns = this.displayedColumns2;
+  }
+
+  cliqueDates() {
+    this.displayedColumns = this.displayedColumns1;
   }
 
 
@@ -97,6 +91,23 @@ export class CwComponent implements OnInit {
     this.refreshData(page.pageIndex,page.pageSize);
 
   };
+  filter(){
+    this.monhidden=false;
+    this.dataSource.sort.sortChange.pipe(debounceTime(150)).subscribe(data=>{
+      this.sortHeader=data.active;
+      this.refreshData(0,15);
+    });
+
+    setTimeout(()=>{
+      this.monhidden=true;
+      console.log(this.monhidden);
+    },350)
+  }
+
+  testoneshot2(){
+    this.goService.getOneShot2(0,10,this.filtreRecherche,this.filtreRegion,this.filtreTypologie,
+      this.filtreCw,this.filtreEquipe,this.filtreElec,this.sortHeader,this.dataSource.sort.direction).subscribe(data=>console.log(data))
+  }
 
 
 }
