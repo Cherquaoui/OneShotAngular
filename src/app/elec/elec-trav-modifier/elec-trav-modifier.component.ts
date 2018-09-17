@@ -29,7 +29,9 @@ export class ElecTravModifierComponent implements OnInit {
   }
 
   retour(){
-    this.router.navigate(['/elec']);
+    setTimeout(() => {
+      this.router.navigate(['/elec']);
+    }, 1000);
   }
 
 }

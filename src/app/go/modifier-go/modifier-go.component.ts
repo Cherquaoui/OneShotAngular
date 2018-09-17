@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GoService} from '../../services/go.service';
 import {Go} from '../../entities/Go';
-import {throttleTime} from "rxjs/operators";
+import {throttleTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-modifier-go',
@@ -12,7 +12,7 @@ import {throttleTime} from "rxjs/operators";
 export class ModifierGoComponent implements OnInit {
 
   monGo: Go = new Go();
-  codeSite = "initial";
+  codeSite = 'initial';
 
   constructor(public activatedRoute: ActivatedRoute,
               private go: GoService,
@@ -25,19 +25,21 @@ export class ModifierGoComponent implements OnInit {
     this.go.getGoByCodeSite(this.activatedRoute.snapshot.params['codeSite']).subscribe(data => {
       this.monGo = data.body;
       this.monGo.codeSite = this.activatedRoute.snapshot.params['codeSite'];
-    },error1 => this.router.navigateByUrl('/login'))
+    }, error1 => this.router.navigateByUrl('/login'));
   }
 
   envoyer() {
     this.go.updateGo(this.monGo).subscribe(data => console.log(data));
-    setTimeout(()=>{
-      this.router.navigate(['/go'])
-    },1000)
+    setTimeout(() => {
+      this.router.navigate(['/go']);
+    }, 1000);
 
-    ;
   }
 
   retour() {
+    setTimeout(() => {
+      this.router.navigate(['/go']);
+    }, 1000);
     this.router.navigate(['/go']);
   }
 

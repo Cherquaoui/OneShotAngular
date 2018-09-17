@@ -25,7 +25,9 @@ export class ElecModifierComponent implements OnInit {
   }
   modifier(){
     this.elecService.updateElecSuivi(this.elecSuivi).subscribe(data=>console.log(data));
-    this.router.navigate(['/elec']);
+    setTimeout(() => {
+      this.router.navigate(['/go']);
+    }, 1000);
   }
   retour(){
     this.router.navigate(['/elec']);
