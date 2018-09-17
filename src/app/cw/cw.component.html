@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center" style="margin-top: 10px">
   <div class="d-flex justify-content-center col-12" style="height:70px">
 
-    <div class="col-9 d-flex flex-column justify-content-center">
+    <div class="col-10 d-flex flex-column justify-content-center">
       <div style="height: 50px">
         <mat-form-field >
           <input matInput [(ngModel)]="filtreRecherche" placeholder="Rechercher"
@@ -12,7 +12,7 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
-<!--        <mat-form-field>
+        <mat-form-field>
           <mat-select [(value)]="filtreRegion" placeholder="Filtrer par région :" (valueChange)="refreshData(0,10)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="Rabat">Rabat</mat-option>
@@ -22,7 +22,7 @@
             <mat-option value="Meknes">Meknes</mat-option>
             <mat-option value="Marrakech">Marrakech</mat-option>
           </mat-select>
-        </mat-form-field>-->
+        </mat-form-field>
         <mat-form-field >
           <mat-select [(value)]="filtreTypologie" placeholder="Filtrer par typologie"
                       (valueChange)="refreshData(0,10)" >
@@ -61,14 +61,7 @@
 
       </div>
     </div>
-    <div class="d-flex flex-column col-2 justify-content-center">
-      <div style="height: 50px" class="d-flex">
 
-
-        <button mat-raised-button>vers Excel</button>
-        <div></div>
-      </div>
-    </div>
   </div>
 </div>
 
