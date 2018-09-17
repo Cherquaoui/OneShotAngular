@@ -16,13 +16,11 @@ export class GoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) matPaginator: MatPaginator;
 
-  monhidden: boolean = true;
   myControl: FormControl = new FormControl();
   searchResult;
   filtreRegion: string = '';
   filtreTypologie: string = '';
   recherche: string = '';
-  filtre = false;
   monlength;
   sortActive = 'dateGo';
   sortDirection = 'desc';

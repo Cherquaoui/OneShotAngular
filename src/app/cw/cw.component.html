@@ -82,9 +82,11 @@
       <tr>
         <th mat-sort-header="codeSite">Code site</th>
         <th mat-sort-header="cw.etatCw">Etat CW</th>
+        <th *ngIf="suivi" mat-sort-header="elec.elecEtat">Etat Elec</th>
+
         <th *ngIf="suivi" mat-sort-header="dateGo">Date Go</th>
         <th *ngIf="suivi" mat-sort-header="typologie">Typologie</th>
-        <th *ngIf="suivi" mat-sort-header="elec.elecEtat">Etat Elec</th>
+
         <th *ngIf="suivi"  mat-sort-header="cw.commentairesCw">Commentaires</th>
         <th *ngIf="date" mat-sort-header="cw.ouverture">Ouverture</th>
         <th *ngIf="date" mat-sort-header="cw.fouilles">Fouilles</th>
@@ -107,9 +109,10 @@
             <button mat-menu-item>Transmission</button>
           </mat-menu></td>
         <td>{{site.cw.etatCw.replace("_encours","")}}</td>
+        <td *ngIf="suivi">{{site.elec.elecEtat.replace("_encours","")}}</td>
         <td *ngIf="suivi">{{site.dateGo}}</td>
         <td *ngIf="suivi">{{site.typologie}}</td>
-        <td *ngIf="suivi">{{site.elec.elecEtat.replace("_encours","")}}</td>
+
         <td style="width: 400px" *ngIf="suivi">{{site.cw.commentairesCw}}</td>
 
         <td *ngIf="date">{{site.cw.ouverture}}</td>

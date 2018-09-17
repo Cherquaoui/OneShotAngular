@@ -109,7 +109,7 @@
           <td>
             <button mat-button class="monbutton" [matMenuTriggerFor]="lvl1">{{site.codeSite}}</button>
             <mat-menu #lvl1="matMenu">
-              <button mat-menu-item (click)="modifier(site.codeSite)">Modifier</button>
+              <button mat-menu-item [matMenuTriggerFor]="lvl12">Modifier</button>
               <button mat-menu-item>Détails</button>
               <button mat-menu-item>Google Maps</button>
               <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
@@ -119,6 +119,10 @@
               <button mat-menu-item>Electrification</button>
               <button mat-menu-item>Radio</button>
               <button mat-menu-item>Transmission</button>
+            </mat-menu>
+            <mat-menu #lvl12="matMenu">
+              <button mat-menu-item  (click)="modifier(site.codeSite)">Suivi</button>
+              <button mat-menu-item (click)="modifierTrav(site.codeSite)">Travaux</button>
             </mat-menu>
           </td>
           <td>{{site.elec.elecEtat.replace("_encours","")}}</td>
@@ -140,11 +144,11 @@
           <td *ngIf="date">{{site.elec.reception}}</td>
           <td *ngIf="date">{{site.elec.abonnement}}</td>
 
-          <td *ngIf="trav">{{site.elec.elecTrav.btA}}</td>
-          <td *ngIf="trav">{{site.elec.elecTrav.btS}}</td>
-          <td *ngIf="trav">{{site.elec.elecTrav.btSRf}}</td>
-          <td *ngIf="trav">{{site.elec.elecTrav.btNiche}}</td>
-          <td *ngIf="trav">{{site.elec.elecTrav.ok}}</td>
+          <td *ngIf="trav">{{site.elec?.elecTrav?.btA}}</td>
+          <td *ngIf="trav">{{site.elec?.elecTrav?.btS}}</td>
+          <td *ngIf="trav">{{site.elec?.elecTrav?.btSRf}}</td>
+          <td *ngIf="trav">{{site.elec?.elecTrav?.btNiche}}</td>
+          <td *ngIf="trav">{{site.elec?.elecTrav?.ok}}</td>
           <td >{{site.elec.poseCompteur}}</td>
 
 
