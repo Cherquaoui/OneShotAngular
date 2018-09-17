@@ -80,13 +80,14 @@
       <table matSort class="table table-hover table-striped table-sm" (matSortChange)="sortData($event)">
         <tr>
           <th mat-sort-header="codeSite">Code site</th>
+          <th mat-sort-header="elec.elecEtat">Etat Elec</th>
           <th *ngIf="suivi" mat-sort-header="dateGo">Date Go</th>
           <th *ngIf="suivi" mat-sort-header="typologie">Typologie</th>
-          <th *ngIf="suivi" mat-sort-header="region">Region</th>
+
           <th *ngIf="suivi" mat-sort-header="elec.regie">Régie</th>
           <th *ngIf="suivi" mat-sort-header="elec.numDossier">N Dossier</th>
           <th *ngIf="suivi" mat-sort-header="cw.etatCw">Etat CW</th>
-          <th mat-sort-header="elec.elecEtat">Etat Elec</th>
+
           <th *ngIf="suivi" mat-sort-header="cw.finCw">Fin Cw</th>
           <th *ngIf="date" mat-sort-header="elec.depotDemande">Demande</th>
           <th *ngIf="date" mat-sort-header="elec.etude">etude</th>
@@ -120,13 +121,14 @@
               <button mat-menu-item>Transmission</button>
             </mat-menu>
           </td>
+          <td>{{site.elec.elecEtat.replace("_encours","")}}</td>
           <td *ngIf="suivi">{{site.dateGo}}</td>
           <td *ngIf="suivi">{{site.typologie}}</td>
-          <td *ngIf="suivi">{{site.region}}</td>
+
           <td *ngIf="suivi">{{site.elec.regie}}</td>
           <td *ngIf="suivi">{{site.elec.numDossier}}</td>
           <td *ngIf="suivi">{{site.cw.etatCw.replace("_encours","")}}</td>
-          <td>{{site.elec.elecEtat.replace("_encours","")}}</td>
+
           <td *ngIf="suivi">{{site.cw.finCw}}</td>
           <td *ngIf="date">{{site.elec.depotDemande}}</td>
           <td *ngIf="date">{{site.elec.etude}}</td>

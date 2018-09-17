@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {GoService} from '../services/go.service';
-import {MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
-import {debounceTime, throttleTime} from "rxjs/operators";
+import {debounceTime, throttleTime} from 'rxjs/operators';
+import {Go} from '../entities/Go';
 
 @Component({
   selector: 'app-go',
@@ -12,61 +13,56 @@ import {debounceTime, throttleTime} from "rxjs/operators";
 })
 export class GoComponent implements OnInit {
 
-  monhidden:boolean=true;
-  myControl:FormControl = new FormControl();
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) matPaginator: MatPaginator;
+
+  monhidden: boolean = true;
+  myControl: FormControl = new FormControl();
   searchResult;
   filtreRegion: string = '';
   filtreTypologie: string = '';
   recherche: string = '';
   filtre = false;
   monlength;
-  sortHeader='codeSite';
+  sortActive = 'dateGo';
+  sortDirection = 'desc';
 
 
   constructor(private goService: GoService,
               private router: Router) {
-    this.myControl.valueChanges.pipe(debounceTime(500)).
-    subscribe(data => {
-      this.goService.getCodeSite(data,this.filtreRegion,this.filtreTypologie)
-        .subscribe(data2 => this.searchResult=data2);
-    this.maRecherche(0,15);
+    this.myControl.valueChanges.pipe(debounceTime(500)).subscribe(data => {
+      this.goService.getCodeSite(data, this.filtreRegion, this.filtreTypologie)
+        .subscribe(data2 => this.searchResult = data2);
+      this.maRecherche(0, 15);
     });
   }
 
-  dataSource = new MatTableDataSource();
+  dataSource: Go[] = [];
 
   ngOnInit() {
     console.log('----------init-----------------');
 
-    this.dataSource.sort = this.sort;
-    this.dataSource.sort.direction="asc";
-    this.dataSource.sort.start="asc";
-    this.dataSource.sort.disableClear=true;
-    this.dataSource.sort.active="codeSite";
 
-    this.test();
+    this.sort.direction = 'desc';
+    this.sort.start = 'desc';
+    this.sort.disableClear = true;
+    this.sort.active = 'dateGo';
+    this.maRecherche(0, 15);
   }
-
-  displayedColumns: string[] = ['codeSite', 'dateGo', 'region', 'typologie', 'hauteur', 'latitude', 'longitude'];
 
   maRecherche(index, size) {
     console.log('recherche --------------------------------------');
-    this.goService.rechercheGo(index, size,this.recherche,  this.filtreTypologie,
-      this.filtreRegion,this.sortHeader,this.dataSource.sort.direction).subscribe(
+    this.goService.rechercheGo(index, size, this.recherche, this.filtreTypologie,
+      this.filtreRegion, this.sortActive, this.sortDirection).subscribe(
       data => {
-
-        this.dataSource.data = data.body['content'];
+        this.dataSource = data.body['content'];
         this.monlength = data.body['totalElements'];
 
-
-      },error1 => {
+      }, error1 => {
         this.router.navigate(['login']);
-        console.log("error")
+        console.log('error');
       }
-
     );
-
-
   }
 
   modifier(data) {
@@ -84,25 +80,15 @@ export class GoComponent implements OnInit {
   }
 
   page(page: PageEvent) {
-        this.maRecherche(page.pageIndex, page.pageSize);
+    this.maRecherche(page.pageIndex, page.pageSize);
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-
-  test(){
-
-    this.monhidden=false;
-    this.dataSource.sort.sortChange.pipe(debounceTime(150)).subscribe(data=>{
-      this.sortHeader=data.active;
-      this.maRecherche(0,15);
-      ;
-    });
-    setTimeout(()=>{
-      this.monhidden=true;
-      console.log(this.monhidden);
-    },350)
-
-
+  sortData(sort: Sort) {
+    console.log(sort);
+    this.sortActive = sort.active;
+    this.sortDirection = sort.direction;
+    this.maRecherche(0, 15);
+    this.matPaginator.firstPage();
   }
 
 }

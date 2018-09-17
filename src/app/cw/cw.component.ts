@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {GoService} from '../services/go.service';
 import {Router} from '@angular/router';
-import {FormControl} from "@angular/forms";
-import {debounceTime} from "rxjs/operators";
-import {equipe} from "../entities/equipe";
+import {FormControl} from '@angular/forms';
+import {debounceTime} from 'rxjs/operators';
+import {equipe} from '../entities/equipe';
 import {OneShot2} from '../entities/composition/OneShot2';
 import {OneShot} from '../entities/composition/OneShot';
 
@@ -15,28 +15,25 @@ import {OneShot} from '../entities/composition/OneShot';
 })
 export class CwComponent implements OnInit {
 
-  myControl:FormControl = new FormControl();
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) matPaginator:MatPaginator;
+
+  myControl: FormControl = new FormControl();
   searchResult;
   filtreRegion: string = '';
   filtreTypologie: string = '';
   filtreRecherche: string = '';
-  filtreEquipe:string='';
+  filtreEquipe: string = '';
   filtre = false;
-  filtreCw="";
-  filtreElec="";
-  sortHeader:string='codeSite';
-  listeEquipe:equipe[];
+  filtreCw = '';
+  filtreElec = '';
+  sortHeader: string = 'cw.etatCw';
+  listeEquipe: equipe[];
 
-  sortDirection='asc';
+  sortDirection = 'asc';
 
-  suivi=true;
-  date=false;
-
-  @ViewChild(MatSort) sort:MatSort;
-
-
-
-
+  suivi = true;
+  date = false;
 
 
 
@@ -47,48 +44,43 @@ export class CwComponent implements OnInit {
   constructor(private goService: GoService,
               private router: Router) {
 
-    this.myControl.valueChanges.pipe(debounceTime(500)).
-    subscribe(data => {
-      this.goService.getCodeSite(data,this.filtreRegion,this.filtreTypologie)
-        .subscribe(data2 => this.searchResult=data2);
-      this.refreshData(0,15)});
+    this.myControl.valueChanges.pipe(debounceTime(500)).subscribe(data => {
+      this.goService.getCodeSite(data, this.filtreRegion, this.filtreTypologie)
+        .subscribe(data2 => this.searchResult = data2);
+      this.refreshData(0, 15);
+    });
 
-    this.goService.getEquipe().subscribe(data=>this.listeEquipe=data);
+    this.goService.getEquipe().subscribe(data => this.listeEquipe = data);
   }
 
-  refreshData(page:number,size:number) {
-    this.goService.getOneShot(page, size,this.filtreRecherche,this.filtreRegion,this.filtreTypologie,
-      this.filtreCw,this.filtreEquipe,this.filtreElec,this.sortHeader,this.sortDirection).
-    subscribe(data => {
-      this.dataSource= data.body['content'];
+  refreshData(page: number, size: number) {
+    this.goService.getOneShot(page, size, this.filtreRecherche, this.filtreRegion, this.filtreTypologie,
+      this.filtreCw, this.filtreEquipe, this.filtreElec, this.sortHeader, this.sortDirection).subscribe(data => {
+      this.dataSource = data.body['content'];
       console.log(data);
       this.lenght = data.body['totalElements'];
     }, error1 => this.router.navigateByUrl('/login'));
 
   }
 
-  ngOnInit() {/*
-    this.dataSource.sort=this.sort;
-    this.dataSource.sort.direction="asc";
-    this.dataSource.sort.disableClear=true;
-    this.dataSource.sort.active="cw.etatCw";
-    this.filter();*/
-    this.refreshData(0,10)
+  ngOnInit() {
+    this.sort.direction = 'asc';
+    this.sort.start = 'asc';
+    this.sort.disableClear = true;
+    this.sort.active = 'cw.etatCw';
+
+    this.refreshData(0, 15);
   }
 
-  /*displayedColumns: string[] = ['codeSite', 'cw.etatCw', 'typologie', 'cw.equipeCw.nom',  'cw.commentairesCw'];
-  displayedColumns1: string[] = ['codeSite', 'dateGo', 'cw.ouverture', 'cw.fouilles',
-    'cw.coulage', 'cw.montage', 'cw.finCw'];
-  displayedColumns2: string[] = ['codeSite', 'cw.etatCw', 'typologie', 'cw.equipeCw.nom', 'elec.elecEtat', 'cw.commentairesCw'];
-*/
+
   cliqueSuivi() {
-    this.suivi =true;
-    this.date=false
+    this.suivi = true;
+    this.date = false;
   }
 
   cliqueDates() {
-    this.suivi=false;
-    this.date=true
+    this.suivi = false;
+    this.date = true;
   }
 
 
@@ -98,42 +90,16 @@ export class CwComponent implements OnInit {
   }
 
   page(page: PageEvent) {
-    this.refreshData(page.pageIndex,page.pageSize);
+    this.refreshData(page.pageIndex, page.pageSize);
 
   };
 
-  sortData(sort:Sort)
-  {
-    console.log(sort)
-    this.sortHeader=sort.active;
-    this.sortDirection=sort.direction;
-    this.sort.disableClear=true;
-      this.refreshData(0,15);
-
+  sortData(sort: Sort) {
+    this.sortHeader = sort.active;
+    this.sortDirection = sort.direction;
+    this.refreshData(0, 15);
+    this.matPaginator.firstPage();
   }
-
-
-
-
-
-/*  filter(){
-    this.monhidden=false;
-    this.dataSource.sort.sortChange.pipe(debounceTime(1000)).subscribe(data=>{
-      this.sortHeader=data.active;
-      this.refreshData(0,15);
-    });
-
-    setTimeout(()=>{
-      this.monhidden=true;
-      console.log(this.monhidden);
-    },1500)
-  }*/
-
-/*  testoneshot2(){
-    this.goService.getOneShot2(0,10,this.filtreRecherche,this.filtreRegion,this.filtreTypologie,
-      this.filtreCw,this.filtreEquipe,this.filtreElec,this.sortHeader,this.dataSource.sort.direction).subscribe(data=>console.log(data))
-  }*/
-
 
 }
 
