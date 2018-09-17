@@ -13,7 +13,7 @@
           </mat-autocomplete>
         </mat-form-field>
         <mat-form-field>
-          <mat-select [(value)]="filtreRegion" placeholder="Filtrer par région :" (valueChange)="refreshData(0,10)">
+          <mat-select [(value)]="filtreRegion" placeholder="Filtrer par région :" (valueChange)="refreshData(0,15)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="Rabat">Rabat</mat-option>
             <mat-option value="Casablanca">Casablanca</mat-option>
@@ -35,7 +35,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select [(value)]="filtreCw" placeholder="Filtrer etat CW" (valueChange)="refreshData(0,10)">
+          <mat-select [(value)]="filtreCw" placeholder="Filtrer etat CW" (valueChange)="refreshData(0,15)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="encours">En cours</mat-option>
             <mat-option value="Livré">Livré</mat-option>
@@ -45,7 +45,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select [(value)]="filtreElec" placeholder="Filtrer etat Elec" (valueChange)="refreshData(0,10)">
+          <mat-select [(value)]="filtreElec" placeholder="Filtrer etat Elec" (valueChange)="refreshData(0,15)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="encours">En cours</mat-option>
             <mat-option value="Electrifié">Electrifié</mat-option>
