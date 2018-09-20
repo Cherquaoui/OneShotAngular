@@ -38,6 +38,7 @@ import {AuthGuard} from "./services/auth.guard";
 import {FiltresService} from './services/filtres.service';
 import {MatIconModule} from '@angular/material/icon';
 import {SpinnerService} from './services/spinner.service';
+import { NaviguerComponent } from './naviguer/naviguer.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {SpinnerService} from './services/spinner.service';
     CwModifierComponent,
     ElecModifierComponent,
     ElecTravModifierComponent,
-    LoginComponent
+    LoginComponent,
+    NaviguerComponent
   ],
   entryComponents: [DialogOverviewExampleDialog],
   imports: [

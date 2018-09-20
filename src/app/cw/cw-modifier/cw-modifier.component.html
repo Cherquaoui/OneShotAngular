@@ -24,15 +24,11 @@
       <mat-form-field>
         <mat-select  placeholder="Equipe" [(ngModel)]="moncw.equipeCw.id" (click)="click($event)" name="equipeCw" >
         <mat-option *ngFor="let equipe of listeEquipe" [value]="equipe.id" >{{equipe.nom}}</mat-option>
-
         </mat-select>
       </mat-form-field>
 <!--      <mat-form-field>
         <input matInput placeholder="Equipe" [ngModel]="moncw.equipeCw?.id" name="equipe"/>
       </mat-form-field>-->
-
-
-
       <mat-form-field >
         <textarea rows="10" matInput placeholder="Commentaires" [(ngModel)]="moncw.commentairesCw" name="commentairesCw"></textarea>
       </mat-form-field>
@@ -73,13 +69,10 @@
         <button mat-raised-button class="col-6" color="primary" type="submit" style="border-style: dot-dash">Valider</button>
         <button mat-raised-button class="col-6" color="primary" (click)="retour()" style="border-style: dot-dash">Retour</button>
       </div>
-
     </div>
-
-
-
   </form>
-
 </div>
 </div>
-
+<div style="margin-top: 20px">
+<app-naviguer ></app-naviguer>
+</div>

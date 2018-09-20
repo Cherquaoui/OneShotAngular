@@ -8,8 +8,11 @@
 
 
 th{
-
   font-size: 15px;
   font-weight:bold;
   margin: auto;
+}
+
+h3{
+  font-size: 16px;
 }

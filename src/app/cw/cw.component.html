@@ -6,9 +6,6 @@
     <div class="col-11 d-flex flex-column justify-content-center">
       <div style="height: 50px">
         <mat-form-field>
-
-
-          <mat-icon class="material-icons" matSuffix>search</mat-icon>
           <input matInput [(ngModel)]="filtreCw.cwFiltreRecherche" placeholder="Rechercher"
                  [matAutocomplete]="auto" [formControl]="myControl">
           <mat-autocomplete #auto="matAutocomplete">

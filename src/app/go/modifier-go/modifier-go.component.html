@@ -1,6 +1,6 @@
-<form class="d-flex justify-content-center" #myForm="ngForm" (ngSubmit)="envoyer()" style="margin-top: 100px">
-  <div class="d-flex flex-column" style="width: 20%">
-    <h2>Modifier go : {{monGo.codeSite}}</h2>
+<form class="d-flex justify-content-center" #myForm="ngForm" (ngSubmit)="envoyer()" style="margin-top: 30px">
+  <div class="d-flex flex-column" style="width: 30%">
+    <h3>Modifier go : {{monGo.codeSite}}</h3>
     <mat-form-field>
       <input matInput placeholder="Date Go" [matDatepicker]="picker" bsDatepicker [(ngModel)]="monGo.dateGo"
              name="dateGo" required>
@@ -49,4 +49,7 @@
     </div>
   </div>
 </form>
+<div style="margin-top: 20px">
+  <app-naviguer ></app-naviguer>
+</div>
 
