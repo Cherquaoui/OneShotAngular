@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {debounceTime, throttleTime} from 'rxjs/operators';
 import {Go} from '../entities/Go';
+import {FiltresService} from '../services/filtres.service';
 
 @Component({
   selector: 'app-go',
@@ -16,20 +17,19 @@ export class GoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) matPaginator: MatPaginator;
 
+
   myControl: FormControl = new FormControl();
   searchResult;
-  filtreRegion: string = '';
-  filtreTypologie: string = '';
-  recherche: string = '';
   monlength;
   sortActive = 'dateGo';
   sortDirection = 'desc';
 
 
   constructor(private goService: GoService,
-              private router: Router) {
+              private router: Router,
+              public filtreService : FiltresService) {
     this.myControl.valueChanges.pipe(debounceTime(500)).subscribe(data => {
-      this.goService.getCodeSite(data, this.filtreRegion, this.filtreTypologie)
+      this.goService.getCodeSite(data, this.filtreService.goFiltreRegion, this.filtreService.goFiltreTypologie)
         .subscribe(data2 => this.searchResult = data2);
       this.maRecherche(0, 15);
     });
@@ -49,15 +49,15 @@ export class GoComponent implements OnInit {
   }
 
   maRecherche(index, size) {
-    console.log('recherche --------------------------------------');
-    this.goService.rechercheGo(index, size, this.recherche, this.filtreTypologie,
-      this.filtreRegion, this.sortActive, this.sortDirection).subscribe(
+    this.goService.rechercheGo(index, size, this.filtreService.goFiltreRecherche, this.filtreService.goFiltreTypologie,
+      this.filtreService.goFiltreRegion, this.sortActive, this.sortDirection).subscribe(
       data => {
         this.dataSource = data.body['content'];
         this.monlength = data.body['totalElements'];
 
+
       }, error1 => {
-        this.router.navigate(['login']);
+
         console.log('error');
       }
     );
@@ -87,6 +87,11 @@ export class GoComponent implements OnInit {
     this.sortDirection = sort.direction;
     this.maRecherche(0, 15);
     this.matPaginator.firstPage();
+  }
+
+  refresh(){
+    this.filtreService.goRefresh();
+    this.ngOnInit();
   }
 
 }

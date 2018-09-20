@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {debounceTime} from 'rxjs/operators';
 import {OneShot} from '../entities/composition/OneShot';
+import {FiltresService} from '../services/filtres.service';
 
 @Component({
   selector: 'app-elec',
@@ -18,13 +19,9 @@ export class ElecComponent implements OnInit {
 
   myControl: FormControl = new FormControl();
   searchResult;
-  filtreRegion: string = '';
-  filtreTypologie: string = '';
-  filtreRecherche: string = '';
+
   filtreEquipe: string = '';
-  filtre = false;
-  filtreCw = '';
-  filtreElec = '';
+
 
   suivi = true;
   date = false;
@@ -40,8 +37,9 @@ export class ElecComponent implements OnInit {
   interval;
 
   refreshData(page: number, size: number) {
-    this.goService.getOneShot(page, size, this.filtreRecherche, this.filtreRegion, this.filtreTypologie,
-      this.filtreCw, this.filtreEquipe, this.filtreElec, this.sortActive, this.sortDirection).subscribe(data => {
+    this.goService.getOneShot(page, size, this.filtreService.elecFiltreRecherche, this.filtreService.elecFiltreRegion,
+      this.filtreService.elecFiltreTypologie, this.filtreService.elecFiltreCw, this.filtreEquipe, this.filtreService.elecFiltreElec,
+      this.sortActive, this.sortDirection).subscribe(data => {
       this.dataSource = data.body['content'];
       this.length = data.body['totalElements'];
     }, error1 => this.router.navigateByUrl('/login'));
@@ -49,9 +47,10 @@ export class ElecComponent implements OnInit {
   }
 
   constructor(private goService: GoService,
-              private router: Router) {
+              private router: Router,
+              public filtreService: FiltresService) {
     this.myControl.valueChanges.pipe(debounceTime(500)).subscribe(data => {
-      this.goService.getCodeSite(data, this.filtreRegion, this.filtreTypologie)
+      this.goService.getCodeSite(data, this.filtreService.elecFiltreRegion, this.filtreService.elecFiltreTypologie)
         .subscribe(data2 => this.searchResult = data2);
       this.refreshData(0, 15);
     });
@@ -105,6 +104,11 @@ export class ElecComponent implements OnInit {
     this.refreshData(0, 15);
     this.matPaginator.firstPage();
 
+  }
+
+  refresh() {
+    this.filtreService.elecRefresh();
+    this.ngOnInit();
   }
 
 

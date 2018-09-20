@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {cw} from '../../entities/cw';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GoService} from '../../services/go.service';
@@ -10,7 +10,14 @@ import {cwupdate} from '../../entities/cwupdate';
   templateUrl: './cw-modifier.component.html',
   styleUrls: ['./cw-modifier.component.css']
 })
-export class CwModifierComponent implements OnInit {
+export class CwModifierComponent implements OnInit,AfterViewInit {
+  loaded=false;
+
+
+  ngAfterViewInit(){
+
+}
+
 
   moncw: cw = new cw();
   monequipeCw: equipe;
@@ -29,7 +36,7 @@ export class CwModifierComponent implements OnInit {
       this.monequipeCw = this.moncw.equipeCw;
       console.log(data.body);
       data.body.codeSite = this.activatedRoute.snapshot.params['codeSite'];
-    }, error1 => this.router.navigateByUrl('/login'));
+    }, error1 => this.router.navigateByUrl('/login'),()=>this.loaded=true);
 
     this.go.getEquipe().subscribe(data => this.listeEquipe = data);
 

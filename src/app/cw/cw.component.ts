@@ -7,6 +7,7 @@ import {debounceTime} from 'rxjs/operators';
 import {equipe} from '../entities/equipe';
 import {OneShot2} from '../entities/composition/OneShot2';
 import {OneShot} from '../entities/composition/OneShot';
+import {FiltresService} from '../services/filtres.service';
 
 @Component({
   selector: 'app-cw',
@@ -20,13 +21,12 @@ export class CwComponent implements OnInit {
 
   myControl: FormControl = new FormControl();
   searchResult;
-  filtreRegion: string = '';
-  filtreTypologie: string = '';
-  filtreRecherche: string = '';
-  filtreEquipe: string = '';
-  filtre = false;
-  filtreCw = '';
-  filtreElec = '';
+
+
+
+
+
+
   sortHeader: string = 'cw.etatCw';
   listeEquipe: equipe[];
 
@@ -42,10 +42,11 @@ export class CwComponent implements OnInit {
   dataSource: OneShot[];
 
   constructor(private goService: GoService,
-              private router: Router) {
+              private router: Router,
+              public filtreCw:FiltresService) {
 
     this.myControl.valueChanges.pipe(debounceTime(500)).subscribe(data => {
-      this.goService.getCodeSite(data, this.filtreRegion, this.filtreTypologie)
+      this.goService.getCodeSite(data, this.filtreCw.cwFiltreRegion, this.filtreCw.cwFiltreTypologie)
         .subscribe(data2 => this.searchResult = data2);
       this.refreshData(0, 15);
     });
@@ -54,12 +55,12 @@ export class CwComponent implements OnInit {
   }
 
   refreshData(page: number, size: number) {
-    this.goService.getOneShot(page, size, this.filtreRecherche, this.filtreRegion, this.filtreTypologie,
-      this.filtreCw, this.filtreEquipe, this.filtreElec, this.sortHeader, this.sortDirection).subscribe(data => {
+    this.goService.getOneShot(page, size, this.filtreCw.cwFiltreRecherche, this.filtreCw.cwFiltreRegion, this.filtreCw.cwFiltreTypologie,
+      this.filtreCw.cwFiltreCw, this.filtreCw.cwFiltreEquipe, this.filtreCw.cwFiltreElec, this.sortHeader, this.sortDirection).subscribe(data => {
       this.dataSource = data.body['content'];
       console.log(data);
       this.lenght = data.body['totalElements'];
-    }, error1 => this.router.navigateByUrl('/login'));
+    });
 
   }
 
@@ -99,6 +100,11 @@ export class CwComponent implements OnInit {
     this.sortDirection = sort.direction;
     this.refreshData(0, 15);
     this.matPaginator.firstPage();
+  }
+
+  refresh(){
+    this.filtreCw.cwRefresh();
+    this.ngOnInit();
   }
 
 }

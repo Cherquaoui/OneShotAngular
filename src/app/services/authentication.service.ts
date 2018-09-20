@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 export class AuthenticationService {
   private url = 'https://one-shot-app.herokuapp.com';
 /*  private  url = 'http://localhost:8090';*/
-  private token: string = null;
+  private token: string = '';
 
   private isLog = false;
 

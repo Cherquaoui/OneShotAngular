@@ -1,9 +1,16 @@
+/*
 button{
   text-align:center; vertical-align:middle;
   height:35px;
   margin:2px;
   line-height: 35px;
   box-sizing: border-box;
+}
+*/
+
+button{
+  margin-left: 5px;
+  font-weight: bold;
 }
 .monbutton{
   text-align:center; vertical-align:middle;
@@ -27,6 +34,7 @@ mat-form-field{
 th{
   max-width: 70px;
   min-width: 150px;
+  text-align: center;
 }
 td{
   max-width: 70px;

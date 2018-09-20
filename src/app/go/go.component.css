@@ -1,42 +1,33 @@
-.centrer{
-  width: 80%;
-}
-.recherche{
-
-  text-align:center; vertical-align:middle;
-
-  margin-top: 10px;
-  height: 40px;
-
-}
 
 button{
-  text-align:center; vertical-align:middle;
-  height:35px;
-margin:0;
-  line-height: 35px;
-  box-sizing: border-box;
+  margin-left: 5px;
+  font-weight: bold;
 }
 .monbutton{
   text-align:center; vertical-align:middle;
   height: 25px;
-  margin:0 auto;
+  margin:2px;
   line-height: 25px;
   box-sizing: border-box;
 }
-th{
 
+mat-form-field{
+  max-width: 160px;
   font-size: 15px;
-  font-weight:bold;
 
+  font-weight: bold;
+}
 
-}
-td{
-}
 mat-form-field{
   margin-right: 10px;
 }
 
-mat-slide-toggle{
-  margin-left: 15px;
+th{
+  max-width: 70px;
+  min-width: 150px;
+  text-align: center;
+}
+td{
+  max-width: 70px;
+  min-width: 100px;
 }

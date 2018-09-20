@@ -21,13 +21,13 @@ export class ElecModifierComponent implements OnInit {
     this.elecService.getElecSuivi(this.activatedRoute.snapshot.params['codeSite']).subscribe(data=>{
       this.elecSuivi=data.body;
       this.elecSuivi.codeSite=this.activatedRoute.snapshot.params['codeSite'];
-      console.log(this.elecSuivi)},error1 => this.router.navigateByUrl('/login'))
+      console.log(this.elecSuivi)})
   }
   modifier(){
     this.elecService.updateElecSuivi(this.elecSuivi).subscribe(data=>console.log(data));
     setTimeout(() => {
-      this.router.navigate(['/go']);
-    }, 1000);
+      this.router.navigate(['/elec']);
+    }, 500);
   }
   retour(){
     this.router.navigate(['/elec']);

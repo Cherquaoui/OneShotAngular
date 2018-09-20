@@ -1,11 +1,16 @@
+
+
 <div class="d-flex justify-content-center" style="margin-top: 10px">
   <div class="d-flex justify-content-center col-12" style="height:70px">
 
-    <div class="col-10 d-flex flex-column justify-content-center">
+    <div class="col-11 d-flex flex-column justify-content-center">
       <div style="height: 50px">
-        <mat-form-field >
-          <input matInput [(ngModel)]="filtreRecherche" placeholder="Rechercher"
-                 [matAutocomplete]="auto" [formControl]="myControl" >
+        <mat-form-field>
+
+
+          <mat-icon class="material-icons" matSuffix>search</mat-icon>
+          <input matInput [(ngModel)]="filtreCw.cwFiltreRecherche" placeholder="Rechercher"
+                 [matAutocomplete]="auto" [formControl]="myControl">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let item of searchResult" [value]="item">
               {{ item }}
@@ -13,7 +18,9 @@
           </mat-autocomplete>
         </mat-form-field>
         <mat-form-field>
-          <mat-select [(value)]="filtreRegion" placeholder="Filtrer par région :" (valueChange)="refreshData(0,15)">
+          <mat-icon class="material-icons"  matSuffix>filter_list</mat-icon>
+          <mat-select [(value)]="filtreCw.cwFiltreRegion" placeholder="Filtrer par région :"
+                      (valueChange)="refreshData(0,15)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="Rabat">Rabat</mat-option>
             <mat-option value="Casablanca">Casablanca</mat-option>
@@ -23,9 +30,9 @@
             <mat-option value="Marrakech">Marrakech</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field >
-          <mat-select [(value)]="filtreTypologie" placeholder="Filtrer par typologie"
-                      (valueChange)="refreshData(0,10)" >
+        <mat-form-field>
+          <mat-select [(value)]="filtreCw.cwFiltreTypologie" placeholder="Filtrer par typologie"
+                      (valueChange)="refreshData(0,10)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="RT">RoofTop</mat-option>
             <mat-option value="Lampadaire">Lampadaire</mat-option>
@@ -35,7 +42,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select [(value)]="filtreCw" placeholder="Filtrer etat CW" (valueChange)="refreshData(0,15)">
+          <mat-select [(value)]="filtreCw.cwFiltreCw" placeholder="Filtrer etat CW" (valueChange)="refreshData(0,15)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="encours">En cours</mat-option>
             <mat-option value="Livré">Livré</mat-option>
@@ -45,7 +52,8 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select [(value)]="filtreElec" placeholder="Filtrer etat Elec" (valueChange)="refreshData(0,15)">
+          <mat-select [(value)]="filtreCw.cwFiltreElec" placeholder="Filtrer etat Elec"
+                      (valueChange)="refreshData(0,15)">
             <mat-option value="">Aucun</mat-option>
             <mat-option value="encours">En cours</mat-option>
             <mat-option value="Electrifié">Electrifié</mat-option>
@@ -53,10 +61,14 @@
             <mat-option value="Tempo">Temporisé</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-button-toggle-group #group="matButtonToggleGroup"   style="margin-left: 60px">
+
+        <button (click)="refresh()" color="primary" mat-mini-fab>
+          <mat-icon >refresh</mat-icon>
+        </button>
+
+        <mat-button-toggle-group #group="matButtonToggleGroup" style="margin-left: 60px">
           <mat-button-toggle (mouseup)="cliqueSuivi()" [checked]="true">Suivi</mat-button-toggle>
           <mat-button-toggle (mouseup)="cliqueDates()">Dates</mat-button-toggle>
-
         </mat-button-toggle-group>
 
       </div>
@@ -68,59 +80,62 @@
 
 <div class="d-flex  justify-content-center" style="width: 100%;">
   <div class="col-11">
-  <div style="overflow: scroll;max-height: 450px;min-height: 450px">
+    <div style="overflow: scroll;max-height: 450px;min-height: 450px">
 
 
-    <table matSort class="table table-hover table-striped table-sm" (matSortChange)="sortData($event)">
-      <tr>
-        <th mat-sort-header="codeSite">Code site</th>
-        <th mat-sort-header="cw.etatCw">Etat CW</th>
-        <th *ngIf="suivi" mat-sort-header="elec.elecEtat">Etat Elec</th>
+      <table matSort class="table table-hover table-striped table-sm" (matSortChange)="sortData($event)">
+        <tr>
+          <th mat-sort-header="codeSite">Code site</th>
+          <th mat-sort-header="cw.etatCw">Etat CW</th>
+          <th *ngIf="suivi" mat-sort-header="elec.elecEtat">Etat Elec</th>
 
-        <th *ngIf="suivi" mat-sort-header="dateGo">Date Go</th>
-        <th *ngIf="suivi" mat-sort-header="typologie">Typologie</th>
+          <th *ngIf="suivi" mat-sort-header="dateGo">Date Go</th>
+          <th *ngIf="suivi" mat-sort-header="typologie">Typologie</th>
 
-        <th *ngIf="suivi"  mat-sort-header="cw.commentairesCw">Commentaires</th>
-        <th *ngIf="date" mat-sort-header="cw.ouverture">Ouverture</th>
-        <th *ngIf="date" mat-sort-header="cw.fouilles">Fouilles</th>
-        <th *ngIf="date" mat-sort-header="cw.coulage">Coulage</th>
-        <th *ngIf="date" mat-sort-header="cw.montage">Montage</th>
-        <th *ngIf="date" mat-sort-header="cw.finCw">Fin Cw</th>
-      </tr>
-      <tr *ngFor="let site of dataSource" >
-        <td><button mat-button class="monbutton" [matMenuTriggerFor]="lvl1">{{site.codeSite}}</button>
-          <mat-menu #lvl1="matMenu">
-            <button mat-menu-item (click)="modifier(site.codeSite)">Modifier</button>
-            <button mat-menu-item>Détails</button>
-            <button mat-menu-item>Google Maps</button>
-            <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
-          </mat-menu>
-          <mat-menu #lvl2="matMenu">
+          <th *ngIf="suivi" mat-sort-header="cw.commentairesCw">Commentaires</th>
+          <th *ngIf="date" mat-sort-header="cw.ouverture">Ouverture</th>
+          <th *ngIf="date" mat-sort-header="cw.fouilles">Fouilles</th>
+          <th *ngIf="date" mat-sort-header="cw.coulage">Coulage</th>
+          <th *ngIf="date" mat-sort-header="cw.montage">Montage</th>
+          <th *ngIf="date" mat-sort-header="cw.finCw">Fin Cw</th>
+        </tr>
+        <tr *ngFor="let site of dataSource">
+          <td>
+            <button mat-button class="monbutton" [matMenuTriggerFor]="lvl1">{{site.codeSite}}</button>
+            <mat-menu #lvl1="matMenu">
+              <button mat-menu-item (click)="modifier(site.codeSite)">Modifier</button>
+              <button mat-menu-item>Détails</button>
+              <button mat-menu-item>Google Maps</button>
+              <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
+            </mat-menu>
+            <mat-menu #lvl2="matMenu">
 
-            <button mat-menu-item>Electrification</button>
-            <button mat-menu-item>Radio</button>
-            <button mat-menu-item>Transmission</button>
-          </mat-menu></td>
-        <td>{{site.cw.etatCw.replace("_encours","")}}</td>
-        <td *ngIf="suivi">{{site.elec.elecEtat.replace("_encours","")}}</td>
-        <td *ngIf="suivi">{{site.dateGo}}</td>
-        <td *ngIf="suivi">{{site.typologie}}</td>
+              <button mat-menu-item>Electrification</button>
+              <button mat-menu-item>Radio</button>
+              <button mat-menu-item>Transmission</button>
+            </mat-menu>
+          </td>
+          <td>{{site.cw.etatCw.replace("_encours","")}}</td>
+          <td *ngIf="suivi">{{site.elec.elecEtat.replace("_encours","")}}</td>
+          <td *ngIf="suivi">{{site.dateGo}}</td>
+          <td *ngIf="suivi">{{site.typologie}}</td>
 
-        <td style="width: 400px" *ngIf="suivi">{{site.cw.commentairesCw}}</td>
+          <td style="width: 400px" *ngIf="suivi"><div style="overflow: scroll;overflow-scrolling:
+           auto;overflow-x: hidden ;max-height: 60px">{{site.cw.commentairesCw}}</div></td>
 
-        <td *ngIf="date">{{site.cw.ouverture}}</td>
-        <td *ngIf="date">{{site.cw.fouilles}}</td>
-        <td *ngIf="date">{{site.cw.coulage}}</td>
-        <td *ngIf="date">{{site.cw.montage}}</td>
-        <td *ngIf="date">{{site.cw.finCw}}</td>
+          <td *ngIf="date">{{site.cw.ouverture}}</td>
+          <td *ngIf="date">{{site.cw.fouilles}}</td>
+          <td *ngIf="date">{{site.cw.coulage}}</td>
+          <td *ngIf="date">{{site.cw.montage}}</td>
+          <td *ngIf="date">{{site.cw.finCw}}</td>
 
-      </tr>
-    </table>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <mat-paginator (page)="page($event)" [length]="lenght" [pageSizeOptions]="[15, 30, 50,100]"
+                     showFirstLastButtons></mat-paginator>
+    </div>
   </div>
-  <div>
-    <mat-paginator (page)="page($event)"  [length]="lenght" [pageSizeOptions]="[15, 30, 50,100]"
-                   showFirstLastButtons></mat-paginator>
-  </div>
-</div>
 </div>
 

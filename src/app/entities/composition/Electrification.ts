@@ -6,6 +6,7 @@ export class Electrification {
   elecEtat:string;
   regie : string;
   numDossier:number;
+  elecCommentaires:string;
   depotDemande : string;
   etude : string;
   devis : string;

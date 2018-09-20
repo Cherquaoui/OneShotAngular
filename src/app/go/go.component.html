@@ -1,95 +1,98 @@
 <div class="d-flex justify-content-center" style="margin-top: 10px">
-<div class="d-flex justify-content-center col-12" style="height:70px">
+  <div class="d-flex justify-content-center col-12" style="height:70px">
+    <div class="col-7 d-flex flex-column justify-content-center">
+      <div style="height: 50px">
+        <mat-form-field>
+          <mat-icon class="material-icons" matSuffix>search</mat-icon>
+          <input matInput [(ngModel)]="filtreService.goFiltreRecherche" placeholder="Rechercher"
+                 [matAutocomplete]="auto" [formControl]="myControl">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let item of searchResult" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreService.goFiltreRegion" placeholder="Filtrer par région :" (valueChange)="maRecherche(0,10)">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="Rabat">Rabat</mat-option>
+            <mat-option value="Casablanca">Casablanca</mat-option>
+            <mat-option value="Tanger">Tanger</mat-option>
+            <mat-option value="Agadir">Agadir</mat-option>
+            <mat-option value="Meknes">Meknes</mat-option>
+            <mat-option value="Marrakech">Marrakech</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreService.goFiltreTypologie" placeholder="Filtrer par typologie" (valueChange)="maRecherche(0,10)">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="RT">RoofTop</mat-option>
+            <mat-option value="Lampadaire">Lampadaire</mat-option>
+            <mat-option value="Lampadaire Esth">Lampadaire Esth</mat-option>
+            <mat-option value="GF">GreenField</mat-option>
+            <mat-option value="Palmier">Palmier</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button color="primary" (click)="refresh()" mat-mini-fab>
+          <mat-icon >refresh</mat-icon>
+        </button>
 
-<div class="col-7 d-flex flex-column justify-content-center">
-<div style="height: 50px">
-  <mat-form-field >
-    <input matInput [(ngModel)]="recherche" placeholder="Rechercher"
-    [matAutocomplete]="auto" [formControl]="myControl">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let item of searchResult" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select [(value)]="filtreRegion" placeholder="Filtrer par région :" (valueChange)="maRecherche(0,10)">
-      <mat-option value="">Aucun</mat-option>
-      <mat-option value="Rabat">Rabat</mat-option>
-      <mat-option value="Casablanca">Casablanca</mat-option>
-      <mat-option value="Tanger">Tanger</mat-option>
-      <mat-option value="Agadir">Agadir</mat-option>
-      <mat-option value="Meknes">Meknes</mat-option>
-      <mat-option value="Marrakech">Marrakech</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select [(value)]="filtreTypologie" placeholder="Filtrer par typologie" (valueChange)="maRecherche(0,10)">
-      <mat-option value="">Aucun</mat-option>
-      <mat-option value="RT">RoofTop</mat-option>
-      <mat-option value="Lampadaire">Lampadaire</mat-option>
-      <mat-option value="Lampadaire Esth">Lampadaire Esth</mat-option>
-      <mat-option value="GF">GreenField</mat-option>
-      <mat-option value="Palmier">Palmier</mat-option>
-    </mat-select>
-  </mat-form-field>
+      </div>
+    </div>
 
-</div>
-</div>
-<div class="d-flex flex-column col-3 justify-content-center" >
-  <div style="height: 50px" class="d-flex">
-    <button mat-raised-button  routerLink="/go/ajouter" >Ajouter un GO</button>
+    <div class="d-flex flex-column col-3 justify-content-center">
+      <div style="height: 50px" class="d-flex">
+        <button mat-raised-button routerLink="/go/ajouter">Ajouter un GO</button>
 
-    <button mat-raised-button >vers Excel</button>
-    <div></div>
+        <button mat-raised-button>vers Excel</button>
+        <div></div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 </div>
 
 <div class="d-flex justify-content-center">
-  <div  class="col-8">
-    <div style="overflow: scroll;max-height: 450px" >
-<table   class="table table-hover table-striped table-sm"  matSort
-        (matSortChange)="sortData($event)">
-  <tr>
-    <th mat-sort-header="codeSite">Code site</th>
-    <th mat-sort-header="dateGo">Date Go</th>
-    <th mat-sort-header="typologie">Typologie</th>
-    <th mat-sort-header="region">Région</th>
-    <th mat-sort-header="latitude">Latitude</th>
-    <th mat-sort-header="longitude">Longitude</th>
-  </tr>
-  <tr *ngFor="let site of dataSource">
-    <td>
-      <button mat-button class="monbutton" [matMenuTriggerFor]="lvl1">{{site.codeSite}}</button>
-      <mat-menu #lvl1="matMenu">
-        <button mat-menu-item (click)="modifier(site.codeSite)">Modifier</button>
-        <button mat-menu-item>Détails</button>
-        <button mat-menu-item>Google Maps</button>
-        <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
-      </mat-menu>
-      <mat-menu #lvl2="matMenu">
+  <div class="col-8">
+    <div style="overflow: scroll;max-height: 450px">
+      <table class="table table-hover table-striped table-sm" matSort
+             (matSortChange)="sortData($event)">
+        <tr>
+          <th mat-sort-header="codeSite">Code site</th>
+          <th mat-sort-header="dateGo">Date Go</th>
+          <th mat-sort-header="typologie">Typologie</th>
+          <th mat-sort-header="region">Région</th>
+          <th mat-sort-header="latitude">Latitude</th>
+          <th mat-sort-header="longitude">Longitude</th>
+        </tr>
+        <tr *ngFor="let site of dataSource">
+          <td>
+            <button mat-button class="monbutton" [matMenuTriggerFor]="lvl1">{{site.codeSite}}</button>
+            <mat-menu #lvl1="matMenu">
+              <button mat-menu-item (click)="modifier(site.codeSite)">Modifier</button>
+              <button mat-menu-item>Détails</button>
+              <button mat-menu-item>Google Maps</button>
+              <button mat-menu-item [matMenuTriggerFor]="lvl2">Naviguer</button>
+            </mat-menu>
+            <mat-menu #lvl2="matMenu">
 
-        <button mat-menu-item>Electrification</button>
-        <button mat-menu-item>Radio</button>
-        <button mat-menu-item>Transmission</button>
-      </mat-menu>
-    </td>
-    <td>{{site.dateGo}}</td>
-    <td>{{site.typologie}}</td>
-    <td>{{site.region}}</td>
-    <td>{{site.latitude}}</td>
-    <td>{{site.longitude}}</td>
+              <button mat-menu-item>Electrification</button>
+              <button mat-menu-item>Radio</button>
+              <button mat-menu-item>Transmission</button>
+            </mat-menu>
+          </td>
+          <td>{{site.dateGo}}</td>
+          <td>{{site.typologie}}</td>
+          <td>{{site.region}}</td>
+          <td>{{site.latitude}}</td>
+          <td>{{site.longitude}}</td>
 
-  </tr>
+        </tr>
 
 
-
-</table>
+      </table>
     </div>
-<mat-paginator  (page)="page($event)" matPaginator [length]="monlength"
-                [pageSizeOptions]="[15, 30, 50,100]" showFirstLastButtons></mat-paginator>
+    <mat-paginator (page)="page($event)" matPaginator [length]="monlength"
+                   [pageSizeOptions]="[15, 30, 50,100]" showFirstLastButtons></mat-paginator>
 
   </div>
 </div>

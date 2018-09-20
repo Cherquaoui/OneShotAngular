@@ -31,14 +31,18 @@ import {CwModifierComponent} from './cw/cw-modifier/cw-modifier.component';
 import {ElecModifierComponent} from './elec/elec-modifier/elec-modifier.component';
 import {ElecService} from "./services/elec.service";
 import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-modifier.component';
-
-import { LoginComponent } from './login/login.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { LoginComponent,DialogOverviewExampleDialog } from './login/login.component';
 import {AuthenticationService} from "./services/authentication.service";
 import {AuthGuard} from "./services/auth.guard";
+import {FiltresService} from './services/filtres.service';
+import {MatIconModule} from '@angular/material/icon';
+import {SpinnerService} from './services/spinner.service';
 
 
 @NgModule({
   declarations: [
+    DialogOverviewExampleDialog,
     AppComponent,
     GoComponent,
     AjouterGoComponent,
@@ -50,6 +54,7 @@ import {AuthGuard} from "./services/auth.guard";
     ElecTravModifierComponent,
     LoginComponent
   ],
+  entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -66,9 +71,10 @@ import {AuthGuard} from "./services/auth.guard";
       {path: 'go/:codeSite', component: ModifierGoComponent},
       {path: 'cw/:codeSite', component: CwModifierComponent},
       {path: 'elec/:codeSite', component: ElecModifierComponent},
-      {path: 'elec/trav/:codeSite', component: ElecTravModifierComponent},
+      {path: 'elec/trav/:codeSite', component: ElecTravModifierComponent}
     ]),
-    //Angular Material
+    //Angular Materialy
+    MatProgressBarModule,
     MatButtonModule,
     MatCheckboxModule,
     BrowserAnimationsModule,
@@ -87,9 +93,14 @@ import {AuthGuard} from "./services/auth.guard";
     MatNativeDateModule,
     MatDialogModule,
     MatButtonToggleModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatIconModule
   ],
-  providers: [GoService, ElecService,AuthenticationService,    {
+  providers: [GoService,
+    SpinnerService,
+    ElecService,
+    AuthenticationService,
+    FiltresService,   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthGuard,
     multi: true

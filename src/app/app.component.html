@@ -1,12 +1,14 @@
-<mat-toolbar class="d-flex justify-content-center"  *ngIf="!authentication.getIsLog()">SBI One Shot Application </mat-toolbar>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<mat-toolbar color="primary" class="d-flex justify-content-center"  *ngIf="!authentication.getIsLog()">SBI One Shot Application </mat-toolbar>
 
-<mat-toolbar class="d-flex justify-content-center" *ngIf="authentication.getIsLog()">
+<mat-toolbar color="primary" class="d-flex justify-content-center" *ngIf="authentication.getIsLog()">
 
   <div>
-  <button mat-button routerLink="go" routerLinkActive="active">Go</button>
-  <button mat-button routerLink="cw" routerLinkActive="active">CW</button>
-  <button mat-button routerLink="elec" routerLinkActive="active">Electrification</button>
-  <button mat-button routerLink="oneshot" routerLinkActive="active">Radio</button>
+  <button mat-button  routerLink="go">Go</button>
+  <button mat-button  routerLink="cw" >CW</button>
+  <button mat-button  routerLink="elec">Electrification</button>
+  <button mat-button>Radio</button>
   <button mat-button>Transmission</button>
   </div>
 
@@ -19,7 +21,7 @@
 
 
 </mat-toolbar>
-
+<mat-progress-bar mode="indeterminate" *ngIf="spinnerService?.getSpin()"></mat-progress-bar>
 <router-outlet></router-outlet>
 
 

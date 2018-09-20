@@ -1,39 +1,50 @@
-import {Injectable} from "@angular/core";
-import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {AuthenticationService} from "./authentication.service";
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {AuthenticationService} from './authentication.service';
+import {tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {SpinnerService} from './spinner.service';
 
 @Injectable()
-export class AuthGuard implements HttpInterceptor{
+export class AuthGuard implements HttpInterceptor {
 
-  private token=this.auth.getToken();
-  constructor(private auth:AuthenticationService){}
+  constructor(private auth: AuthenticationService,
+              private router: Router,
+              private spinnerService: SpinnerService) {
+  }
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("interception de la requete http!");
+
+    this.spinnerService.spinTrue();
+    console.log('interception de la requete!!!');
 
 
+    req = req.clone({
+      setHeaders: {
+        'Content-Type': 'application/json',
+        'Authorization': this.auth.getToken()
+      }
+    });
 
-    if(this.auth.getToken()===null){
-      console.log(req)
-      console.log("token inexistant")
-      return next.handle(req);
-    }
 
-    else {
-      console.log("Token trouvé!")
+    return next.handle(req).pipe(tap(event => {
+      console.log("event");
+      console.log("event2");
+    },error=>{
+      console.log("erreur!!!!!!!!!!!!!!!!!!!!!");
+      this.router.navigate(['login']);
+      console.log("gotologin");
+      this.spinnerService.spinFalse()
 
-      req = req.clone({
-        setHeaders: {
-          'Content-Type': 'application/json',
-          'Authorization': this.auth.getToken()
-        }
-      });
-      console.log(req)
-      return next.handle(req);
-    }
+    },()=>{
+      console.log("complete!!!!");
+      this.spinnerService.spinFalse();
+    }))
+
 
   }
+
 
 }

@@ -1,15 +1,10 @@
-
-mat-toolbar{
-  border: 1px solid;
-
-  box-shadow:3px 3px #888888 ;
-}
 .active{
   background-color: lightgrey ;
 }
 button{
   text-align:center; vertical-align:middle;
   height: 40px;
+  font-weight: bold;
   margin-right: 10px;
 }
 th{
