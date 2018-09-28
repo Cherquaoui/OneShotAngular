@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center" style="margin-top: 10px">
+        <mat-form-field>
+          <mat-select [(value)]="filtreService.mapFiltreRegion" placeholder="Filtrer par région :" (valueChange)="refreshData()">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="Rabat">Rabat</mat-option>
+            <mat-option value="Casablanca">Casablanca</mat-option>
+            <mat-option value="Tanger">Tanger</mat-option>
+            <mat-option value="Agadir">Agadir</mat-option>
+            <mat-option value="Meknes">Meknes</mat-option>
+            <mat-option value="Marrakech">Marrakech</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreService.mapFiltreTypologie" placeholder="Filtrer par typologie" (valueChange)="refreshData()">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="RT">RoofTop</mat-option>
+            <mat-option value="Lampadaire">Lampadaire</mat-option>
+            <mat-option value="LampadaireEsth">Lampadaire Esth</mat-option>
+            <mat-option value="GF">GreenField</mat-option>
+            <mat-option value="Palmier">Palmier</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreService.mapFiltreCw" placeholder="Filtrer etat CW" (valueChange)="refreshData()">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="encours">En cours</mat-option>
+            <mat-option value="Livré">Livré</mat-option>
+            <mat-option value="XX">Bloqué</mat-option>
+            <mat-option value="Tempo">Temporisé</mat-option>
+            <mat-option value="ZZ">CW non SBI</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(value)]="filtreService.mapFiltreElec" placeholder="Filtrer etat Elec" (valueChange)="refreshData()">
+            <mat-option value="">Aucun</mat-option>
+            <mat-option value="encours">En cours</mat-option>
+            <mat-option value="Electrifié">Electrifié</mat-option>
+            <mat-option value="XX">Bloqué</mat-option>
+            <mat-option value="Tempo">Temporisé</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button color="primary" (click)="refresh()" mat-mini-fab>
+          <mat-icon >refresh</mat-icon>
+        </button>
+
+
+
+</div>
+<div class="d-flex justify-content-center">
+<agm-map [latitude]="33.5" [longitude]="-7.6">
+
+  <ng-container *ngFor="let site of sites">
+  <agm-marker *ngIf="site.cw.etatCw=='XX-Bloqué'" [label]="{text:site.codeSite}"
+              [iconUrl]="{url :'./assets/icons/red.png',
+              scaledSize : {height:40,width :40}
+                     }"
+
+              [latitude]="site.latitude" [longitude]="site.longitude" (markerClick)="versSite(site.codeSite)"></agm-marker>
+    <agm-marker *ngIf="site.cw.etatCw=='LL-Livré'" [label]="{text:site.codeSite}"
+                [iconUrl]="{url :'./assets/icons/green.png'}"
+
+                [latitude]="site.latitude" [longitude]="site.longitude" (markerClick)="versSite(site.codeSite)"></agm-marker>
+    <agm-marker *ngIf="site.cw.etatCw.includes('encours')" [label]="{text:site.codeSite}"
+                [iconUrl]="{url :'./assets/icons/encours.png'}"
+
+                [latitude]="site.latitude" [longitude]="site.longitude" (markerClick)="versSite(site.codeSite)"></agm-marker>
+
+  </ng-container>
+
+</agm-map>
+</div>
