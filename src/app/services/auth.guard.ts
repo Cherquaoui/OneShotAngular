@@ -20,7 +20,6 @@ export class AuthGuard implements HttpInterceptor {
     this.spinnerService.spinTrue();
     console.log('interception de la requete!!!');
 
-
     req = req.clone({
       setHeaders: {
         'Content-Type': 'application/json',
@@ -30,12 +29,11 @@ export class AuthGuard implements HttpInterceptor {
 
 
     return next.handle(req).pipe(tap(event => {
-      console.log("event");
-      console.log("event2");
+
     },error=>{
       console.log("erreur!!!!!!!!!!!!!!!!!!!!!");
       this.router.navigate(['login']);
-      console.log("gotologin");
+      console.log(error.status);
       this.spinnerService.spinFalse()
 
     },()=>{

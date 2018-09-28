@@ -10,6 +10,8 @@ export class AuthenticationService {
 
   private isLog = false;
 
+  public mapsApiKey = "AIzaSyC3fBFM8vw3jy9DR0rLNwWxyTxDmNM4KA4";
+
   getUrl(){
     return this.url;
   }
@@ -39,7 +41,7 @@ export class AuthenticationService {
   }
 
   logOut() {
-    this.token = null;
+    this.token = '';
     this.router.navigateByUrl('/login');
     this.isLog = false;
   }

@@ -9,6 +9,7 @@ import {SpinnerService} from './services/spinner.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  tokenVite:string='';
 
   constructor(private router: Router,
               public authentication: AuthenticationService,
@@ -18,6 +19,8 @@ export class AppComponent {
   }
 
   logOut(){
+    this.authentication.saveToken(this.tokenVite);
+    console.log("logging out !!! token = "+this.authentication.getToken())
     this.authentication.logOut();
   }
 

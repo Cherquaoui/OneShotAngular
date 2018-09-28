@@ -32,18 +32,20 @@ import {ElecModifierComponent} from './elec/elec-modifier/elec-modifier.componen
 import {ElecService} from "./services/elec.service";
 import {ElecTravModifierComponent} from './elec/elec-trav-modifier/elec-trav-modifier.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { LoginComponent,DialogOverviewExampleDialog } from './login/login.component';
+import { LoginComponent} from './login/login.component';
 import {AuthenticationService} from "./services/authentication.service";
 import {AuthGuard} from "./services/auth.guard";
 import {FiltresService} from './services/filtres.service';
 import {MatIconModule} from '@angular/material/icon';
 import {SpinnerService} from './services/spinner.service';
 import { NaviguerComponent } from './naviguer/naviguer.component';
+import {AgmCoreModule} from '@agm/core';
+import { MapComponent } from './map/map.component';
+import { DetailsComponent } from './details/details.component';
 
 
 @NgModule({
   declarations: [
-    DialogOverviewExampleDialog,
     AppComponent,
     GoComponent,
     AjouterGoComponent,
@@ -54,10 +56,14 @@ import { NaviguerComponent } from './naviguer/naviguer.component';
     ElecModifierComponent,
     ElecTravModifierComponent,
     LoginComponent,
-    NaviguerComponent
+    NaviguerComponent,
+    MapComponent,
+    DetailsComponent
   ],
-  entryComponents: [DialogOverviewExampleDialog],
   imports: [
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC3fBFM8vw3jy9DR0rLNwWxyTxDmNM4KA4'
+    }),
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -65,6 +71,7 @@ import { NaviguerComponent } from './naviguer/naviguer.component';
     RouterModule.forRoot([
       {path:'',redirectTo:'/login',pathMatch:'full'},
       {path: 'login', component: LoginComponent},
+      {path: 'map', component: MapComponent},
       {path: 'go', component: GoComponent},
       {path: 'cw', component: CwComponent},
       {path: 'elec', component: ElecComponent},

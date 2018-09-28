@@ -12,7 +12,7 @@
   <button mat-button>Transmission</button>
   </div>
 
-  <button mat-button>Carte des sites</button>
+  <button mat-button  routerLink="map" routerLinkActive="active">Carte des sites</button>
   <div class="ml-auto">
   <button mat-button *ngIf="authentication.getIsLog()"  (click)="logOut()" >Logout</button>
 

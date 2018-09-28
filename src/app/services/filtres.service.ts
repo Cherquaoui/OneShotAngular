@@ -7,6 +7,14 @@ export class FiltresService {
   public goFiltreRecherche: string = '';
 
 
+
+  public mapFiltreRegion = '';
+  public mapFiltreTypologie = '';
+  public mapFiltreEquipe = '';
+  public mapFiltreCw = '';
+  public mapFiltreElec = '';
+
+
   public cwFiltreRegion: string = '';
   public cwFiltreTypologie: string = '';
   public cwFiltreRecherche: string = '';
@@ -16,6 +24,15 @@ export class FiltresService {
   public cwFiltreElec = '';
 
   public cwRefresh() {
+    this.mapFiltreRegion = '';
+    this.mapFiltreTypologie = '';
+
+    this.mapFiltreEquipe = '';
+    this.mapFiltreCw = '';
+    this.mapFiltreElec = '';
+  }
+
+  public mapRefresh() {
     this.cwFiltreRegion = '';
     this.cwFiltreTypologie = '';
     this.cwFiltreRecherche = '';
