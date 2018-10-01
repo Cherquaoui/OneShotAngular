@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.authentication.logIn(value).subscribe(resp => {
       if (resp.headers.get('Authorization') !== null) {
         this.authentication.saveToken(resp.headers.get('Authorization'));
-        this.router.navigateByUrl('/go');
+        this.router.navigateByUrl('/map');
       }
     });
   }

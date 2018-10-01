@@ -42,7 +42,8 @@ import { NaviguerComponent } from './naviguer/naviguer.component';
 import {AgmCoreModule} from '@agm/core';
 import { MapComponent } from './map/map.component';
 import { DetailsComponent } from './details/details.component';
-
+import {OneshotService} from './services/oneshot.service';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -79,10 +80,12 @@ import { DetailsComponent } from './details/details.component';
       {path: 'go/ajouter', component: AjouterGoComponent},
       {path: 'go/:codeSite', component: ModifierGoComponent},
       {path: 'cw/:codeSite', component: CwModifierComponent},
+      {path: 'details/:codeSite', component: DetailsComponent},
       {path: 'elec/:codeSite', component: ElecModifierComponent},
       {path: 'elec/trav/:codeSite', component: ElecTravModifierComponent}
     ]),
     //Angular Materialy
+    MatExpansionModule,
     MatProgressBarModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -109,7 +112,8 @@ import { DetailsComponent } from './details/details.component';
     SpinnerService,
     ElecService,
     AuthenticationService,
-    FiltresService,   {
+    FiltresService,
+    OneshotService,  {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthGuard,
     multi: true

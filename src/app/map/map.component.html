@@ -50,7 +50,7 @@
 <agm-map [latitude]="33.5" [longitude]="-7.6">
 
   <ng-container *ngFor="let site of sites">
-  <agm-marker *ngIf="site.cw.etatCw=='XX-Bloqué'" [label]="{text:site.codeSite}"
+  <agm-marker *ngIf="(site.cw.etatCw=='XX-Bloqué') || (site.cw.etatCw=='TT-Temporisé')" [label]="{text:site.codeSite}"
               [iconUrl]="{url :'./assets/icons/red.png',
               scaledSize : {height:40,width :40}
                      }"

@@ -5,7 +5,12 @@
 * {
   outline: none!important;
 }
-
+h1{
+  font-size: 20px;
+}
+td{
+  min-height: 15px;
+}
 
 th{
   font-size: 15px;

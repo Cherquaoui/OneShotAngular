@@ -24,5 +24,9 @@ export class AppComponent {
     this.authentication.logOut();
   }
 
+  goDetails(){
+    this.router.navigate(['details/CAS-1660']);
+  }
+
 
 }

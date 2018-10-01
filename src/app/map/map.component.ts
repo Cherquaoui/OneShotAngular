@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
 }
 versSite(data){
     console.log("data : "+data);
-    this.router.navigate(['go',data])
+    this.router.navigate(['details',data]);
 }
 
   refresh(){

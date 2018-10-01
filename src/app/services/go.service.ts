@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Go} from '../entities/Go';
 import {Observable} from 'rxjs';
 import {OneShot} from '../entities/composition/OneShot';
 import {cw} from '../entities/cw';
 import {AuthenticationService} from "./authentication.service";
 import {equipe} from "../entities/equipe";
-import {debounceTime, map} from 'rxjs/operators';
-import {OneShot2} from '../entities/composition/OneShot2';
 
 
 @Injectable()
-
-
 export class GoService {
 
   constructor(private http:HttpClient,

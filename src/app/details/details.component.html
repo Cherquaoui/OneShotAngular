@@ -1,3 +1,146 @@
-<p>
-  details works!
-</p>
+<div class="d-flex justify-content-center" style="margin-top: 15px">
+  <h1>{{site.codeSite}}</h1>
+</div>
+<div class="d-flex justify-content-center">
+
+  <button mat-raised-button color="primary" (click)="modifierGo()">Modifier Go</button>
+</div>
+<div class="d-flex justify-content-center" style="border-style: solid">
+  <div class="d-flex col-10 justify-content-center">
+    <table class="table table-bordered table-sm">
+      <tr>
+        <th>Date Go</th>
+        <th>Typologie</th>
+        <th>Hauteur</th>
+        <th>Région</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+      </tr>
+      <tr>
+        <td>{{site.dateGo}}</td>
+        <td>{{site.typologie}}</td>
+        <td>{{site.hauteur}}</td>
+        <td>{{site.region}}</td>
+        <td>{{site.latitude}}</td>
+        <td>{{site.longitude}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <button mat-raised-button color="primary" (click)="modifierGC()">Modifier Génie Civil</button>
+</div>
+<div class="d-flex justify-content-center" style="border-style: solid">
+  <div class="d-flex col-10 flex-column justify-content-center">
+    <div class="d-flex justify-content-center">
+      <table class="table table-bordered table-sm ">
+        <tr>
+          <th>Equipe CW</th>
+          <th>Etat Cw</th>
+          <th>Commentaires CW</th>
+        </tr>
+        <tr>
+          <td style="width: 25%">{{site.cw.equipeCw.nom}}</td>
+          <td style="width: 25%">{{site.cw.etatCw}}</td>
+          <td style="width: 50%">{{site.cw.commentairesCw}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center">
+      <table class="table table-bordered table-sm ">
+        <tr>
+          <th>Fouilles</th>
+          <th>Coulage</th>
+          <th>Montage</th>
+          <th>Fin Cw</th>
+          <th>Blocage</th>
+          <th>Déblocage</th>
+        </tr>
+        <tr>
+          <td>{{site.cw.fouilles}}</td>
+          <td>{{site.cw.coulage}}</td>
+          <td>{{site.cw.montage}}</td>
+          <td>{{site.cw.finCw}}</td>
+          <td>{{site.cw.blocage}}</td>
+          <td>{{site.cw.deblocage}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <button mat-raised-button color="primary" (click)="modifierElec()">Modifier Electrification</button>
+</div>
+<div class="d-flex justify-content-center" style="border-style: solid">
+  <div class="d-flex col-10 flex-column justify-content-center">
+    <div class="d-flex justify-content-center">
+      <table class="table table-bordered table-sm ">
+        <tr>
+          <th>Régie</th>
+          <th>N dossier</th>
+          <th>Etat Elec</th>
+          <th>Commentaires Elec</th>
+        </tr>
+        <tr>
+          <td style="width: 20%">{{site.elec.regie}}</td>
+          <td style="width: 20%">{{site.elec.numDossier}}</td>
+          <td style="width: 20%">{{site.elec.elecEtat}}</td>
+          <td style="width: 40%">{{site.elec.elecCommentaires}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center">
+      <table class="table table-bordered table-sm ">
+        <tr>
+          <th>Demande</th>
+          <th>Sortie</th>
+          <th>Devis</th>
+          <th>Payement devis</th>
+          <th>Autorisation</th>
+          <th>Déb Trav</th>
+          <th>Fin Trav</th>
+          <th>Réception</th>
+          <th>Abonnement</th>
+          <th>P.Compteur</th>
+        </tr>
+        <tr>
+          <td>{{site.elec.depotDemande}}</td>
+          <td>{{site.elec.etude}}</td>
+          <td>{{site.elec.devis}}</td>
+          <td>{{site.elec.payementDevis}}</td>
+          <td>{{site.elec.autorisation}}</td>
+          <td>{{site.elec.debutTravaux}}</td>
+          <td>{{site.elec.finTravaux}}</td>
+          <td>{{site.elec.reception}}</td>
+          <td>{{site.elec.abonnement}}</td>
+          <td>{{site.elec.poseCompteur}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+
+  <button mat-raised-button color="primary" (click)="modifierElecTrav()">Modifier Trav Elec</button>
+</div>
+<div class="d-flex justify-content-center" style="border-style: solid">
+  <div class="d-flex col-10 justify-content-center">
+    <table class="table table-bordered table-sm">
+      <tr>
+        <th>BT Aérien</th>
+        <th>BT Sous-terrain</th>
+        <th>BTS Réfection</th>
+        <th>Murette</th>
+        <th>Travaux Ok</th>
+
+      </tr>
+      <tr>
+        <td>{{site.elec.elecTrav.btA}}</td>
+        <td>{{site.elec.elecTrav.btS}}</td>
+        <td>{{site.elec.elecTrav.btSRf}}</td>
+        <td>{{site.elec.elecTrav.btNiche}}</td>
+        <td>{{site.elec.elecTrav.ok}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
